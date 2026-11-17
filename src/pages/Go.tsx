@@ -8,8 +8,8 @@ import NotFound from './NotFound';
 /**
  * Short tracked links for social posts and printed material:
  *
- *   molargiksoftware.com/go/maestro?ct=x            -> App Store with ct=x
- *   molargiksoftware.com/go/opalite?ct=x&platform=mac -> Mac App Store
+ *   farsidesoftware.com/go/maestro?ct=x            -> App Store with ct=x
+ *   farsidesoftware.com/go/opalite?ct=x&platform=mac -> Mac App Store
  *
  * `ct` defaults to `go` so an untagged link still shows up in App Analytics.
  */

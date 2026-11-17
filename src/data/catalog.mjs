@@ -5,7 +5,7 @@
 // Keep copy here short and factual; the long-form marketing copy stays in
 // each page under src/pages/.
 
-export const SITE_URL = 'https://molargiksoftware.com';
+export const SITE_URL = 'https://farsidesoftware.com';
 
 /** @type {import('./catalog.d.mts').CatalogApp[]} */
 export const apps = [

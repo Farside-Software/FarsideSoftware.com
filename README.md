@@ -8,7 +8,7 @@ This repository is the redesigned site, started fresh on 17 November 2026 from t
 
 ### Before launch
 
-1. Point the site at the new domain: `SITE_URL` in `src/config/site.ts` and `src/data/catalog.mjs`, the footer text in `scripts/build-og-images.mjs`, and `public/CNAME` (`farsidesoftware.com`). Then `npm run og`.
+1. ~~Point the site at the new domain~~ (done 2026-11-17: `SITE_URL`, the OG footer, `public/CNAME` and the privacy policy's site section now name `farsidesoftware.com`).
 2. Decide the contact address (`CONTACT_EMAIL` in `src/config/site.ts`) once the new domain has mail.
 3. Update the privacy policy's effective date (`src/pages/Privacy.tsx`) and clear `FORMER_LEGAL_NAME` in `src/config/site.ts` when the "formerly" note is no longer wanted.
 4. Add the Actions secrets and variables listed under Configuration below to this repository.
@@ -19,12 +19,12 @@ This repository is the redesigned site, started fresh on 17 November 2026 from t
 
 | App | One line | Price | Platforms |
 |-----|----------|-------|-----------|
-| **[Maestro](https://molargiksoftware.com/maestro)** | Turn any song into a Tesla light show | Free to try, $12.99 one-time unlock | iPhone, iPad, Mac |
-| **[Opalite](https://molargiksoftware.com/opalite)** | Pick, organize, check, and export colors | Free, Onyx $9.99 one-time | iPhone, iPad, Mac, Watch, TV, Vision Pro |
-| **[SetDeck](https://molargiksoftware.com/setdeck)** | Plan the training week and log every set | Free | iPhone, iPad, Watch, Vision Pro |
-| **[Mygra](https://molargiksoftware.com/mygra)** | Migraine journal with on-device insights | Free, Mygra Plus from $2.99/mo | iPhone, iPad, Mac, Watch, Vision Pro |
-| **[Stork](https://molargiksoftware.com/stork)** | Delivery stats for L&D nurses | Free, Stork Pro $4.99 one-time | iPhone, iPad, Mac, Watch, Vision Pro |
-| **[Waffle](https://molargiksoftware.com/waffle)** | Several live pages at once: a grid on iPad, two on iPhone | Free, Syrup $4.99 one-time | iPhone, iPad |
+| **[Maestro](https://farsidesoftware.com/maestro)** | Turn any song into a Tesla light show | Free to try, $12.99 one-time unlock | iPhone, iPad, Mac |
+| **[Opalite](https://farsidesoftware.com/opalite)** | Pick, organize, check, and export colors | Free, Onyx $9.99 one-time | iPhone, iPad, Mac, Watch, TV, Vision Pro |
+| **[SetDeck](https://farsidesoftware.com/setdeck)** | Plan the training week and log every set | Free | iPhone, iPad, Watch, Vision Pro |
+| **[Mygra](https://farsidesoftware.com/mygra)** | Migraine journal with on-device insights | Free, Mygra Plus from $2.99/mo | iPhone, iPad, Mac, Watch, Vision Pro |
+| **[Stork](https://farsidesoftware.com/stork)** | Delivery stats for L&D nurses | Free, Stork Pro $4.99 one-time | iPhone, iPad, Mac, Watch, Vision Pro |
+| **[Waffle](https://farsidesoftware.com/waffle)** | Several live pages at once: a grid on iPad, two on iPhone | Free, Syrup $4.99 one-time | iPhone, iPad |
 
 The facts above live in one place, [`src/data/catalog.mjs`](src/data/catalog.mjs), and feed the home grid, the app pages, the press kit, the support page, the OG images, and the prerendered `<head>` tags.
 

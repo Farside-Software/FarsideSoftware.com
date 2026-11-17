@@ -53,7 +53,7 @@ export default function Press() {
             <dt className={factLabel}>Website</dt>
             <dd>
               <a href={SITE_URL} className="text-link underline underline-offset-4">
-                molargiksoftware.com
+                farsidesoftware.com
               </a>
             </dd>
           </div>

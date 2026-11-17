@@ -6,7 +6,7 @@ import { useRouteMeta } from '../hooks';
 import { apps } from '../data/apps';
 import { CONTACT_EMAIL, LEGAL_NAME } from '../config/site';
 
-export const PRIVACY_EFFECTIVE_DATE = '2026-11-06';
+export const PRIVACY_EFFECTIVE_DATE = '2026-11-17';
 
 interface AppPolicy {
   slug: string;
@@ -175,7 +175,7 @@ export default function Privacy() {
 
       <Section id="website" title="This website">
         <p>
-          molargiksoftware.com is a static site hosted on GitHub Pages. It sets no cookies of its own. If you
+          farsidesoftware.com is a static site hosted on GitHub Pages. It sets no cookies of its own. If you
           use the contact form, your name, email address, and message are delivered to us by EmailJS so we can
           reply; they are kept only in our mailbox and are never used for marketing. Opalite Web signs you in
           with your Apple Account through CloudKit JS and reads your own Opalite library; nothing from it is

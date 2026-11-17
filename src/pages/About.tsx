@@ -383,7 +383,7 @@ export default function About() {
                 "@type": "Person",
                 "name": "Nick Molargik",
                 "jobTitle": "Indie Mobile Engineer & Founder",
-                "url": "https://molargiksoftware.com/",
+                "url": "https://farsidesoftware.com/",
                 "sameAs": [
                   "https://www.linkedin.com/in/nicholas-molargik/",
                   "https://github.com/nmolargik"
@@ -393,7 +393,7 @@ export default function About() {
               {
                 "@type": "Organization",
                 "name": LEGAL_NAME,
-                "url": "https://molargiksoftware.com/",
+                "url": "https://farsidesoftware.com/",
                 "founder": {"@id": "#person"}
               }
             ]

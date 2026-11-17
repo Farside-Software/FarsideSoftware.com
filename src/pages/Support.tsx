@@ -54,7 +54,7 @@ const perApp: Record<string, Faq[]> = {
     },
     {
       q: 'Can I see my colors on the web?',
-      a: 'Yes. Opalite Web at molargiksoftware.com/opalite-web signs you in with your Apple Account and shows the palettes synced from the app.',
+      a: 'Yes. Opalite Web at farsidesoftware.com/opalite-web signs you in with your Apple Account and shows the palettes synced from the app.',
     },
   ],
   setdeck: [

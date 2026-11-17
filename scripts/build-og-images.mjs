@@ -124,7 +124,7 @@ async function main() {
           input: textLayer({
             title: app.name,
             lines: wrap(app.job, 34, 3),
-            footer: 'molargiksoftware.com',
+            footer: 'farsidesoftware.com',
             titleSize: 84,
             lineSize: 34,
           }),
@@ -146,7 +146,7 @@ async function main() {
         input: textLayer({
           title: 'Farside Software',
           lines: wrap('Independent apps for every Apple device. Private by design.', 34, 3),
-          footer: 'molargiksoftware.com',
+          footer: 'farsidesoftware.com',
           titleSize: 72,
           lineSize: 34,
         }),

@@ -3,7 +3,7 @@
  * one edit lights it up everywhere.
  */
 
-export const SITE_URL = 'https://molargiksoftware.com';
+export const SITE_URL = 'https://farsidesoftware.com';
 export const SITE_NAME = 'Farside Software';
 export const LEGAL_NAME = 'Farside Software LLC';
 /** Shown beside the copyright while the rename is fresh; set to '' to drop it. */
