@@ -1,0 +1,227 @@
+import { useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import AppShowcase from '../components/AppShowcase';
+import { screensFromGlob } from '../utils/screens';
+import { Link } from 'react-router-dom';
+import { findApp } from '../data/apps';
+import { guidesIn, guidePath } from '../data/guides.mjs';
+import { LEGAL_NAME } from '../config/site';
+import icon from '../assets/opalite/icon.png';
+import opaliteDemo from '../assets/opalite/opaliteWorkflowDemo.mp4';
+
+// Official brand color: Opalite Lavender
+const ACCENT_COLOR = '#CAC0E8';
+const APP_STORE_URL = 'https://apps.apple.com/us/app/opalite-color-studio/id6755093664';
+
+const app = findApp('opalite')!;
+
+const screens = screensFromGlob(
+  import.meta.glob('../assets/opalite/screens/*', { eager: true, import: 'default' })
+);
+
+/** Collapsible "Example Workflow" video shown under the screenshots. */
+function WorkflowDemo() {
+  const [open, setOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggle = () => {
+    setOpen((prev) => {
+      if (prev) videoRef.current?.pause();
+      return !prev;
+    });
+  };
+
+  return (
+    <div>
+      <div>
+        <button
+          onClick={toggle}
+          aria-expanded={open}
+          className="w-full flex items-center justify-between gap-3 rounded-2xl bg-panel border border-line/10 px-6 py-4 cursor-pointer"
+        >
+          <div className="flex items-center gap-3">
+            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-panel text-muted">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </span>
+            <span className="text-base font-medium text-ink">Example Workflow</span>
+          </div>
+          <motion.svg
+            className="w-5 h-5 text-muted/70"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+            animate={{ rotate: open ? 180 : 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </motion.svg>
+        </button>
+
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+              className="overflow-hidden"
+            >
+              <div className="pt-4">
+                <div className="relative rounded-2xl overflow-hidden">
+                  <video ref={videoRef} src={opaliteDemo} controls playsInline className="w-full">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
+export default function Opalite() {
+  return (
+    <AppShowcase
+      name="Opalite"
+      heading="Opalite - Color Studio"
+      tagline="Take control of your colors. The color toolkit designers, developers, and digital artists actually need."
+      icon={icon}
+      accentColor={ACCENT_COLOR}
+      app={app}
+      githubUrl="https://github.com/NMolargik/Opalite"
+      webHref="/opalite-web"
+      requirements={['iOS 18.4+', 'iPadOS 18.4+', 'macOS 15+', 'watchOS 10+', 'tvOS 18+', 'visionOS 26.2+']}
+      screens={screens}
+      screensClassName="bg-well"
+      afterScreens={
+        <div className="border-b border-line/10 bg-well py-16">
+          <div className="mx-auto max-w-7xl px-6">
+            <WorkflowDemo />
+          </div>
+          <section aria-label="Color and accessibility guides" className="mt-12">
+            <div className="mx-auto max-w-7xl px-6">
+              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink">
+                Color and accessibility guides
+              </h2>
+              <p className="mt-2 text-muted">
+                WCAG contrast, color blindness, palettes from photos, and exporting to code. They work with or without
+                Opalite.
+              </p>
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 list-none p-0">
+                {guidesIn('color').map((g) => (
+                  <li key={g.slug}>
+                    <Link
+                      to={guidePath(g.slug)}
+                      className="block h-full rounded-2xl border border-line/10 bg-panel px-5 py-4 text-ink transition-colors hover:border-line/30"
+                    >
+                      {g.short}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </div>
+      }
+      about={{
+        title: 'Opalite — The Ultimate Color Manager',
+        intro:
+          'Pick colors from photos, check WCAG and APCA contrast, work in OKLCH and Display P3, simulate color blindness, and export palettes to Procreate, SwiftUI, CSS, and Adobe — all in one app. Opalite is the color toolkit designers, developers, and digital artists actually need, built for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro.',
+        sections: [
+          {
+            title: 'Pick Colors Six Ways',
+            body: 'A grid picker with preset swatches, a spectrum slider for precise hues, RGB, HSL, and hex code input, Shuffle for instant inspiration, channel sliders for fine-tuning, and sampling from any image or your camera.',
+          },
+          {
+            title: 'Organize Your Palette Library',
+            body: 'Unlimited colors and five palettes, free forever; Onyx removes the palette limit. Smart palettes with names, notes, and tags, drag-and-drop reordering, instant search across your entire library, and iCloud sync across iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro.',
+          },
+          {
+            title: 'Design for Everyone',
+            body: 'A contrast checker with WCAG (AA & AAA) and APCA, a one-tap fix for text that fails AA, OKLCH and Display P3 values with an out-of-sRGB warning, color blindness simulation for Protanopia, Deuteranopia, Tritanopia, and Achromatopsia, auto-generated harmonies — complementary, triadic, analogous, and more — and effortless, AI-powered color naming.',
+          },
+          {
+            title: 'Join the Community',
+            body: 'Share palettes with creators worldwide, get inspiration from the contributions of other users, and browse and save public contributions with Onyx.',
+          },
+          {
+            title: 'Draw & Export',
+            body: (
+              <>
+                <span className="text-link font-medium">Onyx</span> unlocks unlimited saved canvases on the PencilKit canvas (one canvas, with Apple Pencil
+                support and shape tools, is free) and pro export formats everywhere: Procreate .swatches, Adobe ASE for
+                Photoshop & Illustrator, SwiftUI and CSS for developers, GIMP/GPL palettes, and PDF portfolios.
+              </>
+            ),
+          },
+        ],
+        features: [
+          {
+            icon: '🎨',
+            title: 'Six Color Pickers',
+            description:
+              'Grid swatches, spectrum slider, Shuffle, channel sliders, direct code entry, and camera or photo sampling — pick colors however feels natural.',
+          },
+          {
+            icon: '📁',
+            title: 'Smart Palette Library',
+            description:
+              'Unlimited colors for free. Palettes with names, notes, and tags, drag-and-drop reordering, and instant search across everything.',
+          },
+          {
+            icon: '♿',
+            title: 'Accessibility Tools',
+            description:
+              'WCAG AA & AAA and APCA contrast checking, a one-tap fix for text failing AA, four kinds of color blindness simulation, and auto-generated harmonies so your designs work for everyone.',
+          },
+          {
+            icon: '🌈',
+            title: 'What’s New in 1.8',
+            description:
+              'OKLCH and Display P3 values with an out-of-sRGB warning, CSS and SwiftUI export of both, APCA contrast next to WCAG, and a one-tap fix for text failing AA. Now on iPhone, iPad, Mac, Apple TV, and Vision Pro. iPhone and iPad are on 1.8.1, which fixes the drawing canvas on iPhone Duo and iPad.',
+          },
+          {
+            icon: '🌎',
+            title: 'Community',
+            description:
+              'Share palettes with creators worldwide and browse public contributions for inspiration.',
+          },
+          {
+            icon: '✏️',
+            title: 'Unlimited Canvases (Onyx)',
+            description:
+              'Apple Pencil and PencilKit support with squares, circles, lines, arrows, and custom shapes. One canvas is free; Onyx unlocks unlimited saved canvases.',
+          },
+          {
+            icon: '📤',
+            title: 'Export Anywhere (Onyx)',
+            description:
+              'Procreate .swatches, Adobe ASE, SwiftUI and CSS code, GIMP/GPL palettes, and PDF portfolios.',
+          },
+          {
+            icon: '💎',
+            title: 'Simple Pricing',
+            description:
+              'Free: unlimited colors, 5 palettes, 1 canvas, every picker, the contrast checker, and color vision simulation. Onyx ($9.99, one-time): unlimited palettes and canvases, Community saves, and pro export formats. No subscription.',
+          },
+        ],
+        footnote:
+          `Opalite is indie-made by ${LEGAL_NAME} for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro. AI-powered color naming requires Apple Intelligence.`,
+      }}
+      jsonLd={{
+        name: 'Opalite - Color Studio',
+        applicationCategory: 'DesignApplication',
+        operatingSystem: 'iOS, iPadOS, macOS, watchOS, tvOS, visionOS',
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        url: APP_STORE_URL,
+        description:
+          'Opalite is the ultimate color manager for designers, developers, and digital artists. Pick colors, organize palettes, test accessibility, and export everywhere.',
+      }}
+    />
+  );
+}

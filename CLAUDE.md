@@ -1,0 +1,131 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## Project Overview
+
+Farside Software (formerly Molargik Software) product website - a React SPA for the studio's six Apple-platform apps (Maestro, Opalite, SetDeck, Mygra, Stork, Waffle) with support, press, privacy, guides, and an about page (studio first, founder below), plus two employment pages (StreetIQ / SCOUT, V1 Sports) that are linked from About and must not be edited.
+
+**Status:** this repository (`Farside-Software/FarsideSoftware.com`, private) is the redesigned site, started fresh on 2026-11-17. It is NOT deployed: the Pages workflow only runs by hand. The live site at molargiksoftware.com is still served from the old repository (`NMolargik/MolargikSoftware.com`). `SITE_URL`, `CONTACT_EMAIL` and `public/CNAME` still name the old domain on purpose; README.md has the "Before launch" list. Never touch molargiksoftware.com's mail records.
+
+## Commands
+
+```bash
+npm run dev      # Start Vite dev server (localhost:5173, network accessible)
+npm run build    # tsc + Vite build + scripts/postbuild-seo.mjs (per-route HTML, 404, sitemap, robots)
+npm run lint     # ESLint on all TypeScript/TSX files
+npm run preview  # Preview production build locally
+npm run assets   # Re-import app icons + screenshots from ../../Apps (see below)
+npm run og       # Regenerate public/og/*.png Open Graph images (committed)
+npm run press    # Regenerate public/press/<app>/ icons + screenshots (committed)
+npm run photos   # Re-encode src/assets portrait photos as WebP + JPEG
+```
+
+No test framework is configured.
+
+## App Assets (icons + screenshots)
+
+Each app's marketing assets are imported from the sibling `Apps` directory
+(`../../Apps/<App>/Icons/AppIcon.png` and `Screenshots/Professional/...`) by
+`scripts/sync-app-assets.mjs`, configured in `scripts/app-assets.config.mjs`.
+It writes:
+
+- `src/assets/<app>/icon.png` – 512px icon
+- `src/assets/<app>/screens/NN.webp` – screenshots resized to 1200px tall, numbered in the order listed in the config
+
+Pages load screenshots with `screensFromGlob(import.meta.glob('../assets/<app>/screens/*', ...))`
+from `src/utils/screens.ts`, so updating screenshots is just `npm run assets -- <app>`
+(or no argument for every app) followed by a commit. The apps do not sit beside this checkout yet, so pass the Apps location with `APPS_DIR=...`.
+
+App pages are built on `src/components/AppShowcase.tsx` (hero → price/platform
+line → screenshots → optional slot → About card with feature cards → testimonials
+→ download CTA → JSON-LD); a page supplies `app={findApp('<slug>')}` plus its
+long-form copy. Prices, platforms, promo windows, testimonials, store URLs, and
+the short description live in `src/data/catalog.mjs` (plain ESM so build scripts
+can read it too); `src/data/apps.ts` wraps it with bundled icons. Head tags per
+route come from `src/seo/routes.mjs`. Distill page copy from the app's current
+App Store description.
+
+App Store links go through `appStoreLink(url, siteChannel(page))` in
+`src/utils/appStore.ts`, which appends `?pt=&ct=site_<page>&mt=8`
+(`APP_STORE_PT` in `src/config/site.ts`; `pt` is omitted while empty).
+`/go/<app>?ct=<channel>` is a redirect route for short tracked links.
+
+## Deployment
+
+Not live yet (see Status above). Once launched it is hosted on GitHub Pages and deployed on every push to `main`:
+
+1. Push to `main` — the GitHub Actions workflow (`.github/workflows/pages.yml`)
+   builds the Vite site and publishes `dist/` to GitHub Pages. The build step
+   reads EmailJS and CloudKit values from repository secrets/variables
+   (`EMAILJS_*`, `VITE_CLOUDKIT_API_TOKEN`, `VITE_CLOUDKIT_CONTAINER`,
+   `VITE_CLOUDKIT_ENVIRONMENT`).
+2. The custom domain `molargiksoftware.com` is set via `public/CNAME`, and HTTPS
+   is enforced in the repo's Pages settings.
+3. `scripts/postbuild-seo.mjs` writes `dist/<route>.html` for every route in
+   `src/seo/routes.mjs` (Pages serves `maestro.html` at `/maestro`), `404.html`
+   as the SPA fallback, and `sitemap.xml` / `robots.txt`.
+
+The export counter at `api.molargiksoftware.com` is a separate Cloudflare Worker
+(`workers/maestro-counter`), independent of the site hosting.
+
+## Architecture
+
+**Routing:** BrowserRouter everywhere. Deep links work because every route is prerendered to its own HTML file and unknown paths fall back to `404.html`. `src/main.tsx` rewrites legacy `/#/path` hash links to `/path` before render.
+
+**Prerender and hydration:** `npm run build` also runs `vite build --ssr src/entry-server.tsx --outDir dist-ssr`; `scripts/postbuild-seo.mjs` renders every route in `src/seo/routes.mjs` through it and writes the real page HTML into `<div id="root" data-prerender="<route>">`, so crawlers without JavaScript see the content. `src/main.tsx` hydrates when `data-prerender` matches the URL and otherwise renders from scratch (dev server, `404.html` for `/go/...`, legacy hash links, the `opalite.` subdomain). Anything that reads `window`/`document`/the clock at render time must be guarded (see `usePromoActive`, which judges the sale window as of `__BUILD_ISO__` until hydration). `/guides` is also written as `guides/index.html`.
+
+**Head tags:** `usePageMeta` (title, description, canonical, OG, Twitter) and `useRouteMeta` (same, from `src/seo/routes.mjs`). Open Graph images live in `public/og/`.
+
+**Site constants:** `src/config/site.ts` (`SITE_URL`, `CONTACT_EMAIL`, `APP_STORE_PT`, `CF_BEACON_TOKEN`). The Cloudflare beacon is injected into `index.html` by a plugin in `vite.config.ts` only when `CF_BEACON_TOKEN` is set.
+
+**Hard rule:** do not edit `src/pages/StreetIQ.tsx`, `src/pages/V1Sports.tsx`, their assets, or their routes.
+
+**Structure:**
+- `src/components/` - Reusable UI components (Navbar, Footer, Hero, ProjectCard, ScreensCarousel, etc.)
+- `src/pages/` - Route components (Home, About, Contact, Support, Press, Privacy, Go, OpaliteWeb, and the six app pages)
+- `src/data/` - App catalog (`catalog.mjs` + typed wrapper `apps.ts`)
+- `src/seo/` - Per-route head metadata used by the app and the post-build script
+- `scripts/` - Build-time asset and SEO scripts (sharp)
+- `src/assets/` - Static assets organized by project (`<app>/icon.png`, `<app>/screens/`), generated by `npm run assets`
+
+**Styling (Farside theme):** dark, flat, one accent. No blur, gradients or drop shadows; surfaces differ by one step of value plus a hairline. Colours are CSS variables in `src/index.css`, exposed as Tailwind tokens in `tailwind.config.js`:
+- Backgrounds: `bg-page` (Slate), `bg-well` (one step darker band), `bg-deep` (footer), `bg-panel` (cards)
+- Text: `text-ink`, `text-muted`, `text-muted/70`; links `text-link`
+- Hairlines: `border-line/10` (fields `border-line/20`)
+- Accent: `bg-signal text-night`. At most one Signal-filled button per view; the rest are `tone="ghost"`.
+- Type: Manrope; headlines `font-extrabold`.
+
+`LiquidGlass` and `GlassButton` (and the `.liquid-glass*` classes) are legacy names for flat panels and flat buttons. Apps keep their own accent colours: use `accentText(hex)` from `src/theme/contrast.ts` when an accent colours text on dark, and `readableOn(hex)` for text on an accent fill. The mark is `src/components/FarsideMark.tsx`; logo files come from the brand kit (`~/Developer/Farside Software/Brand`) into `src/assets/farside/` and `public/press/farside/`. The two employment routes are wrapped in `.theme-light` (see `LightScope` in `src/App.tsx`), which flips the colour roles to light.
+
+**Layout (2026-11-17):**
+- Home (`src/pages/Home.tsx`, parts in `src/components/home/`): hero with the orbiting mark and the six app icons, a fact strip counted from the catalog (`FactStrip`, live Maestro export count via `useExportCount`), two flagship bands (`FlagshipBand`: Maestro, Opalite), every app in one table with platform dots (`CatalogTable`), the three principles as a numbered list, and a guides index.
+- App pages (`AppShowcase`): `AppHero` (claim, price and store badges beside the first screenshots; pass `heroLayout="wide"` when the first screenshot is landscape), `BuyBar` (slides in under the header once the badges scroll away), the gallery, the page's `afterScreens` slot, About text in two columns, a feature grid, reviews, the download card, and "More from Farside".
+- Header: the six apps sit behind one "Apps" disclosure; the bar itself is Apps, Guides, Support, About, Contact.
+- Motion is decoration only. Hero content never starts hidden (the prerendered HTML must paint complete). Use the `.reveal` class (CSS scroll-driven, behind `@supports` and `prefers-reduced-motion`) instead of framer-motion `initial={{ opacity: 0 }}` for new sections.
+- `scripts/postbuild-seo.mjs` adds a Smart App Banner tag (`apple-itunes-app`) to each app page.
+
+Per-project accent colors are set via CSS variables (`--link-accent`, `--accent`) in inline `<style>` tags within page components.
+
+## Tech Stack
+
+- React 19 + TypeScript (strict mode)
+- Vite 7
+- React Router v7
+- Tailwind CSS 3.4 + PostCSS
+- EmailJS for contact form
+- Embla Carousel for image galleries
+- Lucide React for icons
+
+## Environment Variables
+
+`.env` (gitignored) supplies the contact form and Opalite Web configuration; CloudKit JS is only loaded on `/opalite-web`:
+```
+VITE_EMAILJS_SERVICE=<service_id>
+VITE_EMAILJS_TEMPLATE=<template_id>
+VITE_EMAILJS_PUBLIC=<public_key>
+VITE_CLOUDKIT_CONTAINER=<iCloud container id>
+VITE_CLOUDKIT_ENVIRONMENT=production
+VITE_CLOUDKIT_API_TOKEN=<CloudKit JS API token>
+```
+Never print the values. Missing values produce a friendly "unavailable" state in Opalite Web, not a raw error.

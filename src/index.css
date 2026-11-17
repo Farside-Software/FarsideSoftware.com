@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   Farside theme
+   ============================================================
+   Dark, flat, quiet. One accent (Signal). No blur, no gradients,
+   no drop shadows: surfaces are told apart by a step in value
+   and a hairline.
+
+   Colours are space-separated RGB triples so Tailwind can add an
+   alpha (`bg-panel/60`, `border-line/10`). The palette is the
+   brand kit's (Farside Software/Brand/Colors). */
+
+:root {
+  /* Palette */
+  --night: 5 6 8;          /* #050608  deepest background, the dark disc */
+  --slate-low: 26 28 35;   /* #1A1C23 */
+  --slate: 37 39 47;       /* #25272F  the brand background */
+  --slate-high: 47 50 62;  /* #2F323E  raised surfaces */
+  --basalt: 91 94 107;     /* #5B5E6B */
+  --dust: 157 162 179;     /* #9DA2B3  secondary text on dark */
+  --regolith: 232 234 241; /* #E8EAF1  text on dark, the lit rim */
+  --bone: 244 241 234;     /* #F4F1EA  the light background */
+  --signal: 255 122 61;    /* #FF7A3D  the one accent */
+  --ember: 184 68 14;      /* #B8440E  Signal for text on light */
+
+  /* Roles (dark is the default) */
+  --page: var(--slate);
+  --well: var(--slate-low);
+  --deep: var(--night);
+  --panel: var(--slate-high);
+  --ink: var(--regolith);
+  --muted: var(--dust);
+  --line: var(--regolith);
+  --link: var(--signal);
+  --mark-rim: var(--regolith);
+
+  /* Buttons take their fill from --lg-accent (comma triple, set inline
+     by GlassButton); Signal when none is given. */
+  --lg-accent: 255, 122, 61;
+
+  font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+  font-weight: 500;
+  line-height: 1.55;
+  color: rgb(var(--ink));
+  background-color: rgb(var(--page));
+  color-scheme: dark;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Light scope: wraps the two employment pages, which keep their own
+   light design, so shared components inside them render light too. */
+.theme-light {
+  --page: var(--bone);
+  --well: 236 232 223;
+  --deep: var(--bone);
+  --panel: 255 255 255;
+  --ink: var(--night);
+  --muted: var(--basalt);
+  --line: var(--night);
+  --link: var(--ember);
+  --mark-rim: var(--dust);
+  color: rgb(var(--ink));
+  background-color: rgb(var(--page));
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: rgb(var(--signal) / 0.3);
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: rgb(var(--page));
+}
+
+h1, h2, h3, h4 {
+  letter-spacing: -0.015em;
+}
+
+*:focus-visible {
+  outline: 2px solid rgb(var(--signal));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ============================================================
+   Surfaces
+   ============================================================
+   The class names are inherited from the old Liquid Glass theme
+   (LiquidGlass / GlassButton components); here they are flat
+   panels and flat buttons. Rename with the components once the
+   theme is approved. */
+
+.liquid-glass {
+  position: relative;
+  background: rgb(var(--panel));
+  border: 1px solid rgb(var(--line) / 0.1);
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+/* Pill: tags and small labels. An outline, no fill. */
+.liquid-glass-pill {
+  background: transparent;
+  border-color: rgb(var(--line) / 0.18);
+}
+
+/* Lens: the largest showcase surface sits a step down, not up. */
+.liquid-glass-lens {
+  background: rgb(var(--well));
+}
+
+.liquid-glass-interactive {
+  cursor: pointer;
+}
+.liquid-glass-interactive:hover {
+  border-color: rgb(var(--line) / 0.34);
+}
+
+/* Buttons. Solid: the accent is the fill. Ghost: an outline. */
+.liquid-glass-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  background: rgb(var(--lg-accent));
+  border: 1px solid rgb(var(--lg-accent));
+  transition: filter 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+.liquid-glass-button.liquid-glass-interactive:hover {
+  border-color: rgb(var(--lg-accent));
+  filter: brightness(1.1);
+}
+.liquid-glass-button.liquid-glass-interactive:active {
+  filter: brightness(0.94);
+}
+
+.liquid-glass-button.is-ghost {
+  background: transparent;
+  border-color: rgb(var(--line) / 0.3);
+  color: rgb(var(--ink));
+}
+.liquid-glass-button.is-ghost.liquid-glass-interactive:hover {
+  background: rgb(var(--line) / 0.07);
+  border-color: rgb(var(--line) / 0.5);
+  filter: none;
+}
+
+.liquid-glass-button-sm {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+}
+.liquid-glass-button-md {
+  font-size: 0.95rem;
+  padding: 0.7rem 1.5rem;
+}
+.liquid-glass-button-lg {
+  font-size: 1rem;
+  padding: 0.8rem 2rem;
+}
+
+.liquid-glass-button.is-pill {
+  border-radius: 9999px;
+}
+.liquid-glass-button.is-rect {
+  border-radius: 0.5rem;
+}
+
+/* ============================================================
+   Motion
+   ============================================================
+   Everything here is decoration: content is fully visible without
+   it, so prerendered pages paint at once and nothing waits on
+   JavaScript. All of it is off under prefers-reduced-motion. */
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes orbit {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes drift {
+  to {
+    transform: translateY(90px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* The signal dot circles the moon once every two minutes. */
+  .orbit {
+    transform-box: view-box;
+    animation: orbit 120s linear infinite;
+  }
+
+  @supports (animation-timeline: view()) {
+    /* Rise in as the element enters the viewport (scroll-driven, no JS). */
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      /* A fixed distance, so tall blocks finish as quickly as short ones. */
+      animation-range: entry 0px entry 200px;
+    }
+
+    /* Falls behind the page slightly as it scrolls away. */
+    .drift {
+      animation: drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .liquid-glass,
+  .liquid-glass-button {
+    transition: none;
+  }
+}

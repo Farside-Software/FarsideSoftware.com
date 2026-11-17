@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:affinity="https://www.affinity.studio/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-1184,0)">
+        <rect id="Icon--rounded" affinity:id="Icon, rounded" x="1184" y="0" width="1024" height="1024" style="fill:none;"/>
+        <g id="Icon--rounded1" affinity:id="Icon, rounded">
+            <path id="Background" d="M1978,0C2104.94,0 2208,103.06 2208,230L2208,794C2208,920.94 2104.94,1024 1978,1024L1414,1024C1287.06,1024 1184,920.94 1184,794L1184,230C1184,103.06 1287.06,0 1414,0L1978,0Z" style="fill:url(#_Linear1);"/>
+            <g id="Mark">
+                <circle id="Lit-edge" affinity:id="Lit edge" cx="1696" cy="512" r="288" style="fill:rgb(232,234,241);"/>
+                <path id="Dark-side" affinity:id="Dark side" d="M1696,224C1536.942,224 1408,352.942 1408,512C1408,671.058 1536.942,800 1696,800C1819.712,800 1920,671.058 1920,512C1920,352.942 1819.712,224 1696,224Z" style="fill:rgb(5,6,8);"/>
+                <circle id="Signal" cx="1440.31" cy="767.69" r="44.8" style="fill:rgb(255,122,61);"/>
+            </g>
+        </g>
+    </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,1024,-1024,0,1696,0)"><stop offset="0" style="stop-color:rgb(47,50,62);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(26,28,35);stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>

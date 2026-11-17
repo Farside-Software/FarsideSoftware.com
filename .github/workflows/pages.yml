@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+# Builds the Vite site and publishes it to GitHub Pages.
+#
+# NOT LIVE YET: this repository does not deploy on push. Until farsidesoftware.com is
+# switched on (see "Before launch" in README.md) the workflow only runs when started by
+# hand from the Actions tab. To go live, restore the `push: branches: [main]` trigger.
+# `npm run build` also runs scripts/postbuild-seo.mjs, which writes one HTML
+# file per route (with that route's <head>), a 404.html SPA fallback, and
+# sitemap.xml / robots.txt. The public/CNAME file sets the custom domain.
+#
+# Build-time configuration comes from repository variables and secrets
+# (Settings > Secrets and variables > Actions); none of it is in git:
+#   vars.VITE_CLOUDKIT_CONTAINER, vars.VITE_CLOUDKIT_ENVIRONMENT
+#   secrets.VITE_CLOUDKIT_API_TOKEN, secrets.EMAILJS_SERVICE/TEMPLATE/PUBLIC
+#
+# The counter at api.molargiksoftware.com is a separate Cloudflare Worker and is
+# not touched here.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+      - run: npm run build
+        env:
+          VITE_EMAILJS_SERVICE: ${{ secrets.EMAILJS_SERVICE }}
+          VITE_EMAILJS_TEMPLATE: ${{ secrets.EMAILJS_TEMPLATE }}
+          VITE_EMAILJS_PUBLIC: ${{ secrets.EMAILJS_PUBLIC }}
+          VITE_CLOUDKIT_CONTAINER: ${{ vars.VITE_CLOUDKIT_CONTAINER }}
+          VITE_CLOUDKIT_ENVIRONMENT: ${{ vars.VITE_CLOUDKIT_ENVIRONMENT }}
+          VITE_CLOUDKIT_API_TOKEN: ${{ secrets.VITE_CLOUDKIT_API_TOKEN }}
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

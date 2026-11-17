@@ -1,0 +1,51 @@
+import { motion } from 'framer-motion';
+import LiquidGlass from './LiquidGlass';
+
+export interface FeatureCardProps {
+  icon: string;
+  title: string;
+  description: string;
+  index?: number;
+  accentColor?: string;
+}
+
+export default function FeatureCard({
+  icon,
+  title,
+  description,
+  index = 0,
+  accentColor = '#FF7A3D',
+}: FeatureCardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.06,
+        ease: [0.25, 0.1, 0.25, 1],
+      }}
+      whileHover={{ y: -4 }}
+    >
+      <LiquidGlass
+        variant="card"
+        interactive
+        accentColor={accentColor}
+        className="block rounded-2xl p-6 h-full"
+        role="article"
+        aria-label={`${title} feature`}
+      >
+        <div
+          className="w-10 h-10 rounded-xl flex items-center justify-center text-lg mb-4"
+          style={{ backgroundColor: `${accentColor}24` }}
+          aria-hidden="true"
+        >
+          {icon}
+        </div>
+
+        <h4 className="text-lg font-semibold text-ink">{title}</h4>
+        <p className="mt-2 text-sm leading-relaxed text-muted">{description}</p>
+      </LiquidGlass>
+    </motion.div>
+  );
+}
