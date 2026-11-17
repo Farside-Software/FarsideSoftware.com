@@ -24,6 +24,7 @@ export default function SetDeck() {
       githubUrl="https://github.com/NMolargik/SetDeck"
       requirements={['iOS 18+', 'iPadOS 18+', 'watchOS 11+', 'visionOS 2+']}
       screens={screens}
+      heroLayout="panorama"
       screensClassName="bg-well"
       about={{
         title: 'SetDeck — Structure Without Friction',

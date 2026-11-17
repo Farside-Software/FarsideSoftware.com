@@ -68,7 +68,7 @@ const perApp: Record<string, Faq[]> = {
     },
     {
       q: 'The Apple Watch app is not showing my routine.',
-      a: 'Routines sync over iCloud. Make sure the watch is paired with the iPhone that holds your routine and that iCloud is enabled for SetDeck; then open the watch app and pull to refresh.',
+      a: 'The watch gets today’s routine from the iPhone. Make sure the watch is paired with the iPhone that holds your routine, open SetDeck on that iPhone once, then tap Refresh or Retry in the watch app.',
     },
   ],
   mygra: [
@@ -92,7 +92,7 @@ const perApp: Record<string, Faq[]> = {
     },
     {
       q: 'What does Stork Pro unlock?',
-      a: 'The full stats dashboard, milestones and share cards, and PDF/CSV export, for a single $4.99 purchase.',
+      a: 'Milestone share cards, PDF and CSV export, the insight cards and the heat map, alternate icons, weather at each delivery, and Lock Screen widgets, for a single $4.99 purchase. Logging deliveries, the jar, and the basic dashboard cards are free.',
     },
     {
       q: 'Can I export my deliveries?',
@@ -101,12 +101,12 @@ const perApp: Record<string, Faq[]> = {
   ],
   waffle: [
     {
-      q: 'Why is Waffle iPad only?',
-      a: 'The grid of live webpages needs the screen space. Waffle requires iPadOS 27 or later.',
+      q: 'Does Waffle run on iPhone?',
+      a: 'Yes. Waffle runs on iPhone and iPad with iOS or iPadOS 26 or later. iPad shows a grid of pages; iPhone shows two live pages at once.',
     },
     {
       q: 'What does Syrup unlock?',
-      a: 'Larger grids up to 4x4, saved presets, and pop-out windows, for a single $2.99 purchase.',
+      a: 'On iPad: larger grids up to 4x4, rearranging, pop-out windows, fullscreen, and saved presets. On iPhone: unlimited saved layouts. One $4.99 purchase covers iPhone and iPad.',
     },
     {
       q: 'A site will not load in a cell.',

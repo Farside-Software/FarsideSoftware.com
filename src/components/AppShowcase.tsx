@@ -12,6 +12,8 @@ import { apps as allApps, type SiteApp } from '../data/apps';
 import { SITE_NAME } from '../config/site';
 import { appStoreLink, siteChannel } from '../utils/appStore';
 import { findRoute } from '../seo/routes.mjs';
+import { guideGroups, guidesIn } from '../data/guides.mjs';
+import GuideRows from './GuideRows';
 
 export interface AppFeature {
   icon: string;
@@ -52,8 +54,12 @@ export interface AppShowcaseProps {
   requirements?: string[];
   /** Ordered screenshot URLs (see `screensFromGlob`). */
   screens: string[];
-  /** Hero screenshots: `pair` (two portrait, the default) or `wide` (one landscape). */
-  heroLayout?: 'pair' | 'wide';
+  /**
+   * Hero screenshots: `pair` (two portrait, the default), `wide` (one
+   * landscape), or `panorama` (two portrait screenshots that form one
+   * continuous picture, joined edge to edge).
+   */
+  heroLayout?: 'pair' | 'wide' | 'panorama';
   /** Tailwind classes for the screenshot band background. */
   screensClassName?: string;
   /** Rendered between the screenshots and the About card. */
@@ -136,6 +142,8 @@ export default function AppShowcase({
   // long as that still leaves a gallery worth scrolling.
   const gallery = screens.length - lead >= 3 ? screens.slice(lead) : screens;
   const others = allApps.filter((other) => other.slug !== app?.slug);
+  const howTos = app ? guidesIn(app.slug) : [];
+  const howToBlurb = guideGroups.find((g) => g.id === app?.slug)?.blurb;
 
   return (
     <>
@@ -184,6 +192,20 @@ export default function AppShowcase({
       )}
 
       {afterScreens}
+
+      {howTos.length > 0 && (
+        <section aria-labelledby="how-tos" className="border-b border-line/10 bg-well py-16 lg:py-20">
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <h2 id="how-tos" className="text-3xl font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-4xl">
+                {name} how-tos
+              </h2>
+              {howToBlurb && <p className="mt-4 text-lg text-muted">{howToBlurb}</p>}
+            </div>
+            <GuideRows guides={howTos} className="reveal lg:col-span-8" />
+          </div>
+        </section>
+      )}
 
       <section aria-label={`About ${name}`} className="border-b border-line/10 bg-page py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6">

@@ -2,9 +2,7 @@ import { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AppShowcase from '../components/AppShowcase';
 import { screensFromGlob } from '../utils/screens';
-import { Link } from 'react-router-dom';
 import { findApp } from '../data/apps';
-import { guidesIn, guidePath } from '../data/guides.mjs';
 import { LEGAL_NAME } from '../config/site';
 import icon from '../assets/opalite/icon.png';
 import opaliteDemo from '../assets/opalite/opaliteWorkflowDemo.mp4';
@@ -103,29 +101,6 @@ export default function Opalite() {
           <div className="mx-auto max-w-7xl px-6">
             <WorkflowDemo />
           </div>
-          <section aria-label="Color and accessibility guides" className="mt-12">
-            <div className="mx-auto max-w-7xl px-6">
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink">
-                Color and accessibility guides
-              </h2>
-              <p className="mt-2 text-muted">
-                WCAG contrast, color blindness, palettes from photos, and exporting to code. They work with or without
-                Opalite.
-              </p>
-              <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 list-none p-0">
-                {guidesIn('color').map((g) => (
-                  <li key={g.slug}>
-                    <Link
-                      to={guidePath(g.slug)}
-                      className="block h-full rounded-2xl border border-line/10 bg-panel px-5 py-4 text-ink transition-colors hover:border-line/30"
-                    >
-                      {g.short}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
         </div>
       }
       about={{

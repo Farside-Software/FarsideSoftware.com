@@ -17,22 +17,27 @@ export default function Waffle() {
   return (
     <AppShowcase
       name="Waffle"
-      tagline="Browse the web in a grid, not in tabs."
+      tagline="Keep the sites you care about on screen at once: a tidy grid on iPad, two live pages on iPhone."
       icon={icon}
       accentColor={ACCENT_COLOR}
       app={app}
       githubUrl="https://github.com/NMolargik/Waffle"
-      requirements={['iPadOS 27+']}
+      requirements={['iOS 26+', 'iPadOS 26+']}
       screens={screens}
+      heroLayout="panorama"
       screensClassName="bg-well"
       about={{
-        title: 'Waffle — Your iPad, a Grid of Live Webpages',
+        title: 'Waffle — A Grid on iPad, Two Live Pages on iPhone',
         intro:
-          'Tabs make you choose. Waffle doesn’t. Arrange multiple websites into a clean, customizable grid — up to 4×4 — and keep your mail, news, dashboards, and video on screen at the same time. No clutter. No app switching. Just a smarter workspace.',
+          'Tabs make you choose. Waffle doesn’t. Put websites next to each other and keep your mail, news, dashboards, and video in view at the same time. No clutter. No app switching. Just a smarter workspace.',
         sections: [
           {
-            title: 'How It Works',
+            title: 'The Grid on iPad',
             body: 'Every cell in the grid is a full browser. Tap a cell to select it — the address bar, back, forward, and reload all control that cell. Tap the address bar and it takes over the toolbar with the full address selected and ready to replace, so you can type a URL or search right away. Resize your grid with a tap: add or remove rows and columns anytime.',
+          },
+          {
+            title: 'Waffle on iPhone',
+            body: 'Two live pages at once, stacked or side by side. Drag the divider to give one page more room, or double-tap it to even things out. Maximize a pane when it’s time to focus, and save a layout to bring both pages back with one tap. On iPhone Duo, unfold for up to four panes that stay clear of the fold, and half-fold for Desk Mode (both with Syrup).',
           },
           {
             title: 'Built for iPad',
@@ -40,19 +45,25 @@ export default function Waffle() {
           },
           {
             title: 'Perfect For',
-            body: 'Students juggling research, notes, and lectures. Traders and analysts watching live data. Streamers tracking chat, feeds, and tools. Sports fans following every game at once. Anyone who wants a tidy, efficient iPad workspace.',
+            body: 'Students juggling research, notes, and lectures. Traders and analysts watching live data. Streamers tracking chat, feeds, and tools. Sports fans following every game at once. Anyone who wants a tidy, efficient workspace.',
           },
           {
             title: 'Go Deluxe with Syrup',
-            body: 'Waffle is free to use in a 2×2 grid. A one-time Syrup purchase — no subscription — unlocks everything else: grids up to 4×4, rearranging, pop-out windows, fullscreen focus, and saved Presets. Family Sharing included, so one purchase covers your whole family.',
+            body: 'Waffle is free to use: a grid up to 2×2 on iPad, and two pages with one saved layout on iPhone. A one-time Syrup purchase — no subscription — unlocks the rest. On iPad: grids up to 4×4, rearranging, pop-out windows, fullscreen focus, and saved Presets. On iPhone: unlimited saved layouts. On iPhone Duo: a third and fourth pane on the unfolded display, plus Desk Mode. One purchase covers iPhone and iPad, and Family Sharing is included.',
           },
         ],
         features: [
           {
+            icon: '📱',
+            title: 'Two Pages on iPhone',
+            description:
+              'Two live pages at once, stacked or side by side, with a divider you can drag. Save a layout and reopen it with one tap.',
+          },
+          {
             icon: '🔳',
             title: 'Adjustable Grid',
             description:
-              'Add or remove rows and columns with a tap to build the perfect grid for your workflow — up to 4×4 live webpages on screen at once.',
+              'On iPad, add or remove rows and columns with a tap to build the perfect grid for your workflow — up to 4×4 live webpages on screen at once.',
           },
           {
             icon: '🔀',
@@ -76,7 +87,7 @@ export default function Waffle() {
             icon: '⭐️',
             title: 'Presets',
             description:
-              'Save an entire grid — size and every page in it — as a Preset and bring it back in one tap. A morning news grid, a work grid, a game-day grid. Share any preset as a link so a friend can open the same grid.',
+              'Save an entire grid — size and every page in it — as a Preset and bring it back in one tap. A morning news grid, a work grid, a game-day grid. Share any preset as a link that opens it on your other devices, with the page addresses listed for anyone else.',
           },
           {
             icon: '🔄',
@@ -88,16 +99,16 @@ export default function Waffle() {
             icon: '☁️',
             title: 'iCloud Sync',
             description:
-              'Bookmarks and Presets sync securely across your iPads with CloudKit, so your favorite setups are always right where you left them.',
+              'Bookmarks, Presets, and saved layouts sync across your iPhone and iPad with iCloud, so your favorite setups are always right where you left them.',
           },
         ],
         footnote:
-          'Waffle is free to download for iPads running iPadOS 27 or later, and is available in English, Spanish, French (Canada), and Japanese. Syrup is a one-time purchase with Family Sharing — no subscription.',
+          'Waffle is free to download for iPhone and iPad running iOS or iPadOS 26 or later, and is available in English, Spanish, French (Canada), and Japanese. Syrup is a one-time purchase with Family Sharing — no subscription.',
       }}
       jsonLd={{
         name: 'Waffle Browser',
         applicationCategory: 'BrowserApplication',
-        operatingSystem: 'iPadOS',
+        operatingSystem: 'iOS, iPadOS',
         inLanguage: ['en', 'es', 'fr-CA', 'ja'],
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         url: APP_STORE_URL,

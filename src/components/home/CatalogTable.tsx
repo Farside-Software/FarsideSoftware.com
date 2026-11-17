@@ -40,16 +40,13 @@ export default function CatalogTable() {
           </tr>
         </thead>
         <tbody>
-          {apps.map((app, i) => (
+          {apps.map((app) => (
             <tr
               key={app.slug}
               className="group relative block border-t border-line/10 transition-colors last:border-b hover:bg-line/[0.04] lg:table-row"
             >
               <th scope="row" className="block py-5 pr-4 font-medium lg:table-cell lg:py-6">
                 <span className="flex items-center gap-4">
-                  <span className="hidden w-7 text-sm font-bold tabular-nums text-muted/70 sm:block" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
                   <img src={app.icon} alt="" width={52} height={52} loading="lazy" decoding="async" className="h-[52px] w-[52px] shrink-0 rounded-[14px]" />
                   <span className="min-w-0">
                     {/* The link's ::after stretches over the whole row. */}

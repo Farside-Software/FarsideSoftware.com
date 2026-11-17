@@ -1,16 +1,26 @@
-// Tesla light show guides (/guides and /guides/<slug>).
+// Guides (/guides and /guides/<slug>): how-tos for each app, grouped by app.
 //
 // Plain ESM so the React pages, src/seo/routes.mjs, and the post-build script
-// can all read it. Every technical statement about Tesla's requirements comes
-// from Tesla's official repository (github.com/teslamotors/light-show, README)
-// or from the Maestro source (docs/CHANNELS.md, DriveDoctor, MultiCar). When a
-// detail could not be confirmed it is left out. No prices belong in this file.
+// can all read it. Maestro's and Opalite's guides live in this file; each
+// other app's guides live in src/data/guides/<app>.mjs, which also exports
+// that app's call to action (`app`) and its line on the hub (`hub`).
+//
+// Sources: every technical statement about Tesla's requirements comes from
+// Tesla's official repository (github.com/teslamotors/light-show, README) or
+// from the Maestro source (docs/CHANNELS.md, DriveDoctor, MultiCar); the
+// color guides follow the W3C's WCAG 2.2 documents; the app how-tos were
+// checked against each app's source. When a detail could not be confirmed it
+// is left out. No prices belong in these files.
 //
 // Body blocks: a string is a paragraph, { ul: [...] } a bullet list, and
 // { ol: [...] } a numbered list. Inline links use [label](/path) and are only
 // for internal paths.
 
 import { SITE_URL } from './catalog.mjs';
+import setdeckGuides, { app as setdeckApp, hub as setdeckHub } from './guides/setdeck.mjs';
+import mygraGuides, { app as mygraApp, hub as mygraHub } from './guides/mygra.mjs';
+import storkGuides, { app as storkApp, hub as storkHub } from './guides/stork.mjs';
+import waffleGuides, { app as waffleApp, hub as waffleHub } from './guides/waffle.mjs';
 
 export { SITE_URL };
 
@@ -20,11 +30,10 @@ export const GUIDES_CHECKED_ISO = '2026-11-12';
 const NOT_AFFILIATED =
   'Maestro is an independent app from Farside Software and is not affiliated with or endorsed by Tesla, Inc. Tesla, Model S, Model 3, Model X, Model Y, and Cybertruck are trademarks of Tesla, Inc.';
 
-export const guides = [
+const coreGuides = [
   // ---------------------------------------------------------------- 1
   {
     slug: 'how-to-make-a-tesla-light-show',
-    group: 'tesla',
     app: 'maestro',
     og: '/og/maestro.png',
     short: 'How to make a custom Tesla light show',
@@ -118,7 +127,6 @@ export const guides = [
   // ---------------------------------------------------------------- 2
   {
     slug: 'tesla-light-show-usb-drive',
-    group: 'tesla',
     app: 'maestro',
     og: '/og/maestro.png',
     short: 'How to set up a USB drive for a Tesla light show',
@@ -225,7 +233,6 @@ export const guides = [
   // ---------------------------------------------------------------- 3
   {
     slug: 'tesla-light-show-not-working',
-    group: 'tesla',
     app: 'maestro',
     og: '/og/maestro.png',
     short: 'Tesla light show not working: a troubleshooting checklist',
@@ -314,7 +321,6 @@ export const guides = [
   // ---------------------------------------------------------------- 4
   {
     slug: 'tesla-light-show-lights-by-model',
-    group: 'tesla',
     app: 'maestro',
     og: '/og/maestro.png',
     short: 'Which lights each Tesla can use in a light show',
@@ -405,7 +411,6 @@ export const guides = [
   // ---------------------------------------------------------------- 5
   {
     slug: 'tesla-light-show-multiple-cars',
-    group: 'tesla',
     app: 'maestro',
     og: '/og/maestro.png',
     short: 'Running one light show on several Teslas at once',
@@ -486,7 +491,6 @@ export const guides = [
   // ---------------------------------------------------------------- 6
   {
     slug: 'maestro-vs-xlights',
-    group: 'tesla',
     app: 'maestro',
     og: '/og/maestro.png',
     short: 'Maestro vs xLights for Tesla light shows',
@@ -580,7 +584,6 @@ export const guides = [
   // ---------------------------------------------------------------- C1
   {
     slug: 'wcag-color-contrast-explained',
-    group: 'color',
     app: 'opalite',
     og: '/og/opalite.png',
     short: 'WCAG color contrast explained',
@@ -672,7 +675,6 @@ export const guides = [
   // ---------------------------------------------------------------- C2
   {
     slug: 'check-palette-contrast-all-pairs',
-    group: 'color',
     app: 'opalite',
     og: '/og/opalite.png',
     short: 'How to check a whole palette for contrast at once',
@@ -768,7 +770,6 @@ for (const [nameA, a] of Object.entries(palette)) {
   // ---------------------------------------------------------------- C3
   {
     slug: 'designing-for-color-blindness',
-    group: 'color',
     app: 'opalite',
     og: '/og/opalite.png',
     short: 'Designing for color blindness',
@@ -858,7 +859,6 @@ for (const [nameA, a] of Object.entries(palette)) {
   // ---------------------------------------------------------------- C4
   {
     slug: 'build-a-color-palette-from-a-photo',
-    group: 'color',
     app: 'opalite',
     og: '/og/opalite.png',
     short: 'How to build a color palette from a photo',
@@ -940,7 +940,6 @@ for (const [nameA, a] of Object.entries(palette)) {
   // ---------------------------------------------------------------- C5
   {
     slug: 'export-color-palette-to-code',
-    group: 'color',
     app: 'opalite',
     og: '/og/opalite.png',
     short: 'Export a color palette to CSS, SwiftUI and design tokens',
@@ -1097,14 +1096,28 @@ export const guideApps = {
   },
 };
 
-/** The groups shown on the /guides hub, in order. */
-export const guideGroups = [
-  { id: 'tesla', title: 'Tesla light shows', blurb: 'Make, load, and fix light shows. Written from Tesla’s own published instructions.' },
-  { id: 'color', title: 'Color and accessibility', blurb: 'Contrast, color blindness, palettes, and handing colors to code. Written from the W3C’s WCAG 2.2 documents.' },
+/** Each app's guides from src/data/guides/<app>.mjs: `{ hub, app, guides }`. */
+const moreApps = [
+  { hub: setdeckHub, app: setdeckApp, guides: setdeckGuides },
+  { hub: mygraHub, app: mygraApp, guides: mygraGuides },
+  { hub: storkHub, app: storkApp, guides: storkGuides },
+  { hub: waffleHub, app: waffleApp, guides: waffleGuides },
 ];
 
-/** @param {string} group */
-export const guidesIn = (group) => guides.filter((g) => g.group === group);
+/** Every guide, Maestro's and Opalite's first, then the other apps in the order above. */
+export const guides = [...coreGuides, ...moreApps.flatMap((m) => m.guides)];
+
+for (const m of moreApps) guideApps[m.app.slug] = m.app;
+
+/** The groups shown on the /guides hub, in order: one per app, named for the app. */
+export const guideGroups = [
+  { id: 'maestro', title: 'Maestro', blurb: 'Make, load, and fix Tesla light shows.' },
+  { id: 'opalite', title: 'Opalite', blurb: 'Contrast, color blindness, palettes, and handing colors to code.' },
+  ...moreApps.map((m) => ({ id: m.app.slug, title: m.hub.title, blurb: m.hub.blurb })),
+];
+
+/** The guides for one app. @param {string} app the app's slug */
+export const guidesIn = (app) => guides.filter((g) => g.app === app);
 
 /** @param {string} slug */
 export function findGuide(slug) {
@@ -1127,7 +1140,7 @@ export function guideJsonLd(guide) {
       description: guide.description,
       url,
       mainEntityOfPage: url,
-      dateModified: GUIDES_CHECKED_ISO,
+      dateModified: guideApps[guide.app]?.checkedIso ?? GUIDES_CHECKED_ISO,
       inLanguage: 'en',
       author: { '@type': 'Organization', name: 'Farside Software', url: SITE_URL },
       publisher: { '@type': 'Organization', name: 'Farside Software', url: SITE_URL },

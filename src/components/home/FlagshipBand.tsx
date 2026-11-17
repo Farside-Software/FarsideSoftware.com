@@ -8,8 +8,6 @@ import AppStoreBadge from '../AppStoreBadge';
 
 interface FlagshipBandProps {
   app: SiteApp;
-  /** Catalog number shown beside the label, e.g. "01". */
-  number: string;
   /** Short kind-of-app label, e.g. "Light show studio". */
   kind: string;
   /** One landscape screenshot, or up to three portrait ones. */
@@ -23,7 +21,7 @@ interface FlagshipBandProps {
  * A full-width band for a flagship app: the claim and the store badge on one
  * side, real screenshots on the other.
  */
-export default function FlagshipBand({ app, number, kind, shots, reverse = false, className = '' }: FlagshipBandProps) {
+export default function FlagshipBand({ app, kind, shots, reverse = false, className = '' }: FlagshipBandProps) {
   const promoLive = usePromoActive(app.promo);
   const accent = accentText(app.accent);
   const single = shots.length === 1;
@@ -33,9 +31,6 @@ export default function FlagshipBand({ app, number, kind, shots, reverse = false
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:gap-10">
         <div className={`reveal lg:col-span-5 ${reverse ? 'lg:order-2 lg:pl-6' : ''}`}>
           <p className="flex items-center gap-3 text-xs font-bold uppercase tracking-[0.2em] text-muted">
-            <span className="tabular-nums" style={{ color: accent }}>
-              {number}
-            </span>
             <span aria-hidden="true" className="h-px w-8" style={{ background: app.accent }} />
             {kind}
           </p>

@@ -5,7 +5,7 @@
         <rect id="Lockup-horizontal--on-slate" affinity:id="Lockup horizontal, on-slate" x="0" y="2520" width="2674" height="976" style="fill:none;"/>
         <g id="Lockup-horizontal--on-slate1" affinity:id="Lockup horizontal, on-slate">
             <g id="Mark">
-                <circle id="Lit-edge" affinity:id="Lit edge" cx="495.612" cy="3000" r="360" style="fill:rgb(232,234,241);"/>
+                <path id="Lit-edge" affinity:id="Lit edge" d="M495.612,2640C694.435,2640 855.612,2801.177 855.612,3000C855.612,3198.823 694.435,3360 495.612,3360C628.161,3360 735.612,3198.823 735.612,3000C735.612,2801.177 628.161,2640 495.612,2640Z" style="fill:rgb(232,234,241);"/>
                 <path id="Dark-side" affinity:id="Dark side" d="M495.612,2640C296.79,2640 135.612,2801.177 135.612,3000C135.612,3198.823 296.79,3360 495.612,3360C650.252,3360 775.612,3198.823 775.612,3000C775.612,2801.177 650.252,2640 495.612,2640Z" style="fill:rgb(5,6,8);"/>
                 <circle id="Signal" cx="176" cy="3319.612" r="56" style="fill:rgb(255,122,61);"/>
             </g>

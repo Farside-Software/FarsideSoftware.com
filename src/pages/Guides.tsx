@@ -1,45 +1,58 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
-import SplitSection, { rowClass } from '../components/SplitSection';
+import SplitSection from '../components/SplitSection';
+import GuideRows from '../components/GuideRows';
 import ScrollToTop from '../components/ScrollToTop';
 import { useRouteMeta } from '../hooks';
-import { guideGroups, guidesIn, guidePath } from '../data/guides.mjs';
+import { findApp } from '../data/apps';
+import { guideGroups, guidesIn } from '../data/guides.mjs';
 
 export default function Guides() {
-  useRouteMeta({ accentColor: '#2D7FF9' });
+  useRouteMeta();
 
   return (
     <>
       <PageHeader
         eyebrow="Guides"
         title="Guides"
-        lead="Plain-language how-tos, written from Tesla’s published light show instructions and the W3C’s WCAG 2.2 documents. They work whether or not you ever install one of our apps."
-      />
-
-      {guideGroups.map((group, i) => (
-        <SplitSection
-          key={group.id}
-          id={`group-${group.id}`}
-          title={group.title}
-          intro={group.blurb}
-          tone={i % 2 === 0 ? 'well' : 'page'}
-        >
-          <ul className="list-none p-0">
-            {guidesIn(group.id).map((g) => (
-              <li key={g.slug} className={`${rowClass} group relative transition-colors hover:bg-line/[0.04]`}>
-                <Link to={guidePath(g.slug)} className="flex items-center justify-between gap-6 after:absolute after:inset-0">
-                  <span className="min-w-0">
-                    <span className="block text-xl font-extrabold tracking-[-0.02em] text-ink">{g.short}</span>
-                    <span className="mt-1 block text-muted">{g.summary}</span>
-                  </span>
-                  <ArrowRight size={22} className="shrink-0 text-muted transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                </Link>
+        lead="Plain-language how-tos for each of our apps. Some of them work whether or not you ever install one."
+      >
+        <ul className="flex list-none flex-wrap gap-2 p-0" aria-label="Jump to an app">
+          {guideGroups.map((group) => {
+            const app = findApp(group.id);
+            return (
+              <li key={group.id}>
+                <a
+                  href={`#${group.id}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-line/15 py-1 pl-1.5 pr-3 text-sm font-semibold text-muted transition-colors hover:border-line/40 hover:text-ink"
+                >
+                  {app && <img src={app.icon} alt="" width={24} height={24} className="h-6 w-6 rounded-md" />}
+                  {group.title}
+                </a>
               </li>
-            ))}
-          </ul>
-        </SplitSection>
-      ))}
+            );
+          })}
+        </ul>
+      </PageHeader>
+
+      {guideGroups.map((group, i) => {
+        const app = findApp(group.id);
+        return (
+          <SplitSection
+            key={group.id}
+            id={group.id}
+            title={
+              <span className="flex items-center gap-3">
+                {app && <img src={app.icon} alt="" width={44} height={44} loading="lazy" decoding="async" className="h-11 w-11 rounded-xl" />}
+                {group.title}
+              </span>
+            }
+            intro={group.blurb}
+            tone={i % 2 === 0 ? 'well' : 'page'}
+          >
+            <GuideRows guides={guidesIn(group.id)} summaries />
+          </SplitSection>
+        );
+      })}
 
       <p className="mx-auto max-w-7xl px-6 py-12 text-sm italic text-muted">
         Maestro and Opalite are independent apps. Maestro is not affiliated with or endorsed by Tesla, Inc.; Opalite is

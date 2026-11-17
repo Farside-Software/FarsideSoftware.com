@@ -67,13 +67,18 @@ async function syncScreens(app, source) {
 
   let index = 0;
   let total = 0;
-  for (const folder of app.screens) {
+  for (const entry of app.screens) {
+    // "folder/prefix-*" takes only the files in folder whose names start with prefix.
+    const star = entry.endsWith('*');
+    const folder = star ? path.dirname(entry) : entry;
+    const prefix = star ? path.basename(entry).slice(0, -1) : '';
     const dir = path.join(APPS_DIR, source, folder);
-    const files = await listImages(dir);
-    if (files === null) {
+    const listed = await listImages(dir);
+    if (listed === null) {
       console.warn(`  ⚠️  missing folder: ${path.relative(APPS_DIR, dir)}`);
       continue;
     }
+    const files = listed.filter((f) => f.startsWith(prefix));
     for (const file of files) {
       index += 1;
       const out = path.join(outDir, `${String(index).padStart(2, '0')}.webp`);

@@ -25,6 +25,7 @@ export default function Stork() {
       githubUrl="https://github.com/NMolargik/Stork"
       requirements={['iOS 26+', 'iPadOS 26+', 'macOS 26+', 'watchOS 26+']}
       screens={screens}
+      heroLayout="panorama"
       screensClassName="bg-well"
       about={{
         title: 'Stork — Labor & Delivery Companion',

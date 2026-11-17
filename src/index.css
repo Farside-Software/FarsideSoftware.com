@@ -209,6 +209,15 @@ h1, h2, h3, h4 {
   }
 }
 
+@keyframes earth-spin {
+  from {
+    transform: translateX(-200px);
+  }
+  to {
+    transform: none;
+  }
+}
+
 @keyframes orbit {
   to {
     transform: rotate(-360deg);
@@ -222,6 +231,13 @@ h1, h2, h3, h4 {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  /* The hero Earth's clouds drift on their own (HeroScene turns the Earth
+     itself from script, so it can stop for launch). The strip is drawn
+     twice, 200 units apart, so the loop is seamless. */
+  .earth-clouds {
+    animation: earth-spin 28s linear infinite;
+  }
+
   /* The signal dot circles the moon once every two minutes. */
   .orbit {
     transform-box: view-box;

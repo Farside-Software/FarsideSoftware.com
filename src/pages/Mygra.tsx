@@ -22,8 +22,9 @@ export default function Mygra() {
       accentColor={ACCENT_COLOR}
       app={app}
       githubUrl="https://github.com/NMolargik/Mygra"
-      requirements={['iOS 18+', 'iPadOS 18+', 'watchOS 11+', 'visionOS 2+']}
+      requirements={['iOS 18+', 'iPadOS 18+', 'watchOS 10+', 'visionOS 2+']}
       screens={screens}
+      heroLayout="panorama"
       screensClassName="bg-well"
       about={{
         title: 'Mygra — Your Intelligent Migraine Journal',

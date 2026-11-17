@@ -105,9 +105,9 @@ const appRoutes = apps.map((app) => ({
 const guideRoutes = [
   {
     path: '/guides',
-    title: `Guides: Tesla light shows, color and accessibility${SUFFIX}`,
+    title: `Guides: how-tos for every app${SUFFIX}`,
     description:
-      'Plain-language guides to Tesla light shows (making one, USB setup, troubleshooting) and to color and accessibility (WCAG contrast, color blindness, palettes from photos, exporting to code).',
+      'Plain-language how-tos for Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle: Tesla light shows, color and accessibility, training logs, migraine journals, delivery logs, and grid browsing on iPad.',
     ogImage: '/og/default.png',
     changefreq: 'monthly',
     priority: 0.8,

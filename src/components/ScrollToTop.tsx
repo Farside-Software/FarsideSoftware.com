@@ -27,7 +27,7 @@ export default function ScrollToTop() {
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.2 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-6 z-50 p-3 rounded-full bg-page border border-line/10 text-muted hover:text-ink transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-signal"
+          className="fixed bottom-8 right-6 z-50 p-3 rounded-full bg-signal text-night shadow-lg shadow-black/25 transition-all hover:brightness-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-signal focus-visible:ring-offset-2 focus-visible:ring-offset-page"
           aria-label="Scroll to top"
           type="button"
         >

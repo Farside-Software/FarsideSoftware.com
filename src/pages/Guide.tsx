@@ -7,13 +7,13 @@ import ScrollToTop from '../components/ScrollToTop';
 import NotFound from './NotFound';
 import { usePageMeta } from '../hooks';
 import { findRoute } from '../seo/routes.mjs';
+import { findApp } from '../data/apps';
 import {
   findGuide,
   guidePath,
   guideChannel,
   guideJsonLd,
   guideApps,
-  guideGroups,
   GUIDES_CHECKED,
   type GuideBlock,
 } from '../data/guides.mjs';
@@ -97,16 +97,17 @@ export default function Guide() {
     description: route?.description ?? guide?.description ?? '',
     image: route?.ogImage ?? '/og/default.png',
     path: guidePath(slug),
-    accentColor: guide?.app === 'opalite' ? '#9F95AF' : '#2D7FF9',
+    accentColor: (guide && findApp(guide.app)?.accent) || undefined,
     noindex: !guide,
   });
   useJsonLd(guide ? guideJsonLd(guide) : []);
 
   if (!guide) return <NotFound />;
 
-  const ACCENT = guide.app === 'opalite' ? '#9F95AF' : '#2D7FF9';
+  const app = findApp(guide.app);
   const cta = guideApps[guide.app];
-  const group = guideGroups.find((g) => g.id === guide.group);
+  if (!app || !cta) return <NotFound />;
+  const ACCENT = app.accent;
   const related = guide.related.map((s) => findGuide(s)).filter((g) => g !== undefined);
 
   return (
@@ -125,10 +126,10 @@ export default function Guide() {
             Guides
           </Link>
           <ChevronRight size={14} aria-hidden="true" />
-          <span className="text-muted/70">{group?.title}</span>
+          <span className="text-muted/70">{app.name}</span>
         </nav>
         <p className="mt-4 text-sm tabular-nums text-muted/70">
-          Checked against {cta.checked} on {GUIDES_CHECKED}.
+          Checked against {cta.checked} on {cta.checkedOn ?? GUIDES_CHECKED}.
         </p>
       </PageHeader>
 
@@ -173,7 +174,7 @@ export default function Guide() {
           </div>
         </article>
 
-        <aside className="lg:col-span-4" aria-label={`Try ${cta.slug === 'opalite' ? 'Opalite' : 'Maestro'}`}>
+        <aside className="lg:col-span-4" aria-label={`Try ${app.name}`}>
           <div className="rounded-3xl border border-line/10 bg-panel p-6 sm:p-8 lg:sticky lg:top-28">
             <h2 className="text-2xl font-extrabold tracking-[-0.02em] text-ink">{cta.heading}</h2>
             <p className="mt-3 text-muted">{cta.blurb}</p>

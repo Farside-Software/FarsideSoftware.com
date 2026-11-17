@@ -3,7 +3,8 @@
 //
 // `screens` lists source folders in the order their screenshots should appear
 // on the site. Only files directly inside each folder are used (sub-folders are
-// ignored), sorted naturally (Screen2 before Screen10).
+// ignored), sorted naturally (Screen2 before Screen10). An entry ending in
+// "prefix-*" takes only the files in that folder whose names start with "prefix-".
 //
 // Run `npm run assets` (all apps) or `npm run assets -- stork maestro`.
 
@@ -14,23 +15,26 @@ export default [
   {
     app: 'maestro',
     source: 'Maestro',
-    icon: 'AppIcon-iOS-Default-1024@1x.png',
+    icon: 'Icons/AppIcon.png',
+    // The 2.0 store set (build 41), kept with the app's marketing files.
     screens: [
-      'docs/AppStore/Screenshots/macOS',
-      'docs/AppStore/Screenshots/iPhone',
-      'docs/AppStore/Screenshots/iPad',
+      'Marketing/Maestro 2.0/store-screenshots/draft-2/mac',
+      'Marketing/Maestro 2.0/store-screenshots/draft-2/iphone',
+      'Marketing/Maestro 2.0/store-screenshots/draft-2/ipad',
     ],
   },
   {
     app: 'opalite',
     source: 'Opalite',
     icon: 'Icons/AppIcon.png',
+    // The 2.0 store set: one folder of exports, picked out by device prefix.
     screens: [
-      'Screenshots/Professional/iPhone',
-      'Screenshots/Professional/iPad',
-      'Screenshots/Professional/Vision Pro',
-      'Screenshots/Professional/TV',
-      'Screenshots/Professional/Watch',
+      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/iphone-*',
+      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/ipad-*',
+      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/mac-*',
+      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/vision-*',
+      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/tv-*',
+      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/watch-*',
     ],
   },
   {

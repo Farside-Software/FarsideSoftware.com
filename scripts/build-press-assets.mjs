@@ -25,10 +25,19 @@ const MAX_BYTES = 400 * 1024;
 const IMAGE_EXT = /\.(png|jpe?g|webp)$/i;
 const naturalCompare = new Intl.Collator('en', { numeric: true, sensitivity: 'base' }).compare;
 
-/** Candidate screenshot folders per app, in priority order. */
+/**
+ * Candidate screenshot folders per app, in priority order. An entry ending in
+ * "prefix-*" takes only the files in that folder whose names start with "prefix-".
+ */
 const SCREENSHOT_DIRS = {
-  maestro: ['Screenshots/iPhone', 'Screenshots/macOS', 'Screenshots/iPad'],
-  opalite: ['Screenshots/Professional/iPhone', 'Screenshots/Professional/iPad'],
+  maestro: [
+    'Marketing/Maestro 2.0/store-screenshots/draft-2/iphone',
+    'Marketing/Maestro 2.0/store-screenshots/draft-2/mac',
+  ],
+  opalite: [
+    '../../Marketing/Opalite 2.0/store-screenshots/final/exports/iphone-*',
+    '../../Marketing/Opalite 2.0/store-screenshots/final/exports/ipad-*',
+  ],
   setdeck: ['Screenshots/Professional/iPhone', 'Screenshots/Professional/iPad'],
   mygra: ['Screenshots/Professional/iPhone', 'Screenshots/Professional/iPad'],
   stork: ['Screenshots/Professional/iPhone', 'Screenshots/Professional/iPad'],
@@ -51,7 +60,10 @@ async function listImages(dir) {
 async function pickScreens(app) {
   const picked = [];
   for (const rel of SCREENSHOT_DIRS[app.slug] ?? []) {
-    const images = await listImages(path.join(APPS_DIR, app.source, rel));
+    const star = rel.endsWith('*');
+    const dir = path.join(APPS_DIR, app.source, star ? path.dirname(rel) : rel);
+    const prefix = star ? path.basename(rel).slice(0, -1) : '';
+    const images = (await listImages(dir)).filter((img) => path.basename(img).startsWith(prefix));
     // Take at most two from any one folder so the set shows more than one device.
     for (const img of images.slice(0, 2)) {
       if (picked.length < COUNT) picked.push(img);

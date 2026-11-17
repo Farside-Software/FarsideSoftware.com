@@ -1,9 +1,7 @@
 import AppShowcase from '../components/AppShowcase';
 import ExportCounter from '../components/ExportCounter';
 import { screensFromGlob } from '../utils/screens';
-import { Link } from 'react-router-dom';
 import { findApp } from '../data/apps';
-import { guidesIn, guidePath } from '../data/guides.mjs';
 import icon from '../assets/maestro/icon.png';
 
 // Official brand color: Tesla Autopilot blue, the app's own accent.
@@ -34,26 +32,6 @@ export default function Maestro() {
           <section aria-label="Exported show counter" className="bg-deep py-16 sm:py-20">
             <div className="mx-auto max-w-7xl px-6">
               <ExportCounter accentColor={ACCENT_COLOR} />
-            </div>
-          </section>
-          <section aria-label="Tesla light show guides" className="bg-deep pb-16 sm:pb-20">
-            <div className="mx-auto max-w-7xl px-6">
-              <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-ink">Tesla light show guides</h2>
-              <p className="mt-2 text-muted/70">
-                Plain-language help for making, loading, and fixing light shows. They work with or without Maestro.
-              </p>
-              <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 list-none p-0">
-                {guidesIn('tesla').map((g) => (
-                  <li key={g.slug}>
-                    <Link
-                      to={guidePath(g.slug)}
-                      className="block h-full rounded-2xl border border-line/10 bg-line/[0.04] px-5 py-4 text-muted transition-colors hover:border-line/30 hover:bg-line/[0.08]"
-                    >
-                      {g.short}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
             </div>
           </section>
         </>

@@ -1,16 +1,18 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight, ShieldCheck, Smartphone, Languages } from 'lucide-react';
 import GlassButton from '../components/GlassButton';
-import FarsideMark from '../components/FarsideMark';
+import HeroScene from '../components/HeroScene';
 import Starfield from '../components/Starfield';
 import FactStrip from '../components/home/FactStrip';
 import FlagshipBand from '../components/home/FlagshipBand';
 import CatalogTable from '../components/home/CatalogTable';
+import GuideRows from '../components/GuideRows';
 import { useRouteMeta } from '../hooks';
 import { apps, findApp } from '../data/apps';
-import { guideGroups, guidesIn, guidePath } from '../data/guides.mjs';
-import { LEGAL_NAME, SITE_NAME } from '../config/site';
-import maestroShot from '../assets/maestro/screens/01.webp';
+import { guideGroups, guidesIn } from '../data/guides.mjs';
+import { LEGAL_NAME } from '../config/site';
+// The Mac workspace (stage, sections, timeline), so the home page shows the whole app and not just the stage.
+import maestroShot from '../assets/maestro/screens/02.webp';
 import opaliteShotA from '../assets/opalite/screens/02.webp';
 import opaliteShotB from '../assets/opalite/screens/03.webp';
 import opaliteShotC from '../assets/opalite/screens/04.webp';
@@ -51,9 +53,18 @@ export default function Home() {
       <section className="relative overflow-hidden bg-page pt-28 lg:pt-32">
         <Starfield className="drift" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-6 px-6 pb-16 lg:grid-cols-12 lg:pb-24">
-          <div className="order-2 lg:order-1 lg:col-span-7">
+          <div className="relative z-10 order-2 lg:order-1 lg:col-span-7">
             <p className={eyebrow}>
-              {SITE_NAME} <span className="mx-2 text-muted/50">/</span> Indiana, USA
+              {['Indiana', 'USA', 'Earth', 'Milky Way'].map((place, i) => (
+                <span key={place} className="inline-block">
+                  {i > 0 && (
+                    <span className="mx-2 text-muted/50" aria-hidden="true">
+                      /
+                    </span>
+                  )}
+                  {place}
+                </span>
+              ))}
             </p>
             <h1 className="mt-6 text-[2.75rem] font-extrabold leading-[0.98] tracking-[-0.04em] text-ink [text-wrap:balance] sm:text-[4rem] xl:text-[5.25rem]">
               Independent apps for every Apple device.
@@ -98,8 +109,8 @@ export default function Home() {
             </ul>
           </div>
 
-          <div className="order-1 flex justify-center lg:order-2 lg:col-span-5 lg:justify-end">
-            <FarsideMark orbit className="w-[240px] sm:w-[320px] lg:w-full lg:max-w-[540px]" />
+          <div className="relative z-20 order-1 flex justify-center lg:order-2 lg:col-span-5 lg:justify-end">
+            <HeroScene className="mb-2 mt-4 w-[240px] translate-x-8 sm:w-[320px] sm:translate-x-10 lg:my-0 lg:w-full lg:max-w-[540px] lg:translate-x-0" />
           </div>
         </div>
 
@@ -110,10 +121,9 @@ export default function Home() {
 
       {/* The catalog: two flagships at full size, then all six in one table. */}
       <div id="apps" className="scroll-mt-16">
-        <FlagshipBand app={maestro} number="01" kind="Light show studio" shots={[maestroShot]} className="bg-page" />
+        <FlagshipBand app={maestro} kind="Light show studio" shots={[maestroShot]} className="bg-page" />
         <FlagshipBand
           app={opalite}
-          number="02"
           kind="Color studio"
           shots={[opaliteShotA, opaliteShotB, opaliteShotC]}
           reverse
@@ -189,7 +199,7 @@ export default function Home() {
               <h2 id="guides" className={`mt-4 ${sectionTitle}`}>
                 Plain-language how-tos
               </h2>
-              <p className="mt-4 text-lg text-muted">They work whether or not you ever install one of our apps.</p>
+              <p className="mt-4 text-lg text-muted">A few for each app. Some work whether or not you ever install one.</p>
             </div>
             <Link
               to="/guides"
@@ -199,28 +209,25 @@ export default function Home() {
               <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           </div>
-          <div className="mt-12 grid gap-x-16 gap-y-12 lg:grid-cols-2">
-            {guideGroups.map((group) => (
-              <div key={group.id} className="reveal">
-                <h3 className="text-lg font-extrabold text-ink">{group.title}</h3>
-                <ul className="mt-4 list-none p-0">
-                  {guidesIn(group.id).map((g) => (
-                    <li key={g.slug} className="border-t border-line/10 last:border-b">
-                      <Link
-                        to={guidePath(g.slug)}
-                        className="group flex items-center justify-between gap-4 py-4 text-muted transition-colors hover:text-ink"
-                      >
-                        {g.short}
-                        <ArrowRight
-                          className="h-4 w-4 shrink-0 text-muted/50 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-ink"
-                          aria-hidden="true"
-                        />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className="mt-12 grid gap-x-12 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {guideGroups.map((group) => {
+              const app = findApp(group.id);
+              const all = guidesIn(group.id);
+              return (
+                <div key={group.id} className="reveal">
+                  <h3 className="flex items-center gap-3 text-lg font-extrabold text-ink">
+                    {app && <img src={app.icon} alt="" width={32} height={32} loading="lazy" decoding="async" className="h-8 w-8 rounded-lg" />}
+                    {group.title}
+                  </h3>
+                  <GuideRows guides={all.slice(0, 3)} className="mt-4" />
+                  {all.length > 3 && (
+                    <a href={`/guides#${group.id}`} className="mt-3 inline-block text-sm text-muted underline decoration-line/30 underline-offset-4 hover:text-ink">
+                      All {all.length} {group.title} guides
+                    </a>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

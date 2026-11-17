@@ -22,8 +22,12 @@ interface AppHeroProps {
   webHref?: string;
   /** Lead screenshots: one landscape image, or two portrait ones. */
   shots: string[];
-  /** `wide` shows one landscape screenshot; `pair` shows two portrait ones. */
-  layout: 'pair' | 'wide';
+  /**
+   * `wide` shows one landscape screenshot. `pair` shows two portrait ones side
+   * by side. `panorama` joins two portrait screenshots edge to edge, for store
+   * screenshots drawn as one continuous picture (a device spanning both).
+   */
+  layout: 'pair' | 'wide' | 'panorama';
   /** Attached to the column holding the store badges (the buy bar watches it). */
   actionsRef?: RefObject<HTMLDivElement | null>;
 }
@@ -137,6 +141,18 @@ export default function AppHero({
               fetchPriority="high"
               className="w-full rounded-2xl border border-line/10"
             />
+          ) : layout === 'panorama' ? (
+            <div className="mx-auto flex max-w-[520px] overflow-hidden rounded-2xl border border-line/10">
+              {lead.map((src, i) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={i === 0 ? `${name} screenshots` : ''}
+                  fetchPriority={i === 0 ? 'high' : undefined}
+                  className="w-1/2"
+                />
+              ))}
+            </div>
           ) : (
             <div className="mx-auto flex max-w-[520px] items-start justify-center gap-4 sm:gap-5">
               {lead.map((src, i) => (
@@ -145,7 +161,7 @@ export default function AppHero({
                   src={src}
                   alt={i === 0 ? `${name} screenshot` : ''}
                   fetchPriority={i === 0 ? 'high' : undefined}
-                  className={`w-[47%] rounded-2xl border border-line/10 ${i === 1 ? 'mt-12' : ''}`}
+                  className="w-[47%] rounded-2xl border border-line/10"
                 />
               ))}
             </div>
