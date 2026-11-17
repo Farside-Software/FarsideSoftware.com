@@ -2,9 +2,8 @@ name: Deploy to GitHub Pages
 
 # Builds the Vite site and publishes it to GitHub Pages.
 #
-# NOT LIVE YET: this repository does not deploy on push. Until farsidesoftware.com is
-# switched on (see "Before launch" in README.md) the workflow only runs when started by
-# hand from the Actions tab. To go live, restore the `push: branches: [main]` trigger.
+# Live since 2026-11-17: every push to main deploys farsidesoftware.com; it can
+# also be started by hand from the Actions tab.
 # `npm run build` also runs scripts/postbuild-seo.mjs, which writes one HTML
 # file per route (with that route's <head>), a 404.html SPA fallback, and
 # sitemap.xml / robots.txt. The public/CNAME file sets the custom domain.
@@ -18,6 +17,8 @@ name: Deploy to GitHub Pages
 # not touched here.
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:

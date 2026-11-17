@@ -11,8 +11,8 @@ This repository is the redesigned site, started fresh on 17 November 2026 from t
 1. ~~Point the site at the new domain~~ (done 2026-11-17: `SITE_URL`, the OG footer, `public/CNAME` and the privacy policy's site section now name `farsidesoftware.com`).
 2. Decide the contact address (`CONTACT_EMAIL` in `src/config/site.ts`) once the new domain has mail.
 3. Update the privacy policy's effective date (`src/pages/Privacy.tsx`) and clear `FORMER_LEGAL_NAME` in `src/config/site.ts` when the "formerly" note is no longer wanted.
-4. Add the Actions secrets and variables listed under Configuration below to this repository.
-5. Make the repository public (GitHub Pages on the organization's free plan needs that), enable Pages with the custom domain, and restore the `push` trigger in `.github/workflows/pages.yml`.
+4. ~~Add the Actions secrets and variables~~ (done 2026-11-17).
+5. ~~Make the repository public, enable Pages with the custom domain, restore the `push` trigger~~ (done 2026-11-17).
 6. Redirect molargiksoftware.com to the new domain page for page. Shipped apps link to the old addresses, so they must keep working. Do not touch that domain's mail records.
 
 ## Apps
