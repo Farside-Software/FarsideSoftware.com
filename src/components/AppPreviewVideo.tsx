@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from 'react';
-import { Play } from 'lucide-react';
+import { Maximize2, Play } from 'lucide-react';
 import { accentText, readableOn } from '../theme/contrast';
 
 /** An App Store preview video and its poster, as an app page supplies it. */
@@ -49,6 +49,21 @@ export default function AppPreviewVideo({
     void video.play().catch(() => setStarted(false));
   };
 
+  const enterFullscreen = () => {
+    const video = videoRef.current as
+      | (HTMLVideoElement & { webkitEnterFullscreen?: () => void; webkitRequestFullscreen?: () => void })
+      | null;
+    if (!video) return;
+    if (!started) start();
+    if (video.requestFullscreen) {
+      void video.requestFullscreen().catch(() => undefined);
+    } else if (video.webkitEnterFullscreen) {
+      video.webkitEnterFullscreen();
+    } else if (video.webkitRequestFullscreen) {
+      video.webkitRequestFullscreen();
+    }
+  };
+
   return (
     <div
       className={`relative overflow-hidden rounded-2xl border border-line/10 bg-panel ${className}`}
@@ -85,6 +100,15 @@ export default function AppPreviewVideo({
           <Play aria-hidden="true" className="ml-1 h-7 w-7" fill="currentColor" strokeWidth={0} />
         </button>
       )}
+      <button
+        type="button"
+        onClick={enterFullscreen}
+        aria-label={started ? 'Full screen' : `Play ${title} full screen`}
+        className="absolute right-1.5 top-1.5 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-line/20 bg-panel text-ink transition-colors hover:border-line/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        style={{ outlineColor: accentText(accent) }}
+      >
+        <Maximize2 aria-hidden="true" className="h-3.5 w-3.5" />
+      </button>
     </div>
   );
 }

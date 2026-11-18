@@ -189,7 +189,7 @@ export default function AppShowcase({
         />
       )}
 
-      {(gallery.length > 0 || (preview && !previewInHero)) && (
+      {(gallery.length > 0 || !!preview) && (
         <section aria-label={`${name} screenshots`} className={`${screensClassName} border-b border-line/10 py-14`}>
           <ScreensCarousel
             slides={gallery}
@@ -199,7 +199,8 @@ export default function AppShowcase({
             desktopRef={carouselRefDesktop}
             mobileRef={carouselRefMobile}
             altPrefix={name}
-            video={previewInHero ? undefined : preview}
+            video={preview}
+            videoPlacement={previewInHero ? 'belowLg' : 'both'}
             videoAccent={accentColor}
           />
         </section>

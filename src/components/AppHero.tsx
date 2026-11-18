@@ -29,7 +29,7 @@ interface AppHeroProps {
    * screenshots drawn as one continuous picture (a device spanning both).
    */
   layout: 'pair' | 'wide' | 'panorama';
-  /** Preview video shown in the right column instead of the lead screenshots. */
+  /** Preview video shown in the right column instead of the lead screenshots. The column only shows from lg up; the gallery carries the video below that. */
   video?: AppPreview;
   /** Attached to the column holding the store badges (the buy bar watches it). */
   actionsRef?: RefObject<HTMLDivElement | null>;
@@ -137,13 +137,13 @@ export default function AppHero({
           )}
         </div>
 
-        <div className={layout === 'wide' ? 'lg:col-span-7' : 'lg:col-span-5'}>
+        <div className={`${video ? 'hidden lg:block ' : ''}${layout === 'wide' ? 'lg:col-span-7' : 'lg:col-span-5'}`}>
           {video ? (
             <AppPreviewVideo
               {...video}
               title={`${name} app preview`}
               accent={accentColor}
-              className={video.height > video.width ? 'mx-auto w-full max-w-[260px] lg:max-w-[300px]' : 'w-full'}
+              className={video.height > video.width ? 'mx-auto w-full max-w-[300px]' : 'w-full'}
             />
           ) : layout === 'wide' ? (
             <img

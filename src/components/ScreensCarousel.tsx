@@ -16,6 +16,11 @@ interface ScreensCarouselProps {
   /** Preview video shown as the first slide; it never opens the lightbox. */
   video?: AppPreview;
   videoAccent?: string;
+  /**
+   * `both` puts the video first in both carousels. `belowLg` keeps it out of
+   * the carousel from lg up, where the page hero already shows it.
+   */
+  videoPlacement?: 'both' | 'belowLg';
 }
 
 const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
@@ -30,6 +35,7 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
   altPrefix = 'Screenshot',
   video,
   videoAccent,
+  videoPlacement = 'both',
 }) => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [lightboxLoaded, setLightboxLoaded] = useState(false);
@@ -124,7 +130,7 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
               {...video}
               title={`${altPrefix} app preview`}
               accent={videoAccent}
-              className="flex-none h-96 snap-start"
+              className={`flex-none h-96 snap-start ${videoPlacement === 'belowLg' ? 'lg:hidden' : ''}`}
             />
           )}
           {slides.map((src, idx) => {
