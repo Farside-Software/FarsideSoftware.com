@@ -53,11 +53,11 @@ export default [
     icon: 'Icons/AppIcon.png',
     // The 3.0 store set: one folder of exports, picked out by device prefix.
     screens: [
-      '../../Marketing/Mygra 3.0/store-screenshots/final/iphone-*',
-      '../../Marketing/Mygra 3.0/store-screenshots/final/ipad-*',
-      '../../Marketing/Mygra 3.0/store-screenshots/final/duo-outer-*',
-      '../../Marketing/Mygra 3.0/store-screenshots/final/duo-inner-*',
-      '../../Marketing/Mygra 3.0/store-screenshots/final/watch-*',
+      'Marketing/Mygra 3.0/store-screenshots/final/iphone-*',
+      'Marketing/Mygra 3.0/store-screenshots/final/ipad-*',
+      'Marketing/Mygra 3.0/store-screenshots/final/duo-outer-*',
+      'Marketing/Mygra 3.0/store-screenshots/final/duo-inner-*',
+      'Marketing/Mygra 3.0/store-screenshots/final/watch-*',
     ],
   },
   {
