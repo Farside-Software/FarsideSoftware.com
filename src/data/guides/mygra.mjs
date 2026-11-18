@@ -19,13 +19,13 @@ export const hub = {
 export const app = {
   slug: 'mygra',
   heading: 'Want a simpler way to keep a migraine journal?',
-  blurb: 'Mygra is a private migraine journal for iPhone, iPad, and Apple Watch. Logging is free, and Mygra Plus is optional.',
+  blurb: 'Mygra is a private migraine journal for iPhone, iPad, Apple Watch, and Apple Vision Pro. Logging is free, and Mygra Plus is optional.',
   button: 'Get Mygra on the App Store',
   notice:
     'Mygra is an independent app from Farside Software. It is a journal, not a medical device, and nothing in these guides is medical advice. Apple, Apple Health, Apple Watch, iPhone, and iPad are trademarks of Apple Inc.',
-  checked: 'Mygra 2.3.0 source',
-  checkedOn: 'November 17, 2026',
-  checkedIso: '2026-11-17',
+  checked: 'Mygra 2.3.0 source, with its screen labels re-checked against the 3.0 source',
+  checkedOn: 'November 18, 2026',
+  checkedIso: '2026-11-18',
 };
 
 export default [
