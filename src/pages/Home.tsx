@@ -55,14 +55,15 @@ export default function Home() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-6 px-6 pb-16 lg:grid-cols-12 lg:pb-24">
           <div className="relative z-10 order-2 lg:order-1 lg:col-span-7">
             <p className={eyebrow}>
-              {['Indiana', 'USA', 'Earth', 'Milky Way'].map((place, i) => (
+              {/* Each separator trails its place, so a wrapped line never starts with a slash. */}
+              {['Indiana', 'USA', 'Earth', 'Milky Way'].map((place, i, all) => (
                 <span key={place} className="inline-block">
-                  {i > 0 && (
+                  {place}
+                  {i < all.length - 1 && (
                     <span className="mx-2 text-muted/50" aria-hidden="true">
                       /
                     </span>
                   )}
-                  {place}
                 </span>
               ))}
             </p>
