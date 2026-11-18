@@ -145,6 +145,17 @@ const DELAY = 3;
 const MARS = { x: 262, y: 2, r: 2.6 };
 const MARS_RED = '#C4552F';
 
+// Off to Mars (a click on Mars while the ship stands by on the Earth or the
+// moon): one way, shrinking into the distance until it vanishes in a glint.
+/** Where the ship winks out, just short of the planet. */
+const MARS_END: P = [MARS.x - 3, MARS.y + 3];
+/** From staging near the Earth, up past the moon's left side and over its top. */
+const MARS_FROM_EARTH: Curve = [[-40, 202], [-10, 178], [30, -40], MARS_END];
+/** From just above the landing site, on up the way the ship points, and round to Mars. */
+const MARS_FROM_MOON: Curve = [HOVER, [HOVER[0] + 28 * SITE_UP[0], HOVER[1] + 28 * SITE_UP[1]], [238, 0], MARS_END];
+/** Seconds of drift from staging, and from lifting clear of the moon, to the glint; then the glint itself. */
+const MARS_DRIFT = { earth: 8, moon: 7, glint: 0.8 };
+
 const OCEAN = '#2E5F8E';
 const LAND = '#5E8F57';
 const FLAME_CORE = '#FFE2B8';
@@ -222,6 +233,7 @@ const coastU = profile([[0, 1.2], [0.4, 1.0], [1, 0.4]]);
 const returnU = profile([[0, 1.4], [0.3, 0.35], [0.75, 1.6], [1, 0]]);
 const descentU = profile([[0, 1.3], [0.65, 0.9], [1, 0]]);
 const liftU = profile([[0, 0], [0.5, 1], [1, 0.25]]);
+const driftU = profile([[0, 0.6], [0.3, 1], [1, 0.7]]);
 const backU = profile([[0, 0.3], [0.25, 1.2], [0.8, 1], [1, 0.5]]);
 
 const clamp01 = (x: number) => Math.min(Math.max(x, 0), 1);
@@ -330,6 +342,8 @@ export default function HeroScene({ className = '' }: { className?: string }) {
   const bFlameRef = useRef<SVGGElement>(null);
   const sFlameRef = useRef<SVGGElement>(null);
   const flashRef = useRef<SVGCircleElement>(null);
+  const marsRef = useRef<SVGGElement>(null);
+  const glintRef = useRef<SVGGElement>(null);
   const puffRefs = useRef<(SVGCircleElement | null)[]>([]);
 
   useEffect(() => {
@@ -346,6 +360,8 @@ export default function HeroScene({ className = '' }: { className?: string }) {
     const bFlame = bFlameRef.current!;
     const sFlame = sFlameRef.current!;
     const flash = flashRef.current!;
+    const mars = marsRef.current!;
+    const glint = glintRef.current!;
     const pool = puffRefs.current.filter((c): c is SVGCircleElement => c !== null);
 
     const place = (g: SVGGElement, p: P, deg: number, k: number) =>
@@ -401,8 +417,10 @@ export default function HeroScene({ className = '' }: { className?: string }) {
      * moon: the ship sits on the moon. The booster hangs in the arms until the tower goes round the back of the Earth.
      * return: the flight home, `t` seconds from the click, while the Earth brings the tower round and stops.
      * home: the ship hangs in the arms. Round the back of the Earth it is stacked on a new booster.
+     * mars: off the moon and away to Mars, `t` seconds from the click. (From the Earth it is a launch with `dest` Mars.)
+     * gone: the ship has gone to Mars. Round the back of the Earth a new stack stands on the pad.
      */
-    type Mode = 'ready' | 'dock' | 'launch' | 'moon' | 'return' | 'home';
+    type Mode = 'ready' | 'dock' | 'launch' | 'moon' | 'return' | 'home' | 'mars' | 'gone';
     const state = {
       mode: 'ready' as Mode,
       phase: PHASE_START,
@@ -414,6 +432,8 @@ export default function HeroScene({ className = '' }: { className?: string }) {
       t: 0,
       clock: 0,
       boosterHeld: false,
+      /** Where this launch is going. */
+      dest: 'moon' as 'moon' | 'mars',
       /** On the way home: when the ship is upright above the tower, and when the arms take it. */
       arrive: 0,
       caught: 0,
@@ -470,6 +490,50 @@ export default function HeroScene({ className = '' }: { className?: string }) {
       emit({ born: state.clock, life: 0.5, at: (a) => [nose[0] + side * 2.5 * sK * a, nose[1] - 1.2 * sK * a], r0: 0.3 * sK, r1: 0.8 * sK, o: 0.7, fill: STEEL });
     };
 
+    // ---- off to Mars
+
+    /**
+     * The ship `a` seconds into its drift along `path` to Mars, over `d`
+     * seconds. For two thirds of the way it keeps the scene's depth (from the
+     * Earth it grows as it passes close by the moon); only then does it shrink
+     * away into the distance and wink out in a glint.
+     */
+    const drift = (a: number, path: Curve, d: number, flame: number) => {
+      const x = span(a, 0, d);
+      if (x < 1) {
+        const u = driftU(x);
+        const p = bez(path, u);
+        place(ship, p, heading(path, u), Math.max(0.001, depth(p) * (1 - smooth(span(x, 0.65, 1)))));
+        ship.setAttribute('opacity', '1');
+        setFlame(sFlame, flame, 2.6);
+        glint.setAttribute('opacity', '0');
+        return;
+      }
+      ship.setAttribute('opacity', '0');
+      setFlame(sFlame, 0, 2.6);
+      // A little glint of sunlight off the hull as it goes: up, a quarter turn, and out.
+      const g = span(a, d, d + MARS_DRIFT.glint);
+      const end = path[3];
+      glint.setAttribute(
+        'transform',
+        `translate(${end[0]} ${end[1]}) rotate(${(45 * g).toFixed(1)}) scale(${(1.6 * Math.sin(Math.PI * g)).toFixed(3)})`,
+      );
+      glint.setAttribute('opacity', g < 1 ? Math.sin(Math.PI * g).toFixed(2) : '0');
+    };
+
+    /** One frame of the trip from the moon to Mars, `t` seconds after the click: up off the surface, then away. */
+    const flyMars = (t: number, dt: number) => {
+      if (t < RT.hover) {
+        const p: P = t < RT.lift ? (t > RT.ignite ? [SITE[0] + 0.1 * Math.sin(t * 95), SITE[1]] : SITE) : mix(SITE, HOVER, liftU(span(t, RT.lift, RT.hover)));
+        place(ship, p, SITE_ANGLE, SCALE_NEAR);
+        ship.setAttribute('opacity', '1');
+        setFlame(sFlame, burn(t, RT.ignite, RT.hover + 0.3, 5.5, 0.35, 0.4), 2.6);
+      } else {
+        drift(t - RT.hover, MARS_FROM_MOON, MARS_DRIFT.moon, burn(t, RT.ignite, RT.hover + 2.5, 5.5, 0.35, 1.2));
+      }
+      if (t > RT.ignite + 0.1 && t < RT.lift + 0.7) every('moon', dt, 0.045, () => emit(moonPuff(state.clock)));
+    };
+
     // ---- the flight out
 
     const sepHeading = heading(ASCENT, 1);
@@ -505,9 +569,13 @@ export default function HeroScene({ className = '' }: { className?: string }) {
 
       let sPos: P;
       let sDeg: number;
+      const toMars = state.dest === 'mars';
       if (t < T.sep) {
         sPos = along(bPos, bDeg, BOOSTER_H * bK);
         sDeg = bDeg;
+      } else if (toMars) {
+        sPos = MARS_FROM_EARTH[0];
+        sDeg = 0;
       } else if (t < T.coastEnd) {
         const u = coastU(span(t, T.sep, T.coastEnd));
         sPos = bez(COAST, u);
@@ -521,10 +589,14 @@ export default function HeroScene({ className = '' }: { className?: string }) {
         sDeg = SITE_ANGLE;
       }
       const sK = t < T.sep ? bK : depth(sPos);
-      place(ship, sPos, sDeg, sK);
-      ship.setAttribute('opacity', '1');
-      const sBurn = burn(t, T.sep, T.sep + 2.4, 6.5, 0.12, 0.35) + burn(t, T.flipEnd - 0.15, T.land, 5.5, 0.2, 0.18);
-      setFlame(sFlame, sBurn, 2.6);
+      if (t < T.sep || !toMars) {
+        place(ship, sPos, sDeg, sK);
+        ship.setAttribute('opacity', '1');
+        const sBurn = burn(t, T.sep, T.sep + 2.4, 6.5, 0.12, 0.35) + burn(t, T.flipEnd - 0.15, T.land, 5.5, 0.2, 0.18);
+        setFlame(sFlame, sBurn, 2.6);
+      } else {
+        drift(t - T.sep, MARS_FROM_EARTH, MARS_DRIFT.earth, burn(t, T.sep, T.sep + 3.2, 6.5, 0.12, 0.6));
+      }
 
       // Hot staging
       const f = span(t, T.sep - 0.05, T.sep + 0.45);
@@ -544,8 +616,8 @@ export default function HeroScene({ className = '' }: { className?: string }) {
           emit({ born: now, life: 1.1 + rand() * 0.5, at: (a) => [tip[0], tip[1] + bK * a], r0: 0.5 * bK, r1: (1.6 + rand()) * bK, o: 0.4, fill: STEEL });
         });
       if (t > T.boosterHome - 0.45 && t < T.boosterHome + 0.2) every('bLand', dt, 0.07, () => emit(padPuff(now, SCALE_FAR, 7, 2.2)));
-      if (t > T.coastEnd + 0.1 && t < T.coastEnd + 0.9) every('rcs', dt, 0.2, () => rcs(sPos, sDeg, sK));
-      if (t > T.land - 0.35 && t < T.land + 0.15) every('moon', dt, 0.04, () => emit(moonPuff(now)));
+      if (!toMars && t > T.coastEnd + 0.1 && t < T.coastEnd + 0.9) every('rcs', dt, 0.2, () => rcs(sPos, sDeg, sK));
+      if (!toMars && t > T.land - 0.35 && t < T.land + 0.15) every('moon', dt, 0.04, () => emit(moonPuff(now)));
     };
 
     // ---- the flight home
@@ -614,7 +686,8 @@ export default function HeroScene({ className = '' }: { className?: string }) {
       state.t = 0;
     };
 
-    const launch = () => {
+    const launch = (dest: 'moon' | 'mars' = 'moon') => {
+      state.dest = dest;
       // Ease to a stop with Starbase front and centre: the next time it comes round.
       const ahead = mod(PHASE_FRONT - state.phase, STRIP);
       const v0 = Math.max(state.speed, 0.1);
@@ -648,6 +721,15 @@ export default function HeroScene({ className = '' }: { className?: string }) {
     const onClick = () => {
       if (state.mode === 'ready') launch();
       else if (state.mode === 'moon') comeHome();
+    };
+    /** Mars: from either standby, the ship leaves for good. */
+    const onMars = () => {
+      if (state.mode === 'ready') launch('mars');
+      else if (state.mode === 'moon') {
+        state.mode = 'mars';
+        resetFlight();
+        run();
+      }
     };
 
     const spin = (dt: number, rampSeconds: number) => {
@@ -683,7 +765,13 @@ export default function HeroScene({ className = '' }: { className?: string }) {
         fly(state.t, dt);
         // The Earth waits until the booster is caught, then picks up speed again.
         if (state.t >= T.boosterHome) spin(dt, 1.5);
-        if (state.t >= T.settled) state.mode = 'moon';
+        if (state.dest === 'moon' && state.t >= T.settled) state.mode = 'moon';
+        if (state.dest === 'mars' && state.t >= T.sep + MARS_DRIFT.earth + MARS_DRIFT.glint) state.mode = 'gone';
+      } else if (state.mode === 'mars') {
+        state.t += dt;
+        flyMars(state.t, dt);
+        spin(dt, 1.5);
+        if (state.t >= RT.hover + MARS_DRIFT.moon + MARS_DRIFT.glint) state.mode = 'gone';
       } else if (state.mode === 'return') {
         state.t += dt;
         flyHome(state.t, dt);
@@ -733,7 +821,7 @@ export default function HeroScene({ className = '' }: { className?: string }) {
         place(ship, along(pad.pos, pad.deg, shipHang * EARTH_SCALE), pad.deg, SCALE_FAR);
         ship.setAttribute('opacity', pad.opacity.toFixed(2));
       }
-      if (mode === 'home' && pad.opacity === 0) {
+      if ((mode === 'home' || mode === 'gone') && pad.opacity === 0) {
         // Round the back of the Earth: the ship is stacked on a new booster, ready to go again.
         state.mode = 'ready';
         standOnPad(turnEarth(state.phase, 1, 0), true);
@@ -741,7 +829,7 @@ export default function HeroScene({ className = '' }: { className?: string }) {
 
       drawPuffs(state.clock);
       const want = state.mode === 'ready' || state.mode === 'moon' ? 'pointer' : 'default';
-      if (want !== cursor) earth.style.cursor = cursor = want;
+      if (want !== cursor) earth.style.cursor = mars.style.cursor = cursor = want;
     };
 
     let raf = 0;
@@ -774,12 +862,13 @@ export default function HeroScene({ className = '' }: { className?: string }) {
     io.observe(svg);
 
     earth.addEventListener('click', onClick);
+    mars.addEventListener('click', onMars);
 
     if (import.meta.env.DEV) {
       // Development only. window.__heroSeek(seconds) stops the clock and runs
       // the scene forward by that many seconds of screen time; /?scene=<seconds>
       // does it from a fresh load, for screenshots. /?scene=20,8 runs 20
-      // seconds, clicks the Earth, then runs 8 more.
+      // seconds, clicks the Earth, then runs 8 more; /?scene=20,m8 clicks Mars.
       const seek = (s: number) => {
         io.disconnect();
         cancelAnimationFrame(raf);
@@ -791,14 +880,15 @@ export default function HeroScene({ className = '' }: { className?: string }) {
       const frameAt = new URLSearchParams(window.location.search).get('scene');
       if (frameAt !== null)
         frameAt.split(',').forEach((s, i) => {
-          if (i > 0) onClick();
-          seek(Number(s));
+          if (i > 0) (s.startsWith('m') ? onMars : onClick)();
+          seek(Number(s.replace(/^m/, '')));
         });
     }
 
     return () => {
       io.disconnect();
       earth.removeEventListener('click', onClick);
+      mars.removeEventListener('click', onMars);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -829,8 +919,9 @@ export default function HeroScene({ className = '' }: { className?: string }) {
       {/* The moon, exactly as the logo draws it, with its orbiting signal */}
       <FarsideMark orbit orbitRef={orbitRef} x={0} y={0} size={270} />
 
-      {/* Mars, very far off */}
-      <g transform={`translate(${MARS.x} ${MARS.y})`}>
+      {/* Mars, very far off. Clicking it sends a standing-by ship there for good. */}
+      <g ref={marsRef} transform={`translate(${MARS.x} ${MARS.y})`} style={{ pointerEvents: 'auto', cursor: 'pointer' }}>
+        <circle r={10} fill="transparent" />
         <circle r={MARS.r} fill={MARS_RED} />
         <ellipse cy={-MARS.r + 0.45} rx={MARS.r * 0.4} ry={0.35} fill={STEEL} opacity={0.85} />
         <path
@@ -947,6 +1038,12 @@ export default function HeroScene({ className = '' }: { className?: string }) {
 
       {/* Hot staging */}
       <circle ref={flashRef} r={0} opacity={0} fill={SIGNAL} />
+
+      {/* The glint as the ship vanishes towards Mars */}
+      <g ref={glintRef} opacity={0} fill={FLAME_CORE}>
+        <path d="M0-3L0.45-0.45L3 0L0.45 0.45L0 3L-0.45 0.45L-3 0L-0.45-0.45Z" />
+        <circle r={0.7} fill="#FFFFFF" />
+      </g>
     </svg>
   );
 }
