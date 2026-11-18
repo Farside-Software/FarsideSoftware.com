@@ -94,7 +94,7 @@ export default function AppPreviewVideo({
           type="button"
           onClick={start}
           aria-label={`Play ${title}`}
-          className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full transition-transform focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 motion-safe:hover:scale-105"
+          className="absolute left-1/2 top-[80%] flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full transition-transform focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 motion-safe:hover:scale-105"
           style={{ background: accent, color: readableOn(accent), outlineColor: accentText(accent) }}
         >
           <Play aria-hidden="true" className="ml-1 h-7 w-7" fill="currentColor" strokeWidth={0} />
