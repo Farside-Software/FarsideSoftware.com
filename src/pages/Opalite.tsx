@@ -1,7 +1,7 @@
 import AppShowcase from '../components/AppShowcase';
 import { screensFromGlob } from '../utils/screens';
 import { findApp } from '../data/apps';
-import { LEGAL_NAME } from '../config/site';
+import { LEGAL_NAME, SITE_URL } from '../config/site';
 import icon from '../assets/opalite/icon.png';
 
 // Official brand color: Opalite Lavender
@@ -28,6 +28,12 @@ export default function Opalite() {
       requirements={['iOS 18.4+', 'iPadOS 18.4+', 'macOS 15+', 'watchOS 10+', 'tvOS 18+', 'visionOS 26.2+']}
       screens={screens}
       screensClassName="bg-well"
+      preview={{
+        src: '/video/opalite-preview.mp4',
+        poster: '/video/opalite-preview-poster.webp',
+        caption:
+          'Thirty seconds of Opalite: build colors six ways, pull a palette from a photo, try harmonies, read every color code, check contrast, and draw with your palette.',
+      }}
       about={{
         title: 'Opalite — The Ultimate Color Manager',
         intro:
@@ -121,6 +127,16 @@ export default function Opalite() {
         url: APP_STORE_URL,
         description:
           'Opalite is the ultimate color manager for designers, developers, and digital artists. Pick colors, organize palettes, test accessibility, and export everywhere.',
+        video: {
+          '@type': 'VideoObject',
+          name: 'Opalite app preview',
+          description:
+            'A 30-second tour of Opalite: building colors six ways, palettes from a photo, harmonies, every color code, contrast checks, and drawing with your palette.',
+          thumbnailUrl: `${SITE_URL}/video/opalite-preview-poster.webp`,
+          contentUrl: `${SITE_URL}/video/opalite-preview.mp4`,
+          uploadDate: '2026-11-18',
+          duration: 'PT30S',
+        },
       }}
     />
   );

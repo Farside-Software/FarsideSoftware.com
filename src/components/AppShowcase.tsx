@@ -14,6 +14,7 @@ import { appStoreLink, siteChannel } from '../utils/appStore';
 import { findRoute } from '../seo/routes.mjs';
 import { guideGroups, guidesIn } from '../data/guides.mjs';
 import GuideRows from './GuideRows';
+import AppPreviewVideo from './AppPreviewVideo';
 
 export interface AppFeature {
   icon: string;
@@ -64,6 +65,8 @@ export interface AppShowcaseProps {
   screensClassName?: string;
   /** Rendered between the screenshots and the About card. */
   afterScreens?: ReactNode;
+  /** App Store preview video, shown after the gallery under "See it in action". */
+  preview?: { src: string; poster: string; caption?: string };
   about: {
     title: ReactNode;
     intro: ReactNode;
@@ -104,6 +107,7 @@ export default function AppShowcase({
   heroLayout = 'pair',
   screensClassName = 'bg-well',
   afterScreens,
+  preview,
   about,
   cta = {},
   jsonLd,
@@ -189,6 +193,16 @@ export default function AppShowcase({
             altPrefix={name}
           />
         </section>
+      )}
+
+      {preview && (
+        <AppPreviewVideo
+          src={preview.src}
+          poster={preview.poster}
+          title={`${name} app preview`}
+          accent={accentColor}
+          caption={preview.caption}
+        />
       )}
 
       {afterScreens}
