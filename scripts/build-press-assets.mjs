@@ -39,7 +39,10 @@ const SCREENSHOT_DIRS = {
     '../../Marketing/Opalite 2.0/store-screenshots/final/exports/ipad-*',
   ],
   setdeck: ['Screenshots/Professional/iPhone', 'Screenshots/Professional/iPad'],
-  mygra: ['Screenshots/Professional/iPhone', 'Screenshots/Professional/iPad'],
+  mygra: [
+    '../../Marketing/Mygra 3.0/store-screenshots/final/iphone-*',
+    '../../Marketing/Mygra 3.0/store-screenshots/final/ipad-*',
+  ],
   stork: ['Screenshots/Professional/iPhone', 'Screenshots/Professional/iPad'],
   waffle: ['Screenshots/Professional/iPad'],
 };
@@ -95,7 +98,9 @@ async function writeScreenshot(src, out) {
 }
 
 async function main() {
+  const only = process.argv.slice(2);
   for (const app of apps) {
+    if (only.length && !only.includes(app.slug)) continue;
     const dir = path.join(OUT_DIR, app.slug);
     await fs.rm(dir, { recursive: true, force: true });
     await fs.mkdir(dir, { recursive: true });
