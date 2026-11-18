@@ -52,7 +52,7 @@ export default function FlagshipBand({ app, kind, shots, reverse = false, classN
               className="group inline-flex items-center gap-1.5 font-bold text-ink underline decoration-line/30 underline-offset-4 hover:decoration-line/70"
             >
               Tour {app.name}
-              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight className="h-4 w-4 text-accent transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           </div>
         </div>

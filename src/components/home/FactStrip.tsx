@@ -30,7 +30,7 @@ export default function FactStrip() {
             {label}
             {live && <span className="sr-only"> (live count)</span>}
           </dt>
-          <dd className="text-4xl font-extrabold tracking-[-0.03em] text-ink tabular-nums sm:text-5xl" aria-live={live ? 'polite' : undefined}>
+          <dd className="text-4xl font-extrabold tracking-[-0.03em] text-accent tabular-nums sm:text-5xl" aria-live={live ? 'polite' : undefined}>
             {value}
           </dd>
         </div>

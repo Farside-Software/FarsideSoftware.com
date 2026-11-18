@@ -270,7 +270,7 @@ export default function AppShowcase({
 
       <section aria-labelledby="more-apps" className="border-t border-line/10 bg-well py-16">
         <div className="mx-auto max-w-7xl px-6">
-          <h2 id="more-apps" className="text-xs font-bold uppercase tracking-[0.2em] text-muted">
+          <h2 id="more-apps" className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
             More from {SITE_NAME}
           </h2>
           <ul className="mt-6 grid list-none gap-2 p-0 sm:grid-cols-2 lg:grid-cols-5">

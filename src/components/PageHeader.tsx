@@ -22,7 +22,7 @@ export default function PageHeader({ eyebrow, title, lead, children, aside }: Pa
     <section className="border-b border-line/10 bg-page pt-28 pb-14 lg:pt-36 lg:pb-20">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12 lg:items-end">
         <div className={aside ? 'lg:col-span-7' : 'lg:col-span-9'}>
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted">{eyebrow}</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">{eyebrow}</p>
           <h1 className="mt-5 text-[2.75rem] font-extrabold leading-[1] tracking-[-0.04em] text-ink [text-wrap:balance] sm:text-6xl lg:text-7xl">
             {title}
           </h1>

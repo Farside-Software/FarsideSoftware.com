@@ -28,7 +28,7 @@ export default function SplitSection({ id, eyebrow, title, intro, tone = 'page',
       <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
-            {eyebrow && <p className="text-xs font-bold uppercase tracking-[0.2em] text-muted">{eyebrow}</p>}
+            {eyebrow && <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">{eyebrow}</p>}
             <h2 id={id} className={`scroll-mt-28 text-3xl font-extrabold leading-[1.08] tracking-[-0.03em] text-ink sm:text-4xl ${eyebrow ? 'mt-4' : ''}`}>
               {title}
             </h2>

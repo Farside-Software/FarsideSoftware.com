@@ -42,6 +42,8 @@ const reasons = [
 ];
 
 const eyebrow = 'text-xs font-bold uppercase tracking-[0.2em] text-muted';
+/** Section labels carry the accent; the hero's place line stays quiet. */
+const sectionEyebrow = 'text-xs font-bold uppercase tracking-[0.2em] text-accent';
 const sectionTitle = 'text-[2.5rem] font-extrabold leading-[1.04] tracking-[-0.03em] text-ink sm:text-headline';
 
 export default function Home() {
@@ -60,7 +62,7 @@ export default function Home() {
                 <span key={place} className="inline-block">
                   {place}
                   {i < all.length - 1 && (
-                    <span className="mx-2 text-muted/50" aria-hidden="true">
+                    <span className="mx-2 text-accent/80" aria-hidden="true">
                       /
                     </span>
                   )}
@@ -68,7 +70,7 @@ export default function Home() {
               ))}
             </p>
             <h1 className="mt-6 text-[2.75rem] font-extrabold leading-[0.98] tracking-[-0.04em] text-ink [text-wrap:balance] sm:text-[4rem] xl:text-[5.25rem]">
-              Independent apps for every Apple device.
+              Independent apps for every Apple device<span className="text-signal">.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
               Private by design. Six apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro, built and
@@ -134,7 +136,7 @@ export default function Home() {
         <section aria-labelledby="catalog" className="border-b border-line/10 bg-page py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6">
             <div className="reveal mb-12 max-w-3xl">
-              <p className={eyebrow}>The catalog</p>
+              <p className={sectionEyebrow}>The catalog</p>
               <h2 id="catalog" className={`mt-4 ${sectionTitle}`}>
                 Six apps. One studio.
               </h2>
@@ -152,7 +154,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-28">
-              <p className={eyebrow}>The studio</p>
+              <p className={sectionEyebrow}>The studio</p>
               <h2 id="why" className={`mt-4 ${sectionTitle}`}>
                 Why Farside
               </h2>
@@ -175,7 +177,7 @@ export default function Home() {
           <ol className="m-0 list-none p-0 lg:col-span-8">
             {reasons.map(({ icon: Icon, title, body }, i) => (
               <li key={title} className="reveal grid grid-cols-[auto_1fr] gap-x-6 border-t border-line/10 py-9 last:border-b sm:gap-x-10">
-                <span className="pt-1 text-sm font-bold tabular-nums text-muted/70" aria-hidden="true">
+                <span className="pt-1 text-sm font-bold tabular-nums text-accent" aria-hidden="true">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
@@ -196,7 +198,7 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-6">
           <div className="reveal flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-2xl">
-              <p className={eyebrow}>Guides</p>
+              <p className={sectionEyebrow}>Guides</p>
               <h2 id="guides" className={`mt-4 ${sectionTitle}`}>
                 Plain-language how-tos
               </h2>
@@ -207,7 +209,7 @@ export default function Home() {
               className="group inline-flex items-center gap-1.5 font-bold text-ink underline decoration-line/30 underline-offset-4 hover:decoration-line/70"
             >
               All guides
-              <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight className="h-4 w-4 text-accent transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           </div>
           <div className="mt-12 grid gap-x-12 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">

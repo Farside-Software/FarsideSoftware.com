@@ -33,7 +33,7 @@ export default function GuideRows({ guides, summaries = false, className = '' }:
             </span>
             <ArrowRight
               size={summaries ? 22 : 16}
-              className="shrink-0 text-muted/70 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-ink"
+              className="shrink-0 text-muted/70 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-accent"
               aria-hidden="true"
             />
           </Link>

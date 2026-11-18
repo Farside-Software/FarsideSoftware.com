@@ -19,6 +19,7 @@ export default {
         line: token('line'), // hairlines; use with an alpha, e.g. border-line/10
         signal: token('signal'), // the one accent
         link: token('link'), // text links (Signal on dark, Ember on light)
+        accent: token('link'), // accent text such as section labels and numerals (Signal on dark, Ember on light)
         // Raw palette, for the rare case a semantic token does not fit.
         night: token('night'),
         regolith: token('regolith'),

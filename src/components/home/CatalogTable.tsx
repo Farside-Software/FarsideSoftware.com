@@ -80,7 +80,7 @@ export default function CatalogTable() {
               <td className="hidden pl-6 align-middle text-sm text-muted lg:table-cell">{app.price}</td>
               <td className="hidden align-middle lg:table-cell">
                 <ArrowRight
-                  className="h-5 w-5 text-muted/70 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-ink"
+                  className="h-5 w-5 text-muted/70 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-accent"
                   aria-hidden="true"
                 />
               </td>
