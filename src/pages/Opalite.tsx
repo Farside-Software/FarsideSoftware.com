@@ -31,6 +31,8 @@ export default function Opalite() {
       preview={{
         src: '/video/opalite-preview.mp4',
         poster: '/video/opalite-preview-poster.webp',
+        width: 886,
+        height: 1920,
         caption:
           'Thirty seconds of Opalite: build colors six ways, pull a palette from a photo, try harmonies, read every color code, check contrast, and draw with your palette.',
       }}

@@ -14,7 +14,7 @@ import { appStoreLink, siteChannel } from '../utils/appStore';
 import { findRoute } from '../seo/routes.mjs';
 import { guideGroups, guidesIn } from '../data/guides.mjs';
 import GuideRows from './GuideRows';
-import AppPreviewVideo from './AppPreviewVideo';
+import type { AppPreview } from './AppPreviewVideo';
 
 export interface AppFeature {
   icon: string;
@@ -65,8 +65,12 @@ export interface AppShowcaseProps {
   screensClassName?: string;
   /** Rendered between the screenshots and the About card. */
   afterScreens?: ReactNode;
-  /** App Store preview video, shown after the gallery under "See it in action". */
-  preview?: { src: string; poster: string; caption?: string };
+  /**
+   * App Store preview video. It takes the hero's screenshot slot when its shape
+   * matches the hero (portrait with `pair`, landscape with `wide`); otherwise
+   * it is the first slide of the screenshot gallery.
+   */
+  preview?: AppPreview;
   about: {
     title: ReactNode;
     intro: ReactNode;
@@ -141,9 +145,12 @@ export default function AppShowcase({
 
   useScrollToStart(carouselRefDesktop, carouselRefMobile);
 
-  const lead = heroLayout === 'wide' ? 1 : 2;
-  // The hero shows the first screenshots; the gallery carries the rest, as
-  // long as that still leaves a gallery worth scrolling.
+  const previewPortrait = !!preview && preview.height > preview.width;
+  const previewInHero = !!preview && (heroLayout === 'pair' ? previewPortrait : heroLayout === 'wide' && !previewPortrait);
+  // The hero shows the first screenshots unless the preview video took their
+  // place; the gallery carries the rest, as long as that still leaves a
+  // gallery worth scrolling.
+  const lead = previewInHero ? 0 : heroLayout === 'wide' ? 1 : 2;
   const gallery = screens.length - lead >= 3 ? screens.slice(lead) : screens;
   const others = allApps.filter((other) => other.slug !== app?.slug);
   const howTos = app ? guidesIn(app.slug) : [];
@@ -168,6 +175,7 @@ export default function AppShowcase({
         webHref={webHref}
         shots={screens}
         layout={heroLayout}
+        video={previewInHero ? preview : undefined}
       />
 
       {trackedStoreUrl && (
@@ -181,7 +189,7 @@ export default function AppShowcase({
         />
       )}
 
-      {gallery.length > 0 && (
+      {(gallery.length > 0 || (preview && !previewInHero)) && (
         <section aria-label={`${name} screenshots`} className={`${screensClassName} border-b border-line/10 py-14`}>
           <ScreensCarousel
             slides={gallery}
@@ -191,18 +199,10 @@ export default function AppShowcase({
             desktopRef={carouselRefDesktop}
             mobileRef={carouselRefMobile}
             altPrefix={name}
+            video={previewInHero ? undefined : preview}
+            videoAccent={accentColor}
           />
         </section>
-      )}
-
-      {preview && (
-        <AppPreviewVideo
-          src={preview.src}
-          poster={preview.poster}
-          title={`${name} app preview`}
-          accent={accentColor}
-          caption={preview.caption}
-        />
       )}
 
       {afterScreens}

@@ -4,6 +4,7 @@ import type { Promo } from '../data/apps';
 import { usePromoActive } from '../hooks/usePromoActive';
 import AppStoreBadge from './AppStoreBadge';
 import GlassButton from './GlassButton';
+import AppPreviewVideo, { type AppPreview } from './AppPreviewVideo';
 
 interface AppHeroProps {
   name: string;
@@ -28,6 +29,8 @@ interface AppHeroProps {
    * screenshots drawn as one continuous picture (a device spanning both).
    */
   layout: 'pair' | 'wide' | 'panorama';
+  /** Preview video shown in the right column instead of the lead screenshots. */
+  video?: AppPreview;
   /** Attached to the column holding the store badges (the buy bar watches it). */
   actionsRef?: RefObject<HTMLDivElement | null>;
 }
@@ -53,6 +56,7 @@ export default function AppHero({
   webHref,
   shots,
   layout,
+  video,
   actionsRef,
 }: AppHeroProps) {
   const promoLive = usePromoActive(promo);
@@ -134,7 +138,14 @@ export default function AppHero({
         </div>
 
         <div className={layout === 'wide' ? 'lg:col-span-7' : 'lg:col-span-5'}>
-          {layout === 'wide' ? (
+          {video ? (
+            <AppPreviewVideo
+              {...video}
+              title={`${name} app preview`}
+              accent={accentColor}
+              className={video.height > video.width ? 'mx-auto w-full max-w-[260px] lg:max-w-[300px]' : 'w-full'}
+            />
+          ) : layout === 'wide' ? (
             <img
               src={lead[0]}
               alt={`${name} screenshot`}

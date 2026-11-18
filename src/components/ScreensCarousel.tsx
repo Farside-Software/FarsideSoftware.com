@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import LoadingSpinner from './LoadingSpinner';
+import AppPreviewVideo, { type AppPreview } from './AppPreviewVideo';
 
 interface ScreensCarouselProps {
   slides: string[];
@@ -12,6 +13,9 @@ interface ScreensCarouselProps {
   desktopWrapperClassName?: string;
   mobileWrapperClassName?: string;
   altPrefix?: string;
+  /** Preview video shown as the first slide; it never opens the lightbox. */
+  video?: AppPreview;
+  videoAccent?: string;
 }
 
 const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
@@ -24,6 +28,8 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
   desktopWrapperClassName,
   mobileWrapperClassName,
   altPrefix = 'Screenshot',
+  video,
+  videoAccent,
 }) => {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [lightboxLoaded, setLightboxLoaded] = useState(false);
@@ -113,6 +119,14 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
           ref={desktopRef}
           className="flex overflow-x-auto snap-x snap-mandatory gap-4"
         >
+          {video && (
+            <AppPreviewVideo
+              {...video}
+              title={`${altPrefix} app preview`}
+              accent={videoAccent}
+              className="flex-none h-96 snap-start"
+            />
+          )}
           {slides.map((src, idx) => {
             const globalIndex = offset + idx;
             return (
@@ -152,6 +166,14 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
           ref={mobileRef}
           className="flex overflow-x-auto snap-x snap-mandatory gap-3"
         >
+          {video && (
+            <AppPreviewVideo
+              {...video}
+              title={`${altPrefix} app preview`}
+              accent={videoAccent}
+              className="flex-none h-80 snap-start"
+            />
+          )}
           {slides.map((src, idx) => {
             const globalIndex = offset + idx;
             return (
