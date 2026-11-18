@@ -1,11 +1,8 @@
-import { useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import AppShowcase from '../components/AppShowcase';
 import { screensFromGlob } from '../utils/screens';
 import { findApp } from '../data/apps';
 import { LEGAL_NAME } from '../config/site';
 import icon from '../assets/opalite/icon.png';
-import opaliteDemo from '../assets/opalite/opaliteWorkflowDemo.mp4';
 
 // Official brand color: Opalite Lavender
 const ACCENT_COLOR = '#CAC0E8';
@@ -16,71 +13,6 @@ const app = findApp('opalite')!;
 const screens = screensFromGlob(
   import.meta.glob('../assets/opalite/screens/*', { eager: true, import: 'default' })
 );
-
-/** Collapsible "Example Workflow" video shown under the screenshots. */
-function WorkflowDemo() {
-  const [open, setOpen] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const toggle = () => {
-    setOpen((prev) => {
-      if (prev) videoRef.current?.pause();
-      return !prev;
-    });
-  };
-
-  return (
-    <div>
-      <div>
-        <button
-          onClick={toggle}
-          aria-expanded={open}
-          className="w-full flex items-center justify-between gap-3 rounded-2xl bg-panel border border-line/10 px-6 py-4 cursor-pointer"
-        >
-          <div className="flex items-center gap-3">
-            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-panel text-muted">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </span>
-            <span className="text-base font-medium text-ink">Example Workflow</span>
-          </div>
-          <motion.svg
-            className="w-5 h-5 text-muted/70"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-            animate={{ rotate: open ? 180 : 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </motion.svg>
-        </button>
-
-        <AnimatePresence initial={false}>
-          {open && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-              className="overflow-hidden"
-            >
-              <div className="pt-4">
-                <div className="relative rounded-2xl overflow-hidden">
-                  <video ref={videoRef} src={opaliteDemo} controls playsInline className="w-full">
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
 
 export default function Opalite() {
   return (
@@ -96,13 +28,6 @@ export default function Opalite() {
       requirements={['iOS 18.4+', 'iPadOS 18.4+', 'macOS 15+', 'watchOS 10+', 'tvOS 18+', 'visionOS 26.2+']}
       screens={screens}
       screensClassName="bg-well"
-      afterScreens={
-        <div className="border-b border-line/10 bg-well py-16">
-          <div className="mx-auto max-w-7xl px-6">
-            <WorkflowDemo />
-          </div>
-        </div>
-      }
       about={{
         title: 'Opalite — The Ultimate Color Manager',
         intro:
