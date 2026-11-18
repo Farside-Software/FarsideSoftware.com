@@ -830,6 +830,12 @@ export default function HeroScene({ className = '' }: { className?: string }) {
       drawPuffs(state.clock);
       const want = state.mode === 'ready' || state.mode === 'moon' ? 'pointer' : 'default';
       if (want !== cursor) earth.style.cursor = mars.style.cursor = cursor = want;
+      // The ship itself takes clicks only while it sits on the moon (a click brings it home).
+      const shipClicks = state.mode === 'moon' ? 'auto' : 'none';
+      if (ship.style.pointerEvents !== shipClicks) {
+        ship.style.pointerEvents = shipClicks;
+        ship.style.cursor = shipClicks === 'auto' ? 'pointer' : '';
+      }
     };
 
     let raf = 0;
@@ -863,6 +869,7 @@ export default function HeroScene({ className = '' }: { className?: string }) {
 
     earth.addEventListener('click', onClick);
     mars.addEventListener('click', onMars);
+    ship.addEventListener('click', onClick);
 
     if (import.meta.env.DEV) {
       // Development only. window.__heroSeek(seconds) stops the clock and runs
@@ -889,6 +896,7 @@ export default function HeroScene({ className = '' }: { className?: string }) {
       io.disconnect();
       earth.removeEventListener('click', onClick);
       mars.removeEventListener('click', onMars);
+      ship.removeEventListener('click', onClick);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -1017,6 +1025,8 @@ export default function HeroScene({ className = '' }: { className?: string }) {
           <path d={FLAME} fill={SIGNAL} />
           <path d={FLAME} fill={FLAME_CORE} />
         </g>
+        {/* A generous invisible target, so the little ship is easy to click on the moon */}
+        <rect x={-6} y={-16} width={12} height={19} fill="transparent" />
         <path d="M-1.7-0.4L-3.1-1L-3.1-2.9L-1.7-4Z" fill={TRIM} />
         <path d="M1.7-0.4L3.1-1L3.1-2.9L1.7-4Z" fill={TRIM} />
         <path d="M-1.55-7L-2.6-7.6L-1.85-9.3Z" fill={TRIM} />
