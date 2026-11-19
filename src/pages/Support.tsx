@@ -103,11 +103,11 @@ const perApp: Record<string, Faq[]> = {
   waffle: [
     {
       q: 'Does Waffle run on iPhone?',
-      a: 'Yes. Waffle runs on iPhone and iPad with iOS or iPadOS 26 or later. iPad shows a grid of pages; iPhone shows two live pages at once.',
+      a: 'Yes. Waffle runs on iPhone, iPad, and iPhone Duo with iOS or iPadOS 26 or later. iPhone shows two live pages at once, iPad shows a grid of pages, and an unfolded iPhone Duo shows up to four.',
     },
     {
       q: 'What does Syrup unlock?',
-      a: 'On iPad: larger grids up to 4x4, rearranging, pop-out windows, fullscreen, and saved presets. On iPhone: unlimited saved layouts. One $4.99 purchase covers iPhone and iPad.',
+      a: 'On iPad: larger grids up to 4x4, rearranging, pop-out windows, fullscreen, and saved presets. On iPhone: unlimited saved layouts. On iPhone Duo: a third and fourth pane and Desk Mode. One $4.99 purchase covers iPhone and iPad.',
     },
     {
       q: 'A site will not load in a cell.',

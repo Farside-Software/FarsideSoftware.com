@@ -77,7 +77,7 @@ export default function About() {
     { title: 'SetDeck', tagline: 'Strength training companion: weekly routines, set-by-set logging, stats and achievements, hydration and calories, Apple Watch and Siri.', image: setDeckIcon, path: '/setdeck', accentColor: '#65DA92' },
     { title: 'Mygra', tagline: 'Intelligent migraine journal with on-device Apple Intelligence insights, weather correlations, Apple Health, and iCloud sync.', image: mygraIcon, path: '/mygra', accentColor: '#6E60FF' },
     { title: 'Stork', tagline: 'L&D companion with a Delivery Jar, career stats, milestones, share cards, and PDF/CSV export. HIPAA-conscious by design.', image: storkIcon, path: '/stork', accentColor: '#E8672B' },
-    { title: 'Waffle', tagline: 'iPad grid browser with layouts up to 4x4, pop-out windows, presets, and iCloud sync.', image: waffleIcon, path: '/waffle', accentColor: '#DFA656' },
+    { title: 'Waffle', tagline: 'Live web grid and split-screen browser: two pages on iPhone, up to 4x4 on iPad, four panes on iPhone Duo.', image: waffleIcon, path: '/waffle', accentColor: '#DFA656' },
   ];
 
   return (

@@ -58,7 +58,10 @@ const SCREENSHOT_DIRS = {
     '../../Marketing/Stork 4.0/store-screenshots/draft-1/iphone',
     '../../Marketing/Stork 4.0/store-screenshots/draft-1/ipad',
   ],
-  waffle: ['Screenshots/Professional/iPad'],
+  waffle: [
+    '../../Marketing/Waffle 2.0/store-screenshots/final/iphone-*',
+    '../../Marketing/Waffle 2.0/store-screenshots/final/ipad-*',
+  ],
 };
 
 async function listImages(dir) {

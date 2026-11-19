@@ -99,7 +99,12 @@ export default [
     source: 'Waffle',
     icon: 'Icons/AppIcon.png',
     iconComposer: 'Waffle/WaffleIcon.icon',
-    screens: ['Screenshots/Professional/iPad'],
+    // The 2.0 store set.
+    screens: [
+      '../../Marketing/Waffle 2.0/store-screenshots/final/iphone-*',
+      '../../Marketing/Waffle 2.0/store-screenshots/final/ipad-*',
+      '../../Marketing/Waffle 2.0/store-screenshots/final/duo-*',
+    ],
   },
   {
     app: 'backstamp',
