@@ -186,7 +186,9 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
               {...video}
               title={`${altPrefix} app preview`}
               accent={videoAccent}
-              className="flex-none h-80 snap-start"
+              // A landscape preview at the slides' height would be wider than a phone, so it
+              // takes the screen's width (less the page gutters) and its own height instead.
+              className={`flex-none snap-start ${video.width > video.height ? 'w-[calc(100vw-2rem)] self-center' : 'h-80'}`}
             />
           )}
           {slides.map((src, idx) => {
