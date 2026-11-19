@@ -25,8 +25,15 @@ export default function Stork() {
       githubUrl="https://github.com/NMolargik/Stork"
       requirements={['iOS 26+', 'iPadOS 26+', 'macOS 26+', 'watchOS 26+']}
       screens={screens}
-      heroLayout="panorama"
       screensClassName="bg-well"
+      preview={{
+        src: '/video/stork-preview.mp4',
+        poster: '/video/stork-preview-poster.webp',
+        width: 720,
+        height: 1560,
+        caption:
+          'Thirty seconds of Stork: watch the month fill the jar, log a delivery in seconds, then see your career stats, calendar and year in births.',
+      }}
       about={{
         title: 'Stork — Labor & Delivery Companion',
         intro:

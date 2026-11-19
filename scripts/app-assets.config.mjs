@@ -82,11 +82,16 @@ export default [
   {
     app: 'stork',
     source: 'Stork',
-    icon: 'Icons/AppIcon.png',
+    // Icons/AppIcon.png is an older flat export; the site uses the Icon Composer render.
     iconComposer: 'Stork/AppIcon.icon',
+    iconFromComposer: true,
+    // The 4.0 store set lives outside the repo; it has no watch shots, so the
+    // watch keeps the older set.
     screens: [
-      'Screenshots/Professional/iPhone',
-      'Screenshots/Professional/iPad',
+      '../../Marketing/Stork 4.0/store-screenshots/draft-1/iphone',
+      '../../Marketing/Stork 4.0/store-screenshots/draft-1/ipad',
+      '../../Marketing/Stork 4.0/store-screenshots/draft-1/duo-outer',
+      '../../Marketing/Stork 4.0/store-screenshots/draft-1/duo-inner',
       'Screenshots/Professional/Watch',
     ],
   },

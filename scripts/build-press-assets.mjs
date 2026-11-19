@@ -54,7 +54,10 @@ const SCREENSHOT_DIRS = {
     '../../Marketing/Mygra 3.0/store-screenshots/final/iphone-*',
     '../../Marketing/Mygra 3.0/store-screenshots/final/ipad-*',
   ],
-  stork: ['Screenshots/Professional/iPhone', 'Screenshots/Professional/iPad'],
+  stork: [
+    '../../Marketing/Stork 4.0/store-screenshots/draft-1/iphone',
+    '../../Marketing/Stork 4.0/store-screenshots/draft-1/ipad',
+  ],
   waffle: ['Screenshots/Professional/iPad'],
 };
 
