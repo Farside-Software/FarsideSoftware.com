@@ -64,6 +64,8 @@ export interface AppShowcaseProps {
   heroLayout?: 'pair' | 'wide' | 'panorama';
   /** Tailwind classes for the screenshot band background. */
   screensClassName?: string;
+  /** Short chips shown on the hero panel while `screens` is empty (an app with no store art yet). */
+  heroPills?: string[];
   /** Rendered between the screenshots and the About card. */
   afterScreens?: ReactNode;
   /**
@@ -112,6 +114,7 @@ export default function AppShowcase({
   heroLayout = 'pair',
   screensClassName = 'bg-well',
   afterScreens,
+  heroPills,
   preview,
   about,
   cta = {},
@@ -128,6 +131,7 @@ export default function AppShowcase({
   const trackedStoreUrl = storeUrl ? appStoreLink(storeUrl, channel) : undefined;
   const macUrl = macAppStoreUrl ?? app?.macAppStoreUrl;
   const trackedMacUrl = macUrl ? appStoreLink(macUrl, `${channel}_mac`) : undefined;
+  const comingSoon = !!app?.comingSoon;
   const priceLine = price ?? app?.price;
   const platformList = platforms ?? app?.platforms ?? [];
 
@@ -172,6 +176,8 @@ export default function AppShowcase({
         promo={app?.promo}
         pills={requirements.length > 0 ? requirements : platformList}
         appStoreHref={trackedStoreUrl}
+        comingSoon={comingSoon}
+        placeholderPills={heroPills}
         macAppStoreHref={trackedMacUrl}
         githubHref={githubUrl}
         webHref={webHref}
@@ -274,10 +280,11 @@ export default function AppShowcase({
       <div className="bg-page pb-20">
         {app && <Testimonials appName={name} items={app.testimonials} accentColor={accentColor} />}
 
-        {cta !== false && trackedStoreUrl && (
+        {cta !== false && (trackedStoreUrl || comingSoon) && (
           <DownloadCTA
             appName={name}
             appStoreUrl={trackedStoreUrl}
+            comingSoon={comingSoon}
             macAppStoreUrl={trackedMacUrl}
             price={priceLine}
             accentColor={accentColor}

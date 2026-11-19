@@ -47,7 +47,7 @@ export default function FlagshipBand({ app, kind, shots, reverse = false, classN
           </p>
           <p className="mt-1 text-sm text-muted">{app.platforms.join(' · ')}</p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <AppStoreBadge href={appStoreLink(app.appStoreUrl, siteChannel('home'))} appName={app.name} />
+            {app.appStoreUrl && <AppStoreBadge href={appStoreLink(app.appStoreUrl, siteChannel('home'))} appName={app.name} />}
             <Link
               to={app.path}
               className="group inline-flex items-center gap-1.5 font-bold text-ink underline decoration-line/30 underline-offset-4 hover:decoration-line/70"

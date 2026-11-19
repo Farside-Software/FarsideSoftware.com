@@ -54,6 +54,12 @@ export default function CatalogTable() {
                     <Link to={app.path} className="text-xl font-extrabold tracking-[-0.02em] text-ink after:absolute after:inset-0">
                       {app.name}
                     </Link>
+                    {app.comingSoon && (
+                      <span className="ml-3 inline-flex items-center gap-1.5 align-middle text-xs font-bold uppercase tracking-[0.14em] text-muted">
+                        <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#E8892F]" />
+                        Coming soon
+                      </span>
+                    )}
                     <span className="mt-0.5 block text-[0.95rem] leading-snug text-muted">{app.job}</span>
                     <span className="mt-2 block text-sm text-muted/70 lg:hidden">
                       {app.platforms.join(' · ')}

@@ -2,6 +2,10 @@
 // React app (via src/data/apps.ts) and the build scripts (OG images,
 // prerendered <head>, sitemap, press kit) read the same facts.
 //
+// An app that is not out yet sets `comingSoon: true` and has no store URL:
+// the site shows "Coming soon" in place of the App Store badge, and nothing
+// links to the store. Remove the flag and add `macAppStoreUrl` at release.
+//
 // Keep copy here short and factual; the long-form marketing copy stays in
 // each page under src/pages/.
 
@@ -128,6 +132,27 @@ export const apps = [
     price: 'Free, Syrup $4.99 one-time',
     priceDetail: 'Waffle is free to use. On iPad, Syrup unlocks larger grids, rearranging, pop-out windows, fullscreen, and presets; on iPhone, unlimited saved layouts. One $4.99 purchase covers both.',
     category: 'UtilitiesApplication',
+    offers: { price: '0', priceCurrency: 'USD' },
+    testimonials: [],
+  },
+  {
+    slug: 'backstamp',
+    name: 'Backstamp',
+    storeName: 'Backstamp: Photo Date Fixer',
+    source: 'Backstamp',
+    job: 'Fix missing and wrong photo dates and merge duplicates in Apple Photos, on your Mac.',
+    description:
+      'Backstamp fixes missing and wrong photo dates and merges duplicates in Apple Photos. It shows the evidence behind every date, changes nothing until you click Apply, and keeps an undo journal. A native Mac app for macOS 26 or later. Coming soon to the Mac App Store.',
+    accent: '#138A80',
+    // Not released yet: no store URL until the Mac App Store listing is live
+    // (App Store Connect id 6836913352). At release, set `macAppStoreUrl` to the
+    // listing and delete `comingSoon`.
+    comingSoon: true,
+    platforms: ['Mac'],
+    languages: ['English'],
+    price: 'Free, Backstamp Unlimited $4.99 one-time',
+    priceDetail: 'Scan and review for free, with 25 free fixes. Backstamp Unlimited removes the limit for a single $4.99 purchase, with Family Sharing and no subscription. Undo and History are always free.',
+    category: 'MultimediaApplication',
     offers: { price: '0', priceCurrency: 'USD' },
     testimonials: [],
   },

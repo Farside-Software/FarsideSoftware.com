@@ -2,10 +2,13 @@ import { motion } from 'framer-motion';
 import { fadeUp } from '../utils/animations';
 import LiquidGlass from './LiquidGlass';
 import AppStoreBadge from './AppStoreBadge';
+import ComingSoonBadge from './ComingSoonBadge';
 
 interface DownloadCTAProps {
   appName: string;
-  appStoreUrl: string;
+  /** Omit while the app is not out (`comingSoon`). */
+  appStoreUrl?: string;
+  comingSoon?: boolean;
   macAppStoreUrl?: string;
   price?: string;
   accentColor?: string;
@@ -15,6 +18,7 @@ interface DownloadCTAProps {
 export default function DownloadCTA({
   appName,
   appStoreUrl,
+  comingSoon = false,
   macAppStoreUrl,
   price,
   accentColor = '#FF7A3D',
@@ -38,14 +42,17 @@ export default function DownloadCTA({
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
             <div className="text-center sm:text-left">
               <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink">
-                Ready to try {appName}?
+                {comingSoon ? `${appName} is coming soon` : `Ready to try ${appName}?`}
               </h2>
               <p className="mt-2 text-base sm:text-lg text-muted">
-                {actionText} from the App Store.{price ? ` ${price}.` : ''}
+                {comingSoon
+                  ? `It will be on the Mac App Store.${price ? ` ${price}.` : ''}`
+                  : `${actionText} from the App Store.${price ? ` ${price}.` : ''}`}
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-3 flex-shrink-0 self-center sm:self-auto">
-              <AppStoreBadge href={appStoreUrl} appName={appName} preorder={preorder} />
+              {comingSoon && <ComingSoonBadge />}
+              {appStoreUrl && <AppStoreBadge href={appStoreUrl} appName={appName} preorder={preorder} />}
               {macAppStoreUrl && <AppStoreBadge href={macAppStoreUrl} appName={appName} store="mac" />}
             </div>
           </div>

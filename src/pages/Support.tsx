@@ -114,6 +114,20 @@ const perApp: Record<string, Faq[]> = {
       a: 'Some sites block being embedded. Try popping the cell out into its own window; if it still fails, email the URL and I will take a look.',
     },
   ],
+  backstamp: [
+    {
+      q: 'Is Backstamp out yet?',
+      a: 'Not yet. It is coming soon to the Mac App Store, for Macs running macOS 26 or later.',
+    },
+    {
+      q: 'Will it change my library without asking?',
+      a: 'No. Scanning only reads. Nothing changes until you click Apply, and the confirmation says how many items are affected. Every change is journaled first, so you can revert it from History.',
+    },
+    {
+      q: 'What do the 25 free fixes cover?',
+      a: 'You can scan, review every suggestion and its evidence, and use Undo and History for free, plus 25 free fixes. Backstamp Unlimited removes the limit for a single $4.99 purchase, with Family Sharing.',
+    },
+  ],
 };
 
 function FaqList({ items }: { items: Faq[] }) {

@@ -57,8 +57,20 @@ async function listImages(dir) {
     .sort(naturalCompare);
 }
 
+/** Renders one appearance of the app's Icon Composer file to a 1024px PNG with Xcode's ictool. */
+async function renderComposerIcon(app, source, rendition, tmp) {
+  await run(ICTOOL, [path.join(source, app.iconComposer), '--export-image', '--output-file', tmp,
+    '--platform', 'iOS', '--rendition', rendition, '--width', '1024', '--height', '1024', '--scale', '1']);
+}
+
 async function syncIcon(app, source) {
-  const src = path.join(source, app.icon);
+  let src = path.join(source, app.icon ?? '');
+  let tmpLight;
+  if (app.iconFromComposer) {
+    tmpLight = path.join(os.tmpdir(), `${app.app}-icon-${process.pid}.png`);
+    await renderComposerIcon(app, source, 'Default', tmpLight);
+    src = tmpLight;
+  }
   const out = path.join(ASSETS_DIR, app.app, 'icon.png');
   await fs.mkdir(path.dirname(out), { recursive: true });
   await sharp(src)
@@ -66,6 +78,7 @@ async function syncIcon(app, source) {
     .png({ compressionLevel: 9, palette: true, quality: 90 })
     .toFile(out);
   const { size } = await fs.stat(out);
+  if (tmpLight) await fs.rm(tmpLight, { force: true });
   console.log(`  icon   ${path.relative(ROOT, out)}  (${kb(size)})`);
 }
 
@@ -109,8 +122,7 @@ async function syncDarkIcon(app, source) {
   const out = path.join(ASSETS_DIR, app.app, 'icon-dark.png');
   const tmp = path.join(os.tmpdir(), `${app.app}-icon-dark-${process.pid}.png`);
   try {
-    await run(ICTOOL, [path.join(source, app.iconComposer), '--export-image', '--output-file', tmp,
-      '--platform', 'iOS', '--rendition', 'Dark', '--width', '1024', '--height', '1024', '--scale', '1']);
+    await renderComposerIcon(app, source, 'Dark', tmp);
   } catch (err) {
     console.warn(`  ⚠️  dark icon not rendered (${err.code ?? err.message}); keeping the existing one`);
     return;

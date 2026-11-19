@@ -20,7 +20,10 @@ export interface CatalogApp {
   job: string;
   description: string;
   accent: string;
-  appStoreUrl: string;
+  /** Absent while the app is `comingSoon`. */
+  appStoreUrl?: string;
+  /** Not released yet: shown as "Coming soon", with no store link. */
+  comingSoon?: boolean;
   macAppStoreUrl?: string;
   platforms: string[];
   languages: string[];

@@ -12,8 +12,16 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import os from 'node:os';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import sharp from 'sharp';
 import { apps } from '../src/data/catalog.mjs';
+import assetConfig from './app-assets.config.mjs';
+
+const run = promisify(execFile);
+const ICTOOL =
+  process.env.ICTOOL ?? '/Applications/Xcode.app/Contents/Applications/Icon Composer.app/Contents/Executables/ictool';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const APPS_DIR = path.resolve(ROOT, process.env.APPS_DIR ?? '../../Apps');
@@ -106,9 +114,19 @@ async function main() {
     await fs.mkdir(dir, { recursive: true });
     console.log(`${app.name}`);
 
-    const iconSrc = path.join(APPS_DIR, app.source, 'Icons', 'AppIcon.png');
+    let iconSrc = path.join(APPS_DIR, app.source, 'Icons', 'AppIcon.png');
+    const config = assetConfig.find((c) => c.app === app.slug);
+    if (config?.iconFromComposer) {
+      // No exported Icons/AppIcon.png: render the Icon Composer file's Default appearance.
+      iconSrc = path.join(os.tmpdir(), `${app.slug}-press-icon-${process.pid}.png`);
+      await run(ICTOOL, [path.join(APPS_DIR, app.source, config.iconComposer), '--export-image', '--output-file', iconSrc,
+        '--platform', 'iOS', '--rendition', 'Default', '--width', '1024', '--height', '1024', '--scale', '1']);
+    }
     await sharp(iconSrc).resize(1024, 1024, { fit: 'cover' }).png({ compressionLevel: 9 }).toFile(path.join(dir, 'icon.png'));
     console.log(`  icon.png`);
+
+    // An app that is not out yet has no store screenshots; the press page shows its icon only.
+    if (app.comingSoon) continue;
 
     const screens = await pickScreens(app);
     if (screens.length < COUNT) {

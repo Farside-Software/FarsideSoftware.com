@@ -6,7 +6,8 @@
 // Icons come from ../../Apps/<App>/Icons/AppIcon.png (override with APPS_DIR),
 // falling back to the bundled src/assets/<slug>/icon.png. Outputs are committed.
 //
-//   npm run og
+//   npm run og                 every app and the default image
+//   npm run og -- backstamp    only the named app(s)
 
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
@@ -114,7 +115,9 @@ async function write(name, layers) {
 async function main() {
   await fs.mkdir(OUT_DIR, { recursive: true });
 
+  const only = process.argv.slice(2);
   for (const app of apps) {
+    if (only.length && !only.includes(app.slug)) continue;
     const icon = await roundedIcon(await iconFor(app), ICON, 76);
     await write(app.slug, {
       background: background(app),
@@ -132,6 +135,8 @@ async function main() {
       ],
     });
   }
+
+  if (only.length) return;
 
   // Company default: the Farside icon.
   const plate = await sharp(path.join(ROOT, 'src', 'assets', 'farside', 'icon.svg'), { density: 300 })

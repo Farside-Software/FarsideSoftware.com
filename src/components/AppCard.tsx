@@ -61,7 +61,7 @@ export default function AppCard({ app, index = 0, channel = 'home' }: AppCardPro
       </ul>
 
       <div className="mt-auto pt-6 flex flex-wrap items-center justify-between gap-3">
-        <AppStoreBadge href={appStoreLink(app.appStoreUrl, siteChannel(channel))} appName={app.name} className="w-[180px]" />
+        {app.appStoreUrl && <AppStoreBadge href={appStoreLink(app.appStoreUrl, siteChannel(channel))} appName={app.name} className="w-[180px]" />}
         <Link
           to={app.path}
           className="inline-flex items-center gap-1 text-sm font-medium transition-colors"

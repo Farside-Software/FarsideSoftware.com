@@ -74,7 +74,7 @@ export default function Home() {
               Independent apps for every Apple device<span className="text-signal">.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-              Private by design. Six apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro, built and
+              Private by design. Seven apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro, built and
               supported by one person.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -122,7 +122,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* The catalog: two flagships at full size, then all six in one table. */}
+      {/* The catalog: two flagships at full size, then every app in one table. */}
       <div id="apps" className="scroll-mt-16">
         <FlagshipBand app={maestro} kind="Light show studio" shots={[maestroShot]} className="bg-page" />
         <FlagshipBand
@@ -138,10 +138,10 @@ export default function Home() {
             <div className="reveal mb-12 max-w-3xl">
               <p className={sectionEyebrow}>The catalog</p>
               <h2 id="catalog" className={`mt-4 ${sectionTitle}`}>
-                Six apps. One studio.
+                Seven apps. One studio.
               </h2>
               <p className="mt-4 text-lg text-muted">
-                Each one started as a problem worth solving for ourselves. All of them are on the App Store today.
+                Each one started as a problem worth solving for ourselves. Six are on the App Store today, and Backstamp is coming soon to the Mac App Store.
               </p>
             </div>
             <CatalogTable />

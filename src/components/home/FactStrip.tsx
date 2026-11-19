@@ -1,9 +1,9 @@
-import { apps } from '../../data/apps';
+import { releasedApps } from '../../data/apps';
 import { useExportCount } from '../../hooks';
 
-const platformCount = new Set(apps.flatMap((app) => app.platforms)).size;
+const platformCount = new Set(releasedApps.flatMap((app) => app.platforms)).size;
 /** "French (Canada)" and "French" are one language for this count. */
-const languageCount = new Set(apps.flatMap((app) => app.languages.map((l) => l.replace(/\s*\(.*\)$/, '')))).size;
+const languageCount = new Set(releasedApps.flatMap((app) => app.languages.map((l) => l.replace(/\s*\(.*\)$/, '')))).size;
 
 /**
  * Four plain facts under the hero, counted from the catalog; the last one is
@@ -12,7 +12,7 @@ const languageCount = new Set(apps.flatMap((app) => app.languages.map((l) => l.r
 export default function FactStrip() {
   const exports = useExportCount();
   const facts = [
-    { value: String(apps.length), label: 'apps on the App Store' },
+    { value: String(releasedApps.length), label: 'apps on the App Store' },
     { value: String(platformCount), label: 'Apple platforms' },
     { value: String(languageCount), label: 'languages' },
     { value: exports === null ? '—' : exports.toLocaleString('en-US'), label: 'light shows exported with Maestro', live: true },

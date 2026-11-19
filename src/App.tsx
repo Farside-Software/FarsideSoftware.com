@@ -15,6 +15,7 @@ const Mygra = lazy(() => import('./pages/Mygra'));
 const SetDeck = lazy(() => import('./pages/SetDeck'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Waffle = lazy(() => import('./pages/Waffle'));
+const Backstamp = lazy(() => import('./pages/Backstamp'));
 const Opalite = lazy(() => import('./pages/Opalite'));
 const V1Sports = lazy(() => import('./pages/V1Sports'));
 const StreetIQ = lazy(() => import('./pages/StreetIQ'));
@@ -94,6 +95,7 @@ export function AppShell() {
             <Route path="/mygra" element={<Mygra />} />
             <Route path="/stork" element={<Stork />} />
             <Route path="/waffle" element={<Waffle />} />
+            <Route path="/backstamp" element={<Backstamp />} />
             <Route path="/v1sports" element={<LightScope><V1Sports /></LightScope>} />
             <Route path="/streetiq" element={<LightScope><StreetIQ /></LightScope>} />
             <Route path="/about" element={<About />} />

@@ -3,6 +3,7 @@ import { Tag } from 'lucide-react';
 import type { Promo } from '../data/apps';
 import { usePromoActive } from '../hooks/usePromoActive';
 import AppStoreBadge from './AppStoreBadge';
+import ComingSoonBadge from './ComingSoonBadge';
 import GlassButton from './GlassButton';
 import AppPreviewVideo, { type AppPreview } from './AppPreviewVideo';
 import AppIcon from './AppIcon';
@@ -21,6 +22,10 @@ interface AppHeroProps {
   /** Small outlined labels under the buttons: OS versions, or platforms. */
   pills: string[];
   appStoreHref?: string;
+  /** Not released yet: a "Coming soon" badge replaces the store badges. */
+  comingSoon?: boolean;
+  /** Pills shown inside the placeholder panel while there are no screenshots yet. */
+  placeholderPills?: string[];
   macAppStoreHref?: string;
   githubHref?: string;
   webHref?: string;
@@ -55,6 +60,8 @@ export default function AppHero({
   promo,
   pills,
   appStoreHref,
+  comingSoon,
+  placeholderPills = [],
   macAppStoreHref,
   githubHref,
   webHref,
@@ -104,6 +111,7 @@ export default function AppHero({
           )}
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
+            {comingSoon && <ComingSoonBadge />}
             {appStoreHref && <AppStoreBadge href={appStoreHref} appName={name} />}
             {macAppStoreHref && <AppStoreBadge href={macAppStoreHref} appName={name} store="mac" />}
             {webHref && (
@@ -149,6 +157,24 @@ export default function AppHero({
               accent={accentColor}
               className={video.height > video.width ? 'mx-auto w-full max-w-[300px]' : 'w-full'}
             />
+          ) : shots.length === 0 ? (
+            // No screenshots yet: a flat panel with the big icon, so the column is not empty.
+            <div className="flex aspect-[8/5] w-full flex-col items-center justify-center gap-6 rounded-2xl border border-line/10 bg-panel p-8">
+              <AppIcon src={icon} darkSrc={iconDark} size={192} className="h-40 w-40 rounded-[2.5rem] sm:h-48 sm:w-48 sm:rounded-[3rem]" />
+              {placeholderPills.length > 0 && (
+                <ul className="flex list-none flex-wrap justify-center gap-2 p-0" aria-label="Highlights">
+                  {placeholderPills.map((pill) => (
+                    <li
+                      key={pill}
+                      className="rounded-full border px-3 py-1 text-xs font-semibold text-muted"
+                      style={{ borderColor: `${accentColor}66` }}
+                    >
+                      {pill}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           ) : layout === 'wide' ? (
             <img
               src={lead[0]}

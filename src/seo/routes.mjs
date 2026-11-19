@@ -16,7 +16,7 @@ const staticRoutes = [
     path: '/',
     title: 'Farside Software: Independent apps for every Apple device',
     description:
-      'Independent apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro. Private by design: Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle.',
+      'Independent apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro. Private by design: Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle, with Backstamp for the Mac coming soon.',
     ogImage: DEFAULT_OG,
     changefreq: 'weekly',
     priority: 1.0,
@@ -43,7 +43,7 @@ const staticRoutes = [
     path: '/support',
     title: `Support${SUFFIX}`,
     description:
-      'Help for Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle: frequently asked questions, purchases and restores, iCloud sync, and how to reach the developer.',
+      'Help for Maestro, Opalite, SetDeck, Mygra, Stork, Waffle, and Backstamp: frequently asked questions, purchases and restores, iCloud sync, and how to reach the developer.',
     ogImage: DEFAULT_OG,
     changefreq: 'monthly',
     priority: 0.6,
@@ -52,7 +52,7 @@ const staticRoutes = [
     path: '/press',
     title: `Press kit${SUFFIX}`,
     description:
-      'Press kit for Farside Software: company and founder blurbs, app descriptions, icons, and screenshots for Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle.',
+      'Press kit for Farside Software: company and founder blurbs, app descriptions, icons, and screenshots for Maestro, Opalite, SetDeck, Mygra, Stork, Waffle, and Backstamp.',
     ogImage: DEFAULT_OG,
     changefreq: 'monthly',
     priority: 0.5,

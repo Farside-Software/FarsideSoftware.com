@@ -19,7 +19,9 @@ export const APPS_DIR_FALLBACKS = ['../../../Molargik Software LLC/Apps'];
 /**
  * `iconComposer` is the app's Icon Composer file; its Dark rendition becomes
  * icon-dark.png, which the site fades to while an icon is hovered.
- * @type {Array<{ app: string; source: string; icon: string; iconComposer?: string; screens: string[] }>}
+ * An app with no exported `Icons/AppIcon.png` sets `iconFromComposer: true`
+ * and both its icons are rendered from the Icon Composer file (Default and Dark).
+ * @type {Array<{ app: string; source: string; icon?: string; iconComposer?: string; iconFromComposer?: boolean; screens: string[] }>}
  */
 export default [
   {
@@ -91,5 +93,14 @@ export default [
     icon: 'Icons/AppIcon.png',
     iconComposer: 'Waffle/WaffleIcon.icon',
     screens: ['Screenshots/Professional/iPad'],
+  },
+  {
+    app: 'backstamp',
+    source: 'Backstamp',
+    iconComposer: 'Backstamp/AppIcon.icon',
+    iconFromComposer: true,
+    // TODO(backstamp): add the Matte-made store screenshots here once they exist,
+    // e.g. 'Marketing/Backstamp 1.0/store-screenshots/final/mac-*'.
+    screens: [],
   },
 ];

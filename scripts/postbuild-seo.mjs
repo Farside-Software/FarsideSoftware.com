@@ -41,7 +41,7 @@ function canonicalFor(routePath) {
  */
 function smartBanner(route) {
   const app = apps.find((a) => `/${a.slug}` === route.path);
-  const id = app?.appStoreUrl.match(/\/id(\d+)/)?.[1];
+  const id = app?.appStoreUrl?.match(/\/id(\d+)/)?.[1];
   return id ? [`<meta name="apple-itunes-app" content="app-id=${id}" />`] : [];
 }
 
@@ -103,6 +103,8 @@ async function writeGoPages() {
   const site = await fs.readFile(path.join(ROOT, 'src/config/site.ts'), 'utf8');
   const pt = (site.match(/APP_STORE_PT\s*=\s*'([^']*)'/) ?? [])[1] ?? '';
   for (const app of apps) {
+    // No store page yet: /go/<app> falls through to 404.html, where the SPA sends it to the app's page.
+    if (!app.appStoreUrl) continue;
     const route = findRoute(`/${app.slug}`);
     const targets = { web: app.appStoreUrl, mac: app.macAppStoreUrl ?? null };
     const script =

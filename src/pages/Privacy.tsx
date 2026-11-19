@@ -87,6 +87,16 @@ const policies: AppPolicy[] = [
     ],
     leaves: <>Nothing. Browsing history is not collected by Waffle or sent to us.</>,
   },
+  {
+    slug: 'backstamp',
+    stores: 'An undo journal of the changes you apply, and cached scan results (fingerprints and filenames of photos), all in its own folder on your Mac. It does not copy or keep your photos.',
+    frameworks: [
+      <>Photos: with your permission Backstamp reads your Photos library to find missing and wrong dates and duplicates, and changes it only when you click Apply. Merged copies go to Recently Deleted.</>,
+      <>When a photo is kept in iCloud Photos, macOS downloads the original for Backstamp to read. That is Apple&rsquo;s own service and happens between your Mac and Apple.</>,
+      <>Photo analysis, including the Vision framework, runs on your Mac. Purchases go through StoreKit and your Apple Account.</>,
+    ],
+    leaves: <>Nothing. Backstamp has no account, no analytics, and makes no network requests of its own.</>,
+  },
 ];
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {

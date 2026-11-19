@@ -12,7 +12,7 @@ import { appStoreLink, siteChannel } from '../utils/appStore';
 const SCREENSHOTS = [1, 2, 3];
 
 const companyBlurb =
-  LEGAL_NAME + ' is an independent app studio in Indiana, founded in 2025 by Nick Molargik. It builds native Swift and SwiftUI apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro, each one started to solve a problem the founder ran into himself. The apps are private by design: most collect no data at all, sync through the user\'s own iCloud, and ship without analytics SDKs or ad networks. Six apps are on the App Store today: Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle.';
+  LEGAL_NAME + ' is an independent app studio in Indiana, founded in 2025 by Nick Molargik. It builds native Swift and SwiftUI apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro, each one started to solve a problem the founder ran into himself. The apps are private by design: most collect no data at all, sync through the user\'s own iCloud, and ship without analytics SDKs or ad networks. Six apps are on the App Store today: Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle. Backstamp, a Mac app that fixes photo dates, is coming soon to the Mac App Store.';
 
 const founderLine =
   'Nick Molargik is a senior software engineer and the founder of ' + LEGAL_NAME + '. An electrical engineer by training, he has shipped mobile apps at Sweetwater, V1 Sports, and StreetIQ, and builds the studio\'s apps solo from concept to App Store.';
@@ -125,15 +125,23 @@ export default function Press() {
                     <Link to={app.path} className={chip}>
                       Product page
                     </Link>
-                    <a
-                      href={appStoreLink(app.appStoreUrl, siteChannel('press'))}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={chip}
-                    >
-                      App Store
-                    </a>
+                    {app.appStoreUrl ? (
+                      <a
+                        href={appStoreLink(app.appStoreUrl, siteChannel('press'))}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={chip}
+                      >
+                        App Store
+                      </a>
+                    ) : (
+                      <span className={`${chip} cursor-default border-dashed hover:bg-transparent hover:text-muted`}>
+                        Coming soon to the Mac App Store
+                      </span>
+                    )}
                   </div>
+                  {/* TODO(backstamp): store screenshots go in public/press/backstamp/ (npm run press) once they exist; until then only its icon is offered. */}
+                  {!app.comingSoon && (
                   <ul className="mt-5 grid max-w-xl list-none grid-cols-3 gap-3 p-0" aria-label={`${app.name} screenshots`}>
                     {SCREENSHOTS.map((n) => (
                       <li key={n}>
@@ -150,6 +158,7 @@ export default function Press() {
                       </li>
                     ))}
                   </ul>
+                  )}
                 </div>
               </div>
             </article>

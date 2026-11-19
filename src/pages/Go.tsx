@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 import { findApp } from '../data/apps';
 import { appStoreLink } from '../utils/appStore';
 import { usePageMeta } from '../hooks';
@@ -20,7 +20,7 @@ export default function Go() {
   const app = findApp(slug.toLowerCase());
 
   const target = useMemo(() => {
-    if (!app) return null;
+    if (!app?.appStoreUrl) return null;
     const channel = (params.get('ct') ?? 'go').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || 'go';
     const wantsMac = params.get('platform') === 'mac' && app.macAppStoreUrl;
     return appStoreLink(wantsMac ? app.macAppStoreUrl! : app.appStoreUrl, channel);
@@ -36,6 +36,8 @@ export default function Go() {
     if (target) window.location.replace(target);
   }, [target]);
 
+  // An app that is not out yet has no store page: send the link to its own page.
+  if (app?.comingSoon) return <Navigate to={app.path} replace />;
   if (!app || !target) return <NotFound />;
 
   return (
