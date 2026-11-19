@@ -89,9 +89,15 @@ export default function Opalite() {
           },
           {
             icon: '🌈',
-            title: 'What’s New in 1.8',
+            title: 'What’s New in 2.0',
             description:
-              'OKLCH and Display P3 values with an out-of-sRGB warning, CSS and SwiftUI export of both, APCA contrast next to WCAG, and a one-tap fix for text failing AA. Now on iPhone, iPad, Mac, Apple TV, and Vision Pro. iPhone and iPad are on 1.8.1, which fixes the drawing canvas on iPhone Duo and iPad.',
+              'A calmer look and a new icon, a sidebar on iPad and Mac with every palette and canvas, a contrast grid and color-vision score for whole palettes, palettes from photos, the camera, or a website, design-token export, and automatic backups with a sync status you can see.',
+          },
+          {
+            icon: '🤖',
+            title: 'Agent Access on Mac',
+            description:
+              'Turn on Opalite’s built-in MCP server and AI coding tools like Claude Code, Cursor, and Codex can read your palettes, export them as CSS, Swift, or Tailwind, check contrast, and, if you allow it, create palettes. Off until you switch it on, and only reachable from your own Mac.',
           },
           {
             icon: '🌎',
