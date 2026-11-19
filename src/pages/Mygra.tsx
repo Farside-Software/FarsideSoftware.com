@@ -1,4 +1,5 @@
 import AppShowcase from '../components/AppShowcase';
+import MygraDevicePreviews from '../components/MygraDevicePreviews';
 import { screensFromGlob } from '../utils/screens';
 import { findApp } from '../data/apps';
 import icon from '../assets/mygra/icon.png';
@@ -33,6 +34,7 @@ export default function Mygra() {
         caption:
           'Thirty seconds of Mygra: log an attack, follow it from the Lock Screen, and see your history on the dashboard and calendar.',
       }}
+      afterScreens={<MygraDevicePreviews accentColor={ACCENT_COLOR} />}
       about={{
         title: 'Mygra: Migraine Tracker',
         intro:
