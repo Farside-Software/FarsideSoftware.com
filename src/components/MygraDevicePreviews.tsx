@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import AppPreviewVideo from './AppPreviewVideo';
+import DevicePreviews from './DevicePreviews';
 
 interface Props {
   accentColor: string;
@@ -35,46 +34,13 @@ const tiles = [
   },
 ];
 
-/** iPad and iPhone Duo App Previews, click-to-play; starting one pauses every other video on the page. */
+/** Mygra's iPad and iPhone Duo App Previews. */
 export default function MygraDevicePreviews({ accentColor }: Props) {
-  useEffect(() => {
-    const onPlay = (event: Event) => {
-      const playing = event.target;
-      if (!(playing instanceof HTMLVideoElement)) return;
-      document.querySelectorAll('video').forEach((v) => {
-        if (v !== playing && !v.paused) v.pause();
-      });
-    };
-    document.addEventListener('play', onPlay, true);
-    return () => document.removeEventListener('play', onPlay, true);
-  }, []);
-
   return (
-    <section aria-labelledby="device-previews" className="border-b border-line/10 bg-page py-14">
-      <div className="mx-auto max-w-7xl px-6">
-        <h2 id="device-previews" className="text-2xl font-extrabold tracking-tight text-ink sm:text-3xl">
-          See it on every device
-        </h2>
-        <p className="mt-2 max-w-2xl text-muted">
-          Thirty-second tours of Mygra on iPad and on iPhone Duo, folded and unfolded. Tap to play.
-        </p>
-        <div className="-mx-6 mt-8 flex snap-x items-end gap-6 overflow-x-auto px-6 pb-2 lg:justify-center">
-          {tiles.map((t) => (
-            <figure key={t.src} className="m-0 shrink-0 snap-start">
-              <AppPreviewVideo
-                src={t.src}
-                poster={t.poster}
-                width={t.width}
-                height={t.height}
-                title={t.title}
-                accent={accentColor}
-                className={t.frame}
-              />
-              <figcaption className="mt-3 text-sm text-muted">{t.label}</figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
+    <DevicePreviews
+      accentColor={accentColor}
+      intro="Thirty-second tours of Mygra on iPad and on iPhone Duo, folded and unfolded. Tap to play."
+      tiles={tiles}
+    />
   );
 }

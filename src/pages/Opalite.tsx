@@ -1,4 +1,5 @@
 import AppShowcase from '../components/AppShowcase';
+import DevicePreviews, { type DevicePreviewTile } from '../components/DevicePreviews';
 import { screensFromGlob } from '../utils/screens';
 import { findApp } from '../data/apps';
 import { LEGAL_NAME, SITE_URL } from '../config/site';
@@ -9,6 +10,36 @@ const ACCENT_COLOR = '#CAC0E8';
 const APP_STORE_URL = 'https://apps.apple.com/us/app/opalite-color-studio/id6755093664';
 
 const app = findApp('opalite')!;
+
+const devicePreviews: DevicePreviewTile[] = [
+  {
+    label: 'iPad',
+    title: 'Opalite on iPad',
+    src: '/video/opalite-preview-ipad.mp4',
+    poster: '/video/opalite-preview-ipad-poster.webp',
+    width: 1080,
+    height: 810,
+    frame: 'w-[453px]',
+  },
+  {
+    label: 'Mac',
+    title: 'Opalite on Mac',
+    src: '/video/opalite-preview-mac.mp4',
+    poster: '/video/opalite-preview-mac-poster.webp',
+    width: 1280,
+    height: 720,
+    frame: 'w-[604px]',
+  },
+  {
+    label: 'iPhone Duo, unfolded',
+    title: 'Opalite on iPhone Duo',
+    src: '/video/opalite-preview-duo.mp4',
+    poster: '/video/opalite-preview-duo-poster.webp',
+    width: 1280,
+    height: 590,
+    frame: 'w-[737px]',
+  },
+];
 
 const screens = screensFromGlob(
   import.meta.glob('../assets/opalite/screens/*', { eager: true, import: 'default' })
@@ -36,6 +67,13 @@ export default function Opalite() {
         caption:
           'Thirty seconds of Opalite: build colors six ways, pull a palette from a photo, try harmonies, read every color code, check contrast, and draw with your palette.',
       }}
+      afterScreens={
+        <DevicePreviews
+          accentColor={ACCENT_COLOR}
+          intro="Thirty-second tours of Opalite on iPad, on the Mac with its new sidebar, and on iPhone Duo, unfolded. Tap to play."
+          tiles={devicePreviews}
+        />
+      }
       about={{
         title: 'Opalite — The Ultimate Color Manager',
         intro:
