@@ -26,6 +26,14 @@ export default function SetDeck() {
       screens={screens}
       heroLayout="panorama"
       screensClassName="bg-well"
+      preview={{
+        src: '/video/setdeck-preview.mp4',
+        poster: '/video/setdeck-preview-poster.webp',
+        width: 720,
+        height: 1560,
+        caption:
+          'Thirty seconds of SetDeck: log a set in one tap, build your weekly routine, then check your stats, muscle heatmap, water and achievements.',
+      }}
       about={{
         title: 'SetDeck — Structure Without Friction',
         intro:

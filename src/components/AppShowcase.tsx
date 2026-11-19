@@ -68,8 +68,8 @@ export interface AppShowcaseProps {
   afterScreens?: ReactNode;
   /**
    * App Store preview video. It takes the hero's screenshot slot when its shape
-   * matches the hero (portrait with `pair`, landscape with `wide`); otherwise
-   * it is the first slide of the screenshot gallery.
+   * matches the hero (portrait with `pair` or `panorama`, landscape with
+   * `wide`); otherwise it is the first slide of the screenshot gallery.
    */
   preview?: AppPreview;
   about: {
@@ -147,7 +147,7 @@ export default function AppShowcase({
   useScrollToStart(carouselRefDesktop, carouselRefMobile);
 
   const previewPortrait = !!preview && preview.height > preview.width;
-  const previewInHero = !!preview && (heroLayout === 'pair' ? previewPortrait : heroLayout === 'wide' && !previewPortrait);
+  const previewInHero = !!preview && (heroLayout === 'wide' ? !previewPortrait : previewPortrait);
   // The hero shows the first screenshots unless the preview video took their
   // place; the gallery carries the rest, as long as that still leaves a
   // gallery worth scrolling.
