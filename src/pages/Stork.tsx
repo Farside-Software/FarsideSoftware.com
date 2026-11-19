@@ -17,7 +17,7 @@ export default function Stork() {
   return (
     <AppShowcase
       name="Stork"
-      heading="Stork - L&D Companion"
+      heading="Stork - Delivery Log"
       tagline="Track the deliveries you perform, visualize trends, and celebrate every birth."
       icon={icon}
       accentColor={ACCENT_COLOR}
@@ -35,7 +35,7 @@ export default function Stork() {
           'Thirty seconds of Stork: watch the month fill the jar, log a delivery in seconds, then see your career stats, calendar and year in births.',
       }}
       about={{
-        title: 'Stork — Labor & Delivery Companion',
+        title: 'Stork: Delivery Log',
         intro:
           'Stork helps medical professionals track the deliveries they perform, visualize trends, and celebrate every birth. Designed for Labor & Delivery nurses, midwives, and OB-GYNs, Stork makes it simple to record, review, and analyze your delivery stats — all in one beautiful, privacy-first app across iPhone, iPad, Mac, and Apple Watch.',
         sections: [
@@ -122,7 +122,7 @@ export default function Stork() {
           'Stork requires the latest Apple platforms (iOS 26, iPadOS 26, macOS 26, or watchOS 26). Perfect for Labor & Delivery nurses, midwives, OB-GYNs, and maternity unit staff.',
       }}
       jsonLd={{
-        name: 'Stork – L&D Companion',
+        name: 'Stork: Delivery Log',
         applicationCategory: 'MedicalApplication',
         operatingSystem: 'iOS, iPadOS, macOS, watchOS',
         inLanguage: ['en', 'es', 'fr-CA', 'ja'],

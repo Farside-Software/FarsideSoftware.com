@@ -102,7 +102,7 @@ export const apps = [
   {
     slug: 'stork',
     name: 'Stork',
-    storeName: 'Stork - L&D Companion',
+    storeName: 'Stork: Delivery Log',
     source: 'Stork',
     job: 'Track the deliveries you perform, visualize trends, and celebrate every birth.',
     description:
