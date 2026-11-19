@@ -92,8 +92,8 @@ export default function Home() {
                 About the studio
               </GlassButton>
             </div>
-            <ul className="mt-12 flex list-none flex-wrap gap-x-5 gap-y-4 p-0" aria-label="Apps">
-              {apps.map((app) => (
+            <ul className="mt-12 grid w-fit list-none grid-cols-4 gap-x-5 gap-y-4 p-0" aria-label="Apps">
+              {apps.slice(0, 7).map((app) => (
                 <li key={app.slug}>
                   <Link
                     to={app.path}
@@ -109,6 +109,18 @@ export default function Home() {
                   </Link>
                 </li>
               ))}
+              {/* Eighth spot: what's next. */}
+              <li aria-label="More apps coming">
+                <div className="flex w-[60px] cursor-default flex-col items-center gap-2 text-xs font-semibold text-muted">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-14 w-14 items-center justify-center rounded-[15px] border border-line/20 bg-well text-2xl font-extrabold text-muted"
+                  >
+                    ?
+                  </span>
+                  Next
+                </div>
+              </li>
             </ul>
           </div>
 
