@@ -2,6 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
+// Manrope is served from this site (no third-party font request).
+import '@fontsource-variable/manrope';
 
 // Legacy hash links (the site used HashRouter until November 2026):
 // https://molargiksoftware.com/#/maestro -> /maestro, keeping any query.

@@ -30,7 +30,7 @@ export default {
       },
       fontFamily: {
         sans: [
-          'Manrope', 'ui-sans-serif', '-apple-system', 'BlinkMacSystemFont',
+          'Manrope Variable', 'Manrope', 'ui-sans-serif', '-apple-system', 'BlinkMacSystemFont',
           'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif',
         ],
       },

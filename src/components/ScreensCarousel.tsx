@@ -155,6 +155,9 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
                   alt={`${altPrefix} screenshot ${idx + 1}`}
                   width={1170}
                   height={2532}
+                  // Only the first couple load straight away; the rest wait until they are scrolled near.
+                  loading={idx < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
                   className={`h-96 w-auto object-contain transition-opacity duration-300 rounded-2xl ${
                     loaded[globalIndex] ? 'opacity-100' : 'opacity-0'
                   }`}
@@ -202,6 +205,8 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
                   alt={`${altPrefix} screenshot ${idx + 1}`}
                   width={1170}
                   height={2532}
+                  loading={idx < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
                   className={`h-80 w-auto object-contain transition-opacity duration-300 rounded-2xl ${
                     loaded[globalIndex] ? 'opacity-100' : 'opacity-0'
                   }`}
