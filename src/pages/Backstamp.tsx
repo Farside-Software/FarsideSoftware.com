@@ -9,16 +9,7 @@ const ACCENT_COLOR = '#138A80';
 
 const app = findApp('backstamp')!;
 
-// TODO(backstamp): screenshots and app preview are not made yet (Matte).
-//  - Screenshots: put 2880x1800 Mac store screenshots in `Marketing/Backstamp 1.0/...`, add their
-//    folder to `scripts/app-assets.config.mjs` (the `backstamp` entry's `screens`), then run
-//    `APPS_DIR=<Apps> npm run assets -- backstamp`. That writes src/assets/backstamp/screens/NN.webp,
-//    and the glob below picks them up. Landscape shots lead the hero (`heroLayout="wide"`).
-//  - App preview: drop the video and poster in public/video/ (backstamp-preview.mp4 and
-//    backstamp-preview-poster.webp), then pass
-//    preview={{ src: '/video/backstamp-preview.mp4', poster: '/video/backstamp-preview-poster.webp', width: 2880, height: 1800 }}
-//    to AppShowcase below (see src/pages/SetDeck.tsx for an example).
-//  - Press kit: run `npm run press -- backstamp` after removing `comingSoon` in src/data/catalog.mjs.
+// Press kit: run `npm run press -- backstamp` once `comingSoon` is removed in src/data/catalog.mjs.
 const screens = screensFromGlob(
   import.meta.glob('../assets/backstamp/screens/*', { eager: true, import: 'default' })
 );
@@ -35,6 +26,14 @@ export default function Backstamp() {
       requirements={['macOS 26 or later', 'Works with iCloud Photos', 'Data Not Collected']}
       screens={screens}
       heroLayout="wide"
+      preview={{
+        src: '/video/backstamp-preview.mp4',
+        poster: '/video/backstamp-preview-poster.webp',
+        width: 1920,
+        height: 1080,
+        caption:
+          'Thirty seconds of Backstamp: spot every wrong date, see the evidence, merge duplicates, check a folder before you import, and apply only when you are ready.',
+      }}
       heroPills={['Metadata', 'Filenames', 'Library matches', 'Phone file sequences']}
       screensClassName="bg-well"
       about={{

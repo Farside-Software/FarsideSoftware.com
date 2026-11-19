@@ -115,8 +115,7 @@ export default [
     source: 'Backstamp',
     iconComposer: 'Backstamp/AppIcon.icon',
     iconFromComposer: true,
-    // TODO(backstamp): add the Matte-made store screenshots here once they exist,
-    // e.g. 'Marketing/Backstamp 1.0/store-screenshots/final/mac-*'.
-    screens: [],
+    // The 1.0 Mac store set (not iap-review.png or overview.png).
+    screens: ['Marketing/Backstamp 1.0/store-screenshots/final/backstamp-mac-*'],
   },
 ];
