@@ -34,6 +34,8 @@ export default [
       'Marketing/Maestro 2.0/store-screenshots/draft-2/mac',
       'Marketing/Maestro 2.0/store-screenshots/draft-2/iphone',
       'Marketing/Maestro 2.0/store-screenshots/draft-2/ipad',
+      'Marketing/Maestro 2.0/store-screenshots/draft-2/duo-outer',
+      'Marketing/Maestro 2.0/store-screenshots/draft-2/duo-inner',
     ],
   },
   {
@@ -45,6 +47,8 @@ export default [
     screens: [
       'Marketing/Opalite 2.0/store-screenshots/final/exports/iphone-*',
       'Marketing/Opalite 2.0/store-screenshots/final/exports/ipad-*',
+      'Marketing/Opalite 2.0/store-screenshots/final/exports/duo-outer-*',
+      'Marketing/Opalite 2.0/store-screenshots/final/exports/duo-inner-*',
       'Marketing/Opalite 2.0/store-screenshots/final/exports/mac-*',
       'Marketing/Opalite 2.0/store-screenshots/final/exports/vision-*',
       'Marketing/Opalite 2.0/store-screenshots/final/exports/tv-*',
