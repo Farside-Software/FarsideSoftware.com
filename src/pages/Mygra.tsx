@@ -25,6 +25,14 @@ export default function Mygra() {
       requirements={['iOS 18+', 'iPadOS 18+', 'watchOS 10+', 'visionOS 2+']}
       screens={screens}
       screensClassName="bg-well"
+      preview={{
+        src: '/video/mygra-preview.mp4',
+        poster: '/video/mygra-preview-poster.webp',
+        width: 720,
+        height: 1560,
+        caption:
+          'Thirty seconds of Mygra: log an attack, follow it from the Lock Screen, and see your history on the dashboard and calendar.',
+      }}
       about={{
         title: 'Mygra: Migraine Tracker',
         intro:
