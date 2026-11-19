@@ -5,6 +5,7 @@ import { usePromoActive } from '../../hooks/usePromoActive';
 import { appStoreLink, siteChannel } from '../../utils/appStore';
 import { accentText } from '../../theme/contrast';
 import AppStoreBadge from '../AppStoreBadge';
+import AppIcon from '../AppIcon';
 
 interface FlagshipBandProps {
   app: SiteApp;
@@ -35,7 +36,7 @@ export default function FlagshipBand({ app, kind, shots, reverse = false, classN
             {kind}
           </p>
           <div className="mt-6 flex items-center gap-4">
-            <img src={app.icon} alt="" width={64} height={64} loading="lazy" decoding="async" className="h-16 w-16 rounded-2xl" />
+            <AppIcon src={app.icon} darkSrc={app.iconDark} size={64} loading="lazy" className="h-16 w-16 rounded-2xl" />
             <h2 id={`flagship-${app.slug}`} className="text-5xl font-extrabold tracking-[-0.03em] text-ink sm:text-6xl">
               {app.name}
             </h2>

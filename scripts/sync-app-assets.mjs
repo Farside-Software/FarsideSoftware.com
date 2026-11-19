@@ -5,6 +5,7 @@
 // directory into src/assets/<app>/, resizing and re-encoding them for the web:
 //
 //   src/assets/<app>/icon.png          512px square PNG
+//   src/assets/<app>/icon-dark.png     512px, the Icon Composer file's Dark rendition
 //   src/assets/<app>/screens/NN.webp   max 1200px tall WebP, numbered in order
 //
 // Pages pick the screens up automatically via import.meta.glob, so adding or
@@ -13,17 +14,25 @@
 // Usage:
 //   npm run assets                 sync every app in app-assets.config.mjs
 //   npm run assets -- stork maestro   sync only those apps
+//   npm run assets -- --icons-only    icons only, screenshots untouched
 //   APPS_DIR=/path/to/Apps npm run assets
 
 import { promises as fs } from 'node:fs';
+import { execFile } from 'node:child_process';
+import os from 'node:os';
+import { promisify } from 'node:util';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import apps, { APPS_DIR_DEFAULT } from './app-assets.config.mjs';
+import apps, { APPS_DIR_DEFAULT, APPS_DIR_FALLBACKS } from './app-assets.config.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const APPS_DIR = path.resolve(ROOT, process.env.APPS_DIR ?? APPS_DIR_DEFAULT);
 const ASSETS_DIR = path.join(ROOT, 'src', 'assets');
+const SEARCH_DIRS = process.env.APPS_DIR ? [APPS_DIR] : [APPS_DIR, ...APPS_DIR_FALLBACKS.map((d) => path.resolve(ROOT, d))];
+const ICTOOL =
+  process.env.ICTOOL ?? '/Applications/Xcode.app/Contents/Applications/Icon Composer.app/Contents/Executables/ictool';
+const run = promisify(execFile);
 
 const ICON_SIZE = 512;
 const SCREEN_MAX_HEIGHT = 1200; // 2x retina for the 384px-tall carousel
@@ -49,7 +58,7 @@ async function listImages(dir) {
 }
 
 async function syncIcon(app, source) {
-  const src = path.join(APPS_DIR, source, app.icon);
+  const src = path.join(source, app.icon);
   const out = path.join(ASSETS_DIR, app.app, 'icon.png');
   await fs.mkdir(path.dirname(out), { recursive: true });
   await sharp(src)
@@ -72,10 +81,10 @@ async function syncScreens(app, source) {
     const star = entry.endsWith('*');
     const folder = star ? path.dirname(entry) : entry;
     const prefix = star ? path.basename(entry).slice(0, -1) : '';
-    const dir = path.join(APPS_DIR, source, folder);
+    const dir = path.join(source, folder);
     const listed = await listImages(dir);
     if (listed === null) {
-      console.warn(`  ⚠️  missing folder: ${path.relative(APPS_DIR, dir)}`);
+      console.warn(`  ⚠️  missing folder: ${dir}`);
       continue;
     }
     const files = listed.filter((f) => f.startsWith(prefix));
@@ -94,8 +103,41 @@ async function syncScreens(app, source) {
   console.log(`  ${index} screenshots, ${kb(total)} total`);
 }
 
+/** Renders the Icon Composer file's Dark appearance with Xcode's ictool. */
+async function syncDarkIcon(app, source) {
+  if (!app.iconComposer) return;
+  const out = path.join(ASSETS_DIR, app.app, 'icon-dark.png');
+  const tmp = path.join(os.tmpdir(), `${app.app}-icon-dark-${process.pid}.png`);
+  try {
+    await run(ICTOOL, [path.join(source, app.iconComposer), '--export-image', '--output-file', tmp,
+      '--platform', 'iOS', '--rendition', 'Dark', '--width', '1024', '--height', '1024', '--scale', '1']);
+  } catch (err) {
+    console.warn(`  ⚠️  dark icon not rendered (${err.code ?? err.message}); keeping the existing one`);
+    return;
+  }
+  await sharp(tmp).resize(ICON_SIZE, ICON_SIZE, { fit: 'cover' }).png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(out);
+  await fs.rm(tmp, { force: true });
+  console.log(`  icon   ${path.relative(ROOT, out)}  (dark)`);
+}
+
+/** The app's folder: in APPS_DIR, or in a fallback while the apps move. */
+async function findSource(app) {
+  for (const dir of SEARCH_DIRS) {
+    const candidate = path.join(dir, app.source);
+    try {
+      await fs.access(candidate);
+      return candidate;
+    } catch {
+      // try the next one
+    }
+  }
+  return null;
+}
+
 async function main() {
-  const requested = process.argv.slice(2).map((s) => s.toLowerCase());
+  const args = process.argv.slice(2);
+  const iconsOnly = args.includes('--icons-only');
+  const requested = args.filter((a) => !a.startsWith('--')).map((s) => s.toLowerCase());
   const selected = requested.length ? apps.filter((a) => requested.includes(a.app)) : apps;
   const unknown = requested.filter((r) => !apps.some((a) => a.app === r));
   if (unknown.length) {
@@ -106,16 +148,16 @@ async function main() {
   console.log(`Apps directory: ${APPS_DIR}\n`);
   for (const app of selected) {
     console.log(`▶ ${app.app}`);
-    const source = app.source;
-    try {
-      await fs.access(path.join(APPS_DIR, source));
-    } catch {
-      console.error(`  ❌ source folder not found: ${path.join(APPS_DIR, source)}`);
+    const source = await findSource(app);
+    if (!source) {
+      console.error(`  ❌ source folder not found for ${app.source} in ${SEARCH_DIRS.join(', ')}`);
       process.exitCode = 1;
       continue;
     }
+    console.log(`  from ${source}`);
     await syncIcon(app, source);
-    await syncScreens(app, source);
+    await syncDarkIcon(app, source);
+    if (!iconsOnly) await syncScreens(app, source);
     console.log('');
   }
 }

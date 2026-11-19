@@ -16,6 +16,7 @@ import maestroShot from '../assets/maestro/screens/02.webp';
 import opaliteShotA from '../assets/opalite/screens/02.webp';
 import opaliteShotB from '../assets/opalite/screens/03.webp';
 import opaliteShotC from '../assets/opalite/screens/04.webp';
+import AppIcon from '../components/AppIcon';
 
 const maestro = findApp('maestro')!;
 const opalite = findApp('opalite')!;
@@ -98,11 +99,10 @@ export default function Home() {
                     to={app.path}
                     className="group flex w-[60px] flex-col items-center gap-2 text-xs font-semibold text-muted hover:text-ink"
                   >
-                    <img
+                    <AppIcon
                       src={app.icon}
-                      alt=""
-                      width={56}
-                      height={56}
+                      darkSrc={app.iconDark}
+                      size={56}
                       className="h-14 w-14 rounded-[15px] transition-transform duration-200 group-hover:-translate-y-1"
                     />
                     {app.name}
@@ -219,7 +219,7 @@ export default function Home() {
               return (
                 <div key={group.id} className="reveal">
                   <h3 className="flex items-center gap-3 text-lg font-extrabold text-ink">
-                    {app && <img src={app.icon} alt="" width={32} height={32} loading="lazy" decoding="async" className="h-8 w-8 rounded-lg" />}
+                    {app && <AppIcon src={app.icon} darkSrc={app.iconDark} size={32} loading="lazy" className="h-8 w-8 rounded-lg" />}
                     {group.title}
                   </h3>
                   <GuideRows guides={all.slice(0, 3)} className="mt-4" />

@@ -6,6 +6,12 @@ import setdeckIcon from '../assets/setdeck/icon.png';
 import mygraIcon from '../assets/mygra/icon.png';
 import storkIcon from '../assets/stork/icon.png';
 import waffleIcon from '../assets/waffle/icon.png';
+import maestroIconDark from '../assets/maestro/icon-dark.png';
+import opaliteIconDark from '../assets/opalite/icon-dark.png';
+import setdeckIconDark from '../assets/setdeck/icon-dark.png';
+import mygraIconDark from '../assets/mygra/icon-dark.png';
+import storkIconDark from '../assets/stork/icon-dark.png';
+import waffleIconDark from '../assets/waffle/icon-dark.png';
 
 export type { CatalogApp, Promo, Testimonial } from './catalog.d.mts';
 
@@ -18,8 +24,19 @@ const icons: Record<string, string> = {
   waffle: waffleIcon,
 };
 
+/** Each icon's dark appearance (shown while an icon is hovered). */
+const darkIcons: Record<string, string> = {
+  maestro: maestroIconDark,
+  opalite: opaliteIconDark,
+  setdeck: setdeckIconDark,
+  mygra: mygraIconDark,
+  stork: storkIconDark,
+  waffle: waffleIconDark,
+};
+
 export interface SiteApp extends CatalogApp {
   icon: string;
+  iconDark: string;
   path: string;
 }
 
@@ -27,12 +44,13 @@ export interface SiteApp extends CatalogApp {
 export const apps: SiteApp[] = catalog.map((app) => ({
   ...app,
   icon: icons[app.slug],
+  iconDark: darkIcons[app.slug],
   path: `/${app.slug}`,
 }));
 
 export function findApp(slug: string): SiteApp | undefined {
   const base = findCatalogApp(slug);
-  return base ? { ...base, icon: icons[base.slug], path: `/${base.slug}` } : undefined;
+  return base ? { ...base, icon: icons[base.slug], iconDark: darkIcons[base.slug], path: `/${base.slug}` } : undefined;
 }
 
 /** True while `promo` is running (inclusive of both end dates, local time). */

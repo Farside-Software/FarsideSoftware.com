@@ -9,13 +9,24 @@
 // Run `npm run assets` (all apps) or `npm run assets -- stork maestro`.
 
 export const APPS_DIR_DEFAULT = '../../Apps';
+/**
+ * Where to look for an app that is not (yet) in APPS_DIR_DEFAULT. The apps are
+ * moving from the old Molargik Software folder to Farside Software one by one;
+ * drop this once they have all moved. Ignored when APPS_DIR is set.
+ */
+export const APPS_DIR_FALLBACKS = ['../../../Molargik Software LLC/Apps'];
 
-/** @type {Array<{ app: string; source: string; icon: string; screens: string[] }>} */
+/**
+ * `iconComposer` is the app's Icon Composer file; its Dark rendition becomes
+ * icon-dark.png, which the site fades to while an icon is hovered.
+ * @type {Array<{ app: string; source: string; icon: string; iconComposer?: string; screens: string[] }>}
+ */
 export default [
   {
     app: 'maestro',
     source: 'Maestro',
     icon: 'Icons/AppIcon.png',
+    iconComposer: 'App/Shared/AppIcon.icon',
     // The 2.0 store set (build 41), kept with the app's marketing files.
     screens: [
       'Marketing/Maestro 2.0/store-screenshots/draft-2/mac',
@@ -27,6 +38,7 @@ export default [
     app: 'opalite',
     source: 'Opalite',
     icon: 'Icons/AppIcon.png',
+    iconComposer: 'Opalite/AppIcon.icon',
     // The 2.0 store set: one folder of exports, picked out by device prefix.
     screens: [
       '../../Marketing/Opalite 2.0/store-screenshots/final/exports/iphone-*',
@@ -41,6 +53,7 @@ export default [
     app: 'setdeck',
     source: 'SetDeck',
     icon: 'Icons/AppIcon.png',
+    iconComposer: 'SetDeck/AppIcon.icon',
     screens: [
       'Screenshots/Professional/iPhone',
       'Screenshots/Professional/iPad',
@@ -51,6 +64,7 @@ export default [
     app: 'mygra',
     source: 'Mygra',
     icon: 'Icons/AppIcon.png',
+    iconComposer: 'Mygra/MygraIcon.icon',
     // The 3.0 store set: one folder of exports, picked out by device prefix.
     screens: [
       'Marketing/Mygra 3.0/store-screenshots/final/iphone-*',
@@ -64,6 +78,7 @@ export default [
     app: 'stork',
     source: 'Stork',
     icon: 'Icons/AppIcon.png',
+    iconComposer: 'Stork/AppIcon.icon',
     screens: [
       'Screenshots/Professional/iPhone',
       'Screenshots/Professional/iPad',
@@ -74,6 +89,7 @@ export default [
     app: 'waffle',
     source: 'Waffle',
     icon: 'Icons/AppIcon.png',
+    iconComposer: 'Waffle/WaffleIcon.icon',
     screens: ['Screenshots/Professional/iPad'],
   },
 ];

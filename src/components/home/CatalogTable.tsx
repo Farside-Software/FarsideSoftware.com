@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { apps } from '../../data/apps';
 import { accentText } from '../../theme/contrast';
+import AppIcon from '../AppIcon';
 
 const columns = [
   { key: 'iPhone', label: 'iPhone' },
@@ -43,11 +44,11 @@ export default function CatalogTable() {
           {apps.map((app) => (
             <tr
               key={app.slug}
-              className="group relative block border-t border-line/10 transition-colors last:border-b hover:bg-line/[0.04] lg:table-row"
+              className="group group/app relative block border-t border-line/10 transition-colors last:border-b hover:bg-line/[0.04] lg:table-row"
             >
               <th scope="row" className="block py-5 pr-4 font-medium lg:table-cell lg:py-6">
                 <span className="flex items-center gap-4">
-                  <img src={app.icon} alt="" width={52} height={52} loading="lazy" decoding="async" className="h-[52px] w-[52px] shrink-0 rounded-[14px]" />
+                  <AppIcon src={app.icon} darkSrc={app.iconDark} size={52} loading="lazy" className="h-[52px] w-[52px] rounded-[14px]" />
                   <span className="min-w-0">
                     {/* The link's ::after stretches over the whole row. */}
                     <Link to={app.path} className="text-xl font-extrabold tracking-[-0.02em] text-ink after:absolute after:inset-0">

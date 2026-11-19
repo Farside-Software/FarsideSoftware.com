@@ -5,12 +5,15 @@ import { usePromoActive } from '../hooks/usePromoActive';
 import AppStoreBadge from './AppStoreBadge';
 import GlassButton from './GlassButton';
 import AppPreviewVideo, { type AppPreview } from './AppPreviewVideo';
+import AppIcon from './AppIcon';
 
 interface AppHeroProps {
   name: string;
   heading: string;
   tagline: string;
   icon: string;
+  /** Dark-appearance icon, faded in on hover. */
+  iconDark?: string;
   accentColor: string;
   price?: string;
   priceDetail?: string;
@@ -45,6 +48,7 @@ export default function AppHero({
   heading,
   tagline,
   icon,
+  iconDark,
   accentColor,
   price,
   priceDetail,
@@ -77,7 +81,7 @@ export default function AppHero({
               {promo.label}
             </p>
           )}
-          <img src={icon} alt="" width={96} height={96} className="h-24 w-24 rounded-[1.5rem]" />
+          <AppIcon src={icon} darkSrc={iconDark} size={96} className="h-24 w-24 rounded-[1.5rem]" />
           <h1 className="mt-7 text-[3.25rem] font-extrabold leading-[1] tracking-[-0.04em] text-ink sm:text-7xl">
             {title}
             {kind && (

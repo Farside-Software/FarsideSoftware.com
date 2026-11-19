@@ -15,6 +15,7 @@ import { findRoute } from '../seo/routes.mjs';
 import { guideGroups, guidesIn } from '../data/guides.mjs';
 import GuideRows from './GuideRows';
 import type { AppPreview } from './AppPreviewVideo';
+import AppIcon from './AppIcon';
 
 export interface AppFeature {
   icon: string;
@@ -164,6 +165,7 @@ export default function AppShowcase({
         heading={heading ?? name}
         tagline={tagline}
         icon={icon}
+        iconDark={app?.iconDark}
         accentColor={accentColor}
         price={priceLine}
         priceDetail={price ? undefined : app?.priceDetail}
@@ -183,6 +185,7 @@ export default function AppShowcase({
           watch={heroRef}
           name={name}
           icon={icon}
+          iconDark={app?.iconDark}
           price={priceLine}
           accentColor={accentColor}
           appStoreHref={appStoreLink(storeUrl!, `${channel}_bar`)}
@@ -295,7 +298,7 @@ export default function AppShowcase({
                   to={other.path}
                   className="flex h-full items-center gap-3 rounded-2xl border border-line/10 px-4 py-4 transition-colors hover:border-line/30 hover:bg-line/[0.04] lg:flex-col lg:items-start"
                 >
-                  <img src={other.icon} alt="" width={48} height={48} loading="lazy" decoding="async" className="h-12 w-12 shrink-0 rounded-[13px]" />
+                  <AppIcon src={other.icon} darkSrc={other.iconDark} size={48} loading="lazy" className="h-12 w-12 rounded-[13px]" />
                   <span>
                     <span className="block font-extrabold text-ink">{other.name}</span>
                     <span className="mt-0.5 block text-sm leading-snug text-muted">{other.job}</span>

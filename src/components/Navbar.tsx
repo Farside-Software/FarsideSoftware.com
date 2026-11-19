@@ -6,6 +6,7 @@ import GlassButton from './GlassButton';
 import Logo from '../assets/farside/lockup-on-slate.svg';
 import { SITE_NAME } from '../config/site';
 import { apps } from '../data/apps';
+import AppIcon from './AppIcon';
 
 const links = [
   { label: 'Guides', path: '/guides' },
@@ -116,7 +117,7 @@ export default function Navbar() {
                     to={app.path}
                     className="flex h-full items-start gap-4 rounded-2xl px-3 py-3 transition-colors hover:bg-line/[0.06]"
                   >
-                    <img src={app.icon} alt="" width={48} height={48} className="h-12 w-12 shrink-0 rounded-xl" />
+                    <AppIcon src={app.icon} darkSrc={app.iconDark} size={48} className="h-12 w-12 rounded-xl" />
                     <span className="min-w-0">
                       <span className="block font-bold text-ink">{app.name}</span>
                       <span className="block text-sm leading-snug text-muted">{app.job}</span>
@@ -148,7 +149,7 @@ export default function Navbar() {
                       to={app.path}
                       className="-mx-2 flex items-center gap-3 rounded-xl px-2 py-2 font-bold text-ink hover:bg-line/[0.06]"
                     >
-                      <img src={app.icon} alt="" width={36} height={36} className="h-9 w-9 rounded-[10px]" />
+                      <AppIcon src={app.icon} darkSrc={app.iconDark} size={36} className="h-9 w-9 rounded-[10px]" />
                       {app.name}
                     </Link>
                   </li>

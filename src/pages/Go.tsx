@@ -4,6 +4,7 @@ import { findApp } from '../data/apps';
 import { appStoreLink } from '../utils/appStore';
 import { usePageMeta } from '../hooks';
 import NotFound from './NotFound';
+import AppIcon from '../components/AppIcon';
 
 /**
  * Short tracked links for social posts and printed material:
@@ -39,7 +40,7 @@ export default function Go() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] px-6 text-center pt-20">
-      <img src={app.icon} alt="" width={96} height={96} className="w-24 h-24 rounded-[1.5rem] mb-6" />
+      <AppIcon src={app.icon} darkSrc={app.iconDark} size={96} className="mb-6 h-24 w-24 rounded-[1.5rem]" />
       <h1 className="text-2xl font-semibold text-ink">Opening {app.name} on the App Store…</h1>
       <p className="mt-3 text-muted">
         Not redirected?{' '}

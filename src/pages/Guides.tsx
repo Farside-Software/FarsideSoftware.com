@@ -5,6 +5,7 @@ import ScrollToTop from '../components/ScrollToTop';
 import { useRouteMeta } from '../hooks';
 import { findApp } from '../data/apps';
 import { guideGroups, guidesIn } from '../data/guides.mjs';
+import AppIcon from '../components/AppIcon';
 
 export default function Guides() {
   useRouteMeta();
@@ -25,7 +26,7 @@ export default function Guides() {
                   href={`#${group.id}`}
                   className="inline-flex items-center gap-2 rounded-full border border-line/15 py-1 pl-1.5 pr-3 text-sm font-semibold text-muted transition-colors hover:border-line/40 hover:text-ink"
                 >
-                  {app && <img src={app.icon} alt="" width={24} height={24} className="h-6 w-6 rounded-md" />}
+                  {app && <AppIcon src={app.icon} darkSrc={app.iconDark} size={24} className="h-6 w-6 rounded-md" />}
                   {group.title}
                 </a>
               </li>
@@ -42,7 +43,7 @@ export default function Guides() {
             id={group.id}
             title={
               <span className="flex items-center gap-3">
-                {app && <img src={app.icon} alt="" width={44} height={44} loading="lazy" decoding="async" className="h-11 w-11 rounded-xl" />}
+                {app && <AppIcon src={app.icon} darkSrc={app.iconDark} size={44} loading="lazy" className="h-11 w-11 rounded-xl" />}
                 {group.title}
               </span>
             }

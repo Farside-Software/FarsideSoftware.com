@@ -19,6 +19,8 @@ import waffleIcon from '../assets/waffle/icon.png';
 import storkIcon from '../assets/stork/icon.png';
 import setDeckIcon from '../assets/setdeck/icon.png';
 import maestroIcon from '../assets/maestro/icon.png';
+import AppIcon from '../components/AppIcon';
+import { findApp } from '../data/apps';
 
 const SKILL_GROUPS = [
   {
@@ -142,8 +144,8 @@ export default function About() {
       >
         <div className="reveal">
           {projects.map((project) => (
-            <div key={project.path} className={`${rowClass} group relative flex items-center gap-4 transition-colors hover:bg-line/[0.04]`}>
-              <img src={project.image} alt={`${project.title} icon`} width={52} height={52} loading="lazy" decoding="async" className="h-[52px] w-[52px] shrink-0 rounded-[14px]" />
+            <div key={project.path} className={`${rowClass} group group/app relative flex items-center gap-4 transition-colors hover:bg-line/[0.04]`}>
+              <AppIcon src={project.image} darkSrc={findApp(project.path.slice(1))?.iconDark} size={52} loading="lazy" className="h-[52px] w-[52px] rounded-[14px]" />
               <div className="min-w-0 flex-1">
                 <Link
                   to={project.path}

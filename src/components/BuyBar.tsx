@@ -1,11 +1,14 @@
 import { useEffect, useState, type RefObject } from 'react';
 import GlassButton from './GlassButton';
+import AppIcon from './AppIcon';
 
 interface BuyBarProps {
   /** The bar appears once this element (the hero) has scrolled out of view. */
   watch: RefObject<HTMLElement | null>;
   name: string;
   icon: string;
+  /** Dark-appearance icon, faded in on hover. */
+  iconDark?: string;
   price?: string;
   accentColor: string;
   appStoreHref: string;
@@ -15,7 +18,7 @@ interface BuyBarProps {
  * A slim bar under the site header that keeps the app's name, price and
  * store link in reach while the rest of the page scrolls.
  */
-export default function BuyBar({ watch, name, icon, price, accentColor, appStoreHref }: BuyBarProps) {
+export default function BuyBar({ watch, name, icon, iconDark, price, accentColor, appStoreHref }: BuyBarProps) {
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
@@ -35,7 +38,7 @@ export default function BuyBar({ watch, name, icon, price, accentColor, appStore
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-6 py-2">
-        <img src={icon} alt="" width={32} height={32} className="h-8 w-8 rounded-[9px]" />
+        <AppIcon src={icon} darkSrc={iconDark} size={32} className="h-8 w-8 rounded-[9px]" />
         <p className="min-w-0 flex-1 truncate">
           <span className="font-extrabold text-ink">{name}</span>
           {price && <span className="ml-3 hidden text-sm text-muted sm:inline">{price}</span>}

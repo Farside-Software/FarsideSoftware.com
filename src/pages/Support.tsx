@@ -7,6 +7,7 @@ import ScrollToTop from '../components/ScrollToTop';
 import { useRouteMeta } from '../hooks';
 import { apps } from '../data/apps';
 import { CONTACT_EMAIL } from '../config/site';
+import AppIcon from '../components/AppIcon';
 
 interface Faq {
   q: string;
@@ -156,7 +157,7 @@ export default function Support() {
               href={`#${app.slug}`}
               className="inline-flex items-center gap-2 rounded-full border border-line/20 px-3 py-1.5 text-sm font-medium text-muted transition-colors hover:bg-line/[0.04] hover:text-ink"
             >
-              <img src={app.icon} alt="" width={20} height={20} className="h-5 w-5 rounded-md" />
+              <AppIcon src={app.icon} darkSrc={app.iconDark} size={20} className="h-5 w-5 rounded-md" />
               {app.name}
             </a>
           ))}
@@ -174,7 +175,7 @@ export default function Support() {
           tone={i % 2 === 0 ? 'page' : 'well'}
           title={
             <span className="flex items-center gap-4">
-              <img src={app.icon} alt="" width={40} height={40} loading="lazy" className="h-10 w-10 shrink-0 rounded-xl" />
+              <AppIcon src={app.icon} darkSrc={app.iconDark} size={40} loading="lazy" className="h-10 w-10 rounded-xl" />
               {app.name}
             </span>
           }

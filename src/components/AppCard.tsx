@@ -8,6 +8,7 @@ import { appStoreLink, siteChannel } from '../utils/appStore';
 import { hexToRgbTriple } from '../utils/liquidGlass';
 import { accentText } from '../theme/contrast';
 import AppStoreBadge from './AppStoreBadge';
+import AppIcon from './AppIcon';
 
 interface AppCardProps {
   app: SiteApp;
@@ -35,15 +36,7 @@ export default function AppCard({ app, index = 0, channel = 'home' }: AppCardPro
     >
       <div className="flex items-start gap-4">
         <Link to={app.path} className="flex-shrink-0" aria-label={`${app.name} details`}>
-          <img
-            src={app.icon}
-            alt=""
-            width={72}
-            height={72}
-            loading="lazy"
-            decoding="async"
-            className="w-[72px] h-[72px] rounded-[1.1rem]"
-          />
+          <AppIcon src={app.icon} darkSrc={app.iconDark} size={72} loading="lazy" className="h-[72px] w-[72px] rounded-[1.1rem]" />
         </Link>
         <div className="min-w-0">
           <h3 id={`app-${app.slug}`} className="text-xl font-bold text-ink tracking-tight">
