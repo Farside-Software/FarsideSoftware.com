@@ -41,12 +41,12 @@ export default [
     iconComposer: 'Opalite/AppIcon.icon',
     // The 2.0 store set: one folder of exports, picked out by device prefix.
     screens: [
-      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/iphone-*',
-      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/ipad-*',
-      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/mac-*',
-      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/vision-*',
-      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/tv-*',
-      '../../Marketing/Opalite 2.0/store-screenshots/final/exports/watch-*',
+      'Marketing/Opalite 2.0/store-screenshots/final/exports/iphone-*',
+      'Marketing/Opalite 2.0/store-screenshots/final/exports/ipad-*',
+      'Marketing/Opalite 2.0/store-screenshots/final/exports/mac-*',
+      'Marketing/Opalite 2.0/store-screenshots/final/exports/vision-*',
+      'Marketing/Opalite 2.0/store-screenshots/final/exports/tv-*',
+      'Marketing/Opalite 2.0/store-screenshots/final/exports/watch-*',
     ],
   },
   {
