@@ -11,6 +11,7 @@
     "assets": "node scripts/sync-app-assets.mjs",
     "og": "node scripts/build-og-images.mjs",
     "press": "node scripts/build-press-assets.mjs",
+    "screen-sizes": "node scripts/screen-sizes.mjs",
     "photos": "node scripts/optimize-photos.mjs"
   },
   "dependencies": {

@@ -24,6 +24,7 @@ import { promisify } from 'node:util';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
+import { writeScreenSizes } from './screen-sizes.mjs';
 import apps, { APPS_DIR_DEFAULT, APPS_DIR_FALLBACKS } from './app-assets.config.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -172,6 +173,7 @@ async function main() {
     if (!iconsOnly) await syncScreens(app, source);
     console.log('');
   }
+  if (!iconsOnly) await writeScreenSizes();
 }
 
 main().catch((err) => {

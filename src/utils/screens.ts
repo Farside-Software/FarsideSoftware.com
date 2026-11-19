@@ -1,3 +1,5 @@
+// Screens folders also hold sizes.json (see utils/screenSizes), which is not a slide.
+const IMAGE_EXT = /\.(png|jpe?g|webp)$/i;
 const naturalCompare = new Intl.Collator('en', { numeric: true, sensitivity: 'base' }).compare;
 
 /**
@@ -12,6 +14,7 @@ const naturalCompare = new Intl.Collator('en', { numeric: true, sensitivity: 'ba
  */
 export function screensFromGlob(modules: Record<string, unknown>): string[] {
   return Object.keys(modules)
+    .filter((key) => IMAGE_EXT.test(key))
     .sort(naturalCompare)
     .map((key) => modules[key] as string);
 }

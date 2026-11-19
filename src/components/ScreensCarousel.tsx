@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import LoadingSpinner from './LoadingSpinner';
 import AppPreviewVideo, { type AppPreview } from './AppPreviewVideo';
+import { screenSize } from '../utils/screenSizes';
 
 interface ScreensCarouselProps {
   slides: string[];
@@ -144,7 +145,7 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
                 aria-label={`View ${altPrefix} screenshot ${idx + 1} fullscreen`}
               >
                 {!loaded[globalIndex] && (
-                  <div className="absolute inset-0 h-96 w-44 rounded-2xl bg-panel animate-pulse overflow-hidden">
+                  <div className="absolute inset-0 rounded-2xl bg-panel animate-pulse overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center">
                       <LoadingSpinner />
                     </div>
@@ -153,8 +154,9 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
                 <img
                   src={src}
                   alt={`${altPrefix} screenshot ${idx + 1}`}
-                  width={1170}
-                  height={2532}
+                  // The image's real shape, so its slot and placeholder are the right width before it loads.
+                  width={screenSize(src)[0]}
+                  height={screenSize(src)[1]}
                   // Only the first couple load straight away; the rest wait until they are scrolled near.
                   loading={idx < 2 ? 'eager' : 'lazy'}
                   decoding="async"
@@ -162,6 +164,10 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
                     loaded[globalIndex] ? 'opacity-100' : 'opacity-0'
                   }`}
                   onLoad={() => markLoaded(globalIndex)}
+                  // An image that finished before the page's script took over never fires onLoad.
+                  ref={(img) => {
+                    if (img?.complete && img.naturalWidth > 0 && !loaded[globalIndex]) markLoaded(globalIndex);
+                  }}
                 />
               </button>
             );
@@ -194,7 +200,7 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
                 aria-label={`View ${altPrefix} screenshot ${idx + 1} fullscreen`}
               >
                 {!loaded[globalIndex] && (
-                  <div className="absolute inset-0 h-80 w-36 rounded-2xl bg-panel animate-pulse overflow-hidden">
+                  <div className="absolute inset-0 rounded-2xl bg-panel animate-pulse overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center">
                       <LoadingSpinner />
                     </div>
@@ -203,14 +209,19 @@ const ScreensCarousel: React.FC<ScreensCarouselProps> = ({
                 <img
                   src={src}
                   alt={`${altPrefix} screenshot ${idx + 1}`}
-                  width={1170}
-                  height={2532}
+                  // The image's real shape, so its slot and placeholder are the right width before it loads.
+                  width={screenSize(src)[0]}
+                  height={screenSize(src)[1]}
                   loading={idx < 2 ? 'eager' : 'lazy'}
                   decoding="async"
                   className={`h-80 w-auto object-contain transition-opacity duration-300 rounded-2xl ${
                     loaded[globalIndex] ? 'opacity-100' : 'opacity-0'
                   }`}
                   onLoad={() => markLoaded(globalIndex)}
+                  // An image that finished before the page's script took over never fires onLoad.
+                  ref={(img) => {
+                    if (img?.complete && img.naturalWidth > 0 && !loaded[globalIndex]) markLoaded(globalIndex);
+                  }}
                 />
               </button>
             );
