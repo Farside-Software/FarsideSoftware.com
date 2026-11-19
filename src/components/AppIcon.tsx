@@ -29,7 +29,13 @@ export default function AppIcon({ src, darkSrc, size, className = '', loading, f
         loading={loading}
         decoding="async"
         fetchPriority={fetchPriority}
-        className="block h-full w-full"
+        // Fades out as the dark one fades in, so its edge never shows through
+        // the dark icon's anti-aliased rim as a light fringe.
+        className={`block h-full w-full ${
+          darkSrc
+            ? 'transition-opacity duration-300 ease-out group-hover/icon:opacity-0 group-hover/app:opacity-0 motion-reduce:transition-none'
+            : ''
+        }`}
       />
       {darkSrc && (
         <img
