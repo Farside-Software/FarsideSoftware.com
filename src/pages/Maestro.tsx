@@ -1,4 +1,5 @@
 import AppShowcase from '../components/AppShowcase';
+import DevicePreviews, { type DevicePreviewTile } from '../components/DevicePreviews';
 import ExportCounter from '../components/ExportCounter';
 import { screensFromGlob } from '../utils/screens';
 import { findApp } from '../data/apps';
@@ -9,6 +10,18 @@ const ACCENT_COLOR = '#2D7FF9';
 const APP_STORE_URL = 'https://apps.apple.com/us/app/maestro-light-show-studio/id6803264666';
 
 const app = findApp('maestro')!;
+
+const devicePreviews: DevicePreviewTile[] = [
+  {
+    label: 'iPhone',
+    title: 'Maestro on iPhone',
+    src: '/video/maestro-preview.mp4',
+    poster: '/video/maestro-preview-poster.webp',
+    width: 720,
+    height: 1560,
+    frame: 'w-[157px]',
+  },
+];
 
 const screens = screensFromGlob(
   import.meta.glob('../assets/maestro/screens/*', { eager: true, import: 'default' })
@@ -27,8 +40,21 @@ export default function Maestro() {
       screens={screens}
       heroLayout="wide"
       screensClassName="bg-well"
+      preview={{
+        src: '/video/maestro-preview-mac.mp4',
+        poster: '/video/maestro-preview-mac-poster.webp',
+        width: 1280,
+        height: 720,
+        caption:
+          'Thirty seconds of Maestro on the Mac: add a song, get a show for every Tesla, reroll a busy section, edit single lights, and export for the feed.',
+      }}
       afterScreens={
         <>
+          <DevicePreviews
+            accentColor={ACCENT_COLOR}
+            intro="A thirty-second tour of Maestro on iPhone. Tap to play."
+            tiles={devicePreviews}
+          />
           <section aria-label="Exported show counter" className="bg-deep py-16 sm:py-20">
             <div className="mx-auto max-w-7xl px-6">
               <ExportCounter accentColor={ACCENT_COLOR} />
