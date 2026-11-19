@@ -150,7 +150,7 @@ export const apps = [
     comingSoon: true,
     platforms: ['Mac'],
     languages: ['English'],
-    price: 'Free, Backstamp Unlimited $4.99 one-time',
+    price: 'Free, Unlimited $4.99 one-time',
     priceDetail: 'Scan and review for free, with 25 free fixes. Backstamp Unlimited removes the limit for a single $4.99 purchase, with Family Sharing and no subscription. Undo and History are always free.',
     category: 'MultimediaApplication',
     offers: { price: '0', priceCurrency: 'USD' },
