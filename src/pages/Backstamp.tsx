@@ -27,7 +27,7 @@ export default function Backstamp() {
   return (
     <AppShowcase
       name="Backstamp"
-      heading="Backstamp: Photo Date Fixer"
+      heading="Backstamp"
       tagline="Fix missing and wrong photo dates and merge duplicates in Apple Photos. Every photo gets its date back."
       icon={icon}
       accentColor={ACCENT_COLOR}
