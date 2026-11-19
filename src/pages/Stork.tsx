@@ -1,4 +1,5 @@
 import AppShowcase from '../components/AppShowcase';
+import DevicePreviews, { type DevicePreviewTile } from '../components/DevicePreviews';
 import { screensFromGlob } from '../utils/screens';
 import { findApp } from '../data/apps';
 import icon from '../assets/stork/icon.png';
@@ -8,6 +9,27 @@ const ACCENT_COLOR = '#E8672B';
 const APP_STORE_URL = 'https://apps.apple.com/us/app/stork-l-d-companion/id6740038476';
 
 const app = findApp('stork')!;
+
+const devicePreviews: DevicePreviewTile[] = [
+  {
+    label: 'iPad',
+    title: 'Stork on iPad',
+    src: '/video/stork-preview-ipad.mp4',
+    poster: '/video/stork-preview-ipad-poster.webp',
+    width: 810,
+    height: 1080,
+    frame: 'w-[255px]',
+  },
+  {
+    label: 'iPhone Duo, unfolded',
+    title: 'Stork on iPhone Duo',
+    src: '/video/stork-preview-duo.mp4',
+    poster: '/video/stork-preview-duo-poster.webp',
+    width: 1280,
+    height: 590,
+    frame: 'w-[737px]',
+  },
+];
 
 const screens = screensFromGlob(
   import.meta.glob('../assets/stork/screens/*', { eager: true, import: 'default' })
@@ -26,6 +48,13 @@ export default function Stork() {
       requirements={['iOS 26+', 'iPadOS 26+', 'macOS 26+', 'watchOS 26+']}
       screens={screens}
       screensClassName="bg-well"
+      afterScreens={
+        <DevicePreviews
+          accentColor={ACCENT_COLOR}
+          intro="Thirty-second tours of Stork on iPad and on iPhone Duo, unfolded. Tap to play."
+          tiles={devicePreviews}
+        />
+      }
       preview={{
         src: '/video/stork-preview.mp4',
         poster: '/video/stork-preview-poster.webp',
