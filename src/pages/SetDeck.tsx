@@ -1,4 +1,5 @@
 import AppShowcase from '../components/AppShowcase';
+import DevicePreviews, { type DevicePreviewTile } from '../components/DevicePreviews';
 import { screensFromGlob } from '../utils/screens';
 import { findApp } from '../data/apps';
 import icon from '../assets/setdeck/icon.png';
@@ -8,6 +9,27 @@ const ACCENT_COLOR = '#65DA92';
 const APP_STORE_URL = 'https://apps.apple.com/us/app/setdeck/id6484503374';
 
 const app = findApp('setdeck')!;
+
+const devicePreviews: DevicePreviewTile[] = [
+  {
+    label: 'iPad',
+    title: 'SetDeck on iPad',
+    src: '/video/setdeck-preview-ipad.mp4',
+    poster: '/video/setdeck-preview-ipad-poster.webp',
+    width: 810,
+    height: 1080,
+    frame: 'w-[255px]',
+  },
+  {
+    label: 'iPhone Duo, folded',
+    title: 'SetDeck on iPhone Duo',
+    src: '/video/setdeck-preview-duo.mp4',
+    poster: '/video/setdeck-preview-duo-poster.webp',
+    width: 540,
+    height: 1170,
+    frame: 'w-[157px]',
+  },
+];
 
 const screens = screensFromGlob(
   import.meta.glob('../assets/setdeck/screens/*', { eager: true, import: 'default' })
@@ -24,8 +46,14 @@ export default function SetDeck() {
       githubUrl="https://github.com/NMolargik/SetDeck"
       requirements={['iOS 18+', 'iPadOS 18+', 'watchOS 11+', 'visionOS 2+']}
       screens={screens}
-      heroLayout="panorama"
       screensClassName="bg-well"
+      afterScreens={
+        <DevicePreviews
+          accentColor={ACCENT_COLOR}
+          intro="Thirty-second tours of SetDeck on iPad and on iPhone Duo. Tap to play."
+          tiles={devicePreviews}
+        />
+      }
       preview={{
         src: '/video/setdeck-preview.mp4',
         poster: '/video/setdeck-preview-poster.webp',

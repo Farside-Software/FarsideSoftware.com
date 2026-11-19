@@ -46,7 +46,10 @@ const SCREENSHOT_DIRS = {
     '../../Marketing/Opalite 2.0/store-screenshots/final/exports/iphone-*',
     '../../Marketing/Opalite 2.0/store-screenshots/final/exports/ipad-*',
   ],
-  setdeck: ['Screenshots/Professional/iPhone', 'Screenshots/Professional/iPad'],
+  setdeck: [
+    'Marketing/SetDeck 3.0/store-screenshots/final/iphone-*',
+    'Marketing/SetDeck 3.0/store-screenshots/final/ipad-*',
+  ],
   mygra: [
     '../../Marketing/Mygra 3.0/store-screenshots/final/iphone-*',
     '../../Marketing/Mygra 3.0/store-screenshots/final/ipad-*',

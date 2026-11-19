@@ -56,9 +56,12 @@ export default [
     source: 'SetDeck',
     icon: 'Icons/AppIcon.png',
     iconComposer: 'SetDeck/AppIcon.icon',
+    // The 3.0 store set (no watch shots in it yet, so the watch keeps the older set).
     screens: [
-      'Screenshots/Professional/iPhone',
-      'Screenshots/Professional/iPad',
+      'Marketing/SetDeck 3.0/store-screenshots/final/iphone-*',
+      'Marketing/SetDeck 3.0/store-screenshots/final/ipad-*',
+      'Marketing/SetDeck 3.0/store-screenshots/final/duo-folded-*',
+      'Marketing/SetDeck 3.0/store-screenshots/final/duo-unfolded-*',
       'Screenshots/Professional/Watch',
     ],
   },
