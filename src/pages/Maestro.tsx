@@ -21,6 +21,24 @@ const devicePreviews: DevicePreviewTile[] = [
     height: 1560,
     frame: 'w-[157px]',
   },
+  {
+    label: 'iPad',
+    title: 'Maestro on iPad',
+    src: '/video/maestro-preview-ipad.mp4',
+    poster: '/video/maestro-preview-ipad-poster.webp',
+    width: 1080,
+    height: 810,
+    frame: 'w-[453px]',
+  },
+  {
+    label: 'iPhone Duo, folded',
+    title: 'Maestro on iPhone Duo',
+    src: '/video/maestro-preview-duo.mp4',
+    poster: '/video/maestro-preview-duo-poster.webp',
+    width: 540,
+    height: 1170,
+    frame: 'w-[157px]',
+  },
 ];
 
 const screens = screensFromGlob(
@@ -52,7 +70,7 @@ export default function Maestro() {
         <>
           <DevicePreviews
             accentColor={ACCENT_COLOR}
-            intro="A thirty-second tour of Maestro on iPhone. Tap to play."
+            intro="Thirty-second tours of Maestro on iPhone, iPad and iPhone Duo. Tap to play."
             tiles={devicePreviews}
           />
           <section aria-label="Exported show counter" className="bg-deep py-16 sm:py-20">
