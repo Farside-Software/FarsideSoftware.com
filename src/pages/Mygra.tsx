@@ -22,7 +22,7 @@ export default function Mygra() {
       icon={icon}
       accentColor={ACCENT_COLOR}
       app={app}
-      githubUrl="https://github.com/NMolargik/Mygra"
+      githubUrl="https://github.com/Farside-Software/Mygra"
       requirements={['iOS 18+', 'iPadOS 18+', 'watchOS 10+', 'visionOS 2+']}
       screens={screens}
       screensClassName="bg-well"

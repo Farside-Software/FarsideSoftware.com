@@ -33,7 +33,7 @@ export default function V1Sports() {
     <>
       {/* Affiliation disclaimer */}
       <div className="w-full bg-red-600 text-white text-sm text-center px-4 py-2 pt-16">
-        <strong>Disclaimer:</strong> Molargik Software LLC is not affiliated with V1 Sports. Nicholas Molargik was employed as a Senior Mobile Software Engineer at V1 Sports from 2024 to 2026.
+        <strong>Disclaimer:</strong> Farside Software LLC (formerly Molargik Software LLC) is not affiliated with V1 Sports. Nicholas Molargik was employed as a Senior Mobile Software Engineer at V1 Sports from 2024 to 2026.
       </div>
 
       <section>

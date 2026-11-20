@@ -43,7 +43,7 @@ export default function Waffle() {
       icon={icon}
       accentColor={ACCENT_COLOR}
       app={app}
-      githubUrl="https://github.com/NMolargik/Waffle"
+      githubUrl="https://github.com/Farside-Software/Waffle"
       requirements={['iOS 26+', 'iPadOS 26+']}
       screens={screens}
       screensClassName="bg-well"

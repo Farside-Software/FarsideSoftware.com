@@ -54,7 +54,6 @@ export default function Opalite() {
       icon={icon}
       accentColor={ACCENT_COLOR}
       app={app}
-      githubUrl="https://github.com/NMolargik/Opalite"
       webHref="/opalite-web"
       requirements={['iOS 18.4+', 'iPadOS 18.4+', 'macOS 15+', 'watchOS 10+', 'tvOS 18+', 'visionOS 26.2+']}
       screens={screens}

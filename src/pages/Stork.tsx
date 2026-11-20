@@ -44,7 +44,7 @@ export default function Stork() {
       icon={icon}
       accentColor={ACCENT_COLOR}
       app={app}
-      githubUrl="https://github.com/NMolargik/Stork"
+      githubUrl="https://github.com/Farside-Software/Stork"
       requirements={['iOS 26+', 'iPadOS 26+', 'macOS 26+', 'watchOS 26+']}
       screens={screens}
       screensClassName="bg-well"

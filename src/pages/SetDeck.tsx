@@ -43,7 +43,7 @@ export default function SetDeck() {
       icon={icon}
       accentColor={ACCENT_COLOR}
       app={app}
-      githubUrl="https://github.com/NMolargik/SetDeck"
+      githubUrl="https://github.com/Farside-Software/SetDeck"
       requirements={['iOS 18+', 'iPadOS 18+', 'watchOS 11+', 'visionOS 2+']}
       screens={screens}
       screensClassName="bg-well"

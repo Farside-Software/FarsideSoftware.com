@@ -258,7 +258,7 @@ export default function Home() {
             url: 'https://farsidesoftware.com/',
             logo: 'https://farsidesoftware.com/og/default.png',
             founder: { '@type': 'Person', name: 'Nick Molargik' },
-            sameAs: ['https://github.com/NMolargik', 'https://www.linkedin.com/in/nicholas-molargik/'],
+            sameAs: ['https://github.com/Farside-Software'],
           }),
         }}
       />

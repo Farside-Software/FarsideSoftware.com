@@ -185,7 +185,7 @@ export default function StreetIQ() {
     <>
       {/* Affiliation disclaimer */}
       <div className="w-full bg-red-600 text-white text-sm text-center px-4 py-2 pt-16">
-        <strong>Disclaimer:</strong> Molargik Software LLC is not affiliated with StreetIQ. Nicholas Molargik is employed as a Senior Software Engineer at StreetIQ.
+        <strong>Disclaimer:</strong> Farside Software LLC (formerly Molargik Software LLC) is not affiliated with StreetIQ. Nicholas Molargik is employed as a Senior Software Engineer at StreetIQ.
       </div>
 
       <section>
