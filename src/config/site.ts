@@ -8,7 +8,7 @@ export const SITE_NAME = 'Farside Software';
 export const LEGAL_NAME = 'Farside Software LLC';
 /** Shown beside the copyright while the rename is fresh; set to '' to drop it. */
 export const FORMER_LEGAL_NAME = 'Molargik Software LLC';
-export const CONTACT_EMAIL = 'nick@molargiksoftware.com';
+export const CONTACT_EMAIL = 'support@farsidesoftware.com';
 export const FOUNDER = 'Nick Molargik';
 
 /**

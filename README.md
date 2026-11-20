@@ -108,7 +108,7 @@ GitHub Pages, deployed by `.github/workflows/pages.yml` on every push to `main`.
 - **Website:** [molargiksoftware.com](https://molargiksoftware.com)
 - **GitHub:** [github.com/NMolargik](https://github.com/NMolargik)
 - **LinkedIn:** [linkedin.com/in/nicholas-molargik](https://linkedin.com/in/nicholas-molargik)
-- **Contact:** nick@molargiksoftware.com
+- **Contact:** support@farsidesoftware.com
 
 ## License
 
