@@ -21,6 +21,7 @@ import setdeckGuides, { app as setdeckApp, hub as setdeckHub } from './guides/se
 import mygraGuides, { app as mygraApp, hub as mygraHub } from './guides/mygra.mjs';
 import storkGuides, { app as storkApp, hub as storkHub } from './guides/stork.mjs';
 import waffleGuides, { app as waffleApp, hub as waffleHub } from './guides/waffle.mjs';
+import backstampGuides, { app as backstampApp, hub as backstampHub } from './guides/backstamp.mjs';
 
 export { SITE_URL };
 
@@ -1102,6 +1103,7 @@ const moreApps = [
   { hub: mygraHub, app: mygraApp, guides: mygraGuides },
   { hub: storkHub, app: storkApp, guides: storkGuides },
   { hub: waffleHub, app: waffleApp, guides: waffleGuides },
+  { hub: backstampHub, app: backstampApp, guides: backstampGuides },
 ];
 
 /** Every guide, Maestro's and Opalite's first, then the other apps in the order above. */

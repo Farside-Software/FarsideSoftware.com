@@ -1,6 +1,6 @@
 export type GuideBlock = string | { ul: string[] } | { ol: string[] } | { code: string };
 
-export type GuideAppSlug = 'maestro' | 'opalite' | 'setdeck' | 'mygra' | 'stork' | 'waffle';
+export type GuideAppSlug = 'maestro' | 'opalite' | 'setdeck' | 'mygra' | 'stork' | 'waffle' | 'backstamp';
 
 export interface Guide {
   slug: string;
