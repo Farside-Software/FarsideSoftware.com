@@ -137,6 +137,8 @@ const T = {
   boosterHome: 8.2,
   /** The dust has settled and a click brings the ship home. */
   settled: 13,
+  /** Left on the moon this long (screen time), the ship comes home by itself. */
+  moonStay: 30,
 };
 /** Seconds the hero is on screen before the countdown begins by itself. */
 const DELAY = 3;
@@ -781,6 +783,7 @@ export default function HeroScene({ className = '' }: { className?: string }) {
       } else {
         state.t += dt;
         spin(dt, 1.5);
+        if (state.mode === 'moon' && state.t >= T.settled + T.moonStay) comeHome();
       }
 
       // The arms: the ship's arm swings back just before liftoff; the catch
