@@ -88,7 +88,7 @@ export default function AppHero({
           {promoLive && promo && (
             <p
               role="status"
-              className="mb-7 inline-flex items-center gap-2 rounded-full bg-signal px-4 py-2 text-sm font-bold text-night"
+              className="mb-7 flex w-fit max-w-full items-center gap-2 rounded-full bg-signal px-4 py-2 text-sm font-bold text-night"
             >
               <Tag size={16} aria-hidden="true" className="shrink-0" />
               {promo.label}
