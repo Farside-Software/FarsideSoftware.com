@@ -54,6 +54,13 @@ export default function SetDeck() {
           tiles={devicePreviews}
         />
       }
+      heroVideo={{
+        src: '/video/setdeck-social.mp4',
+        poster: '/video/setdeck-social-poster.webp',
+        width: 720,
+        height: 1280,
+        caption: 'A short looping video introducing SetDeck. It opens with the question: Ready for your next set?',
+      }}
       preview={{
         src: '/video/setdeck-preview.mp4',
         poster: '/video/setdeck-preview-poster.webp',

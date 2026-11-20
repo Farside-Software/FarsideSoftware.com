@@ -74,6 +74,12 @@ export interface AppShowcaseProps {
    * `wide`); otherwise it is the first slide of the screenshot gallery.
    */
   preview?: AppPreview;
+  /**
+   * Short marketing loop (9:16) for the hero. When set it fills the hero's
+   * media column at every width, and the App Store preview and every
+   * screenshot move to the gallery.
+   */
+  heroVideo?: AppPreview;
   about: {
     title: ReactNode;
     intro: ReactNode;
@@ -116,6 +122,7 @@ export default function AppShowcase({
   afterScreens,
   heroPills,
   preview,
+  heroVideo,
   about,
   cta = {},
   jsonLd,
@@ -151,11 +158,11 @@ export default function AppShowcase({
   useScrollToStart(carouselRefDesktop, carouselRefMobile);
 
   const previewPortrait = !!preview && preview.height > preview.width;
-  const previewInHero = !!preview && (heroLayout === 'wide' ? !previewPortrait : previewPortrait);
+  const previewInHero = !heroVideo && !!preview && (heroLayout === 'wide' ? !previewPortrait : previewPortrait);
   // The hero shows the first screenshots unless the preview video took their
   // place; the gallery carries the rest, as long as that still leaves a
   // gallery worth scrolling.
-  const lead = previewInHero ? 0 : heroLayout === 'wide' ? 1 : 2;
+  const lead = previewInHero || heroVideo ? 0 : heroLayout === 'wide' ? 1 : 2;
   const gallery = screens.length - lead >= 3 ? screens.slice(lead) : screens;
   const others = allApps.filter((other) => other.slug !== app?.slug);
   const howTos = app ? guidesIn(app.slug) : [];
@@ -184,6 +191,7 @@ export default function AppShowcase({
         shots={screens}
         layout={heroLayout}
         video={previewInHero ? preview : undefined}
+        loop={heroVideo}
       />
 
       {trackedStoreUrl && (

@@ -55,6 +55,13 @@ export default function Stork() {
           tiles={devicePreviews}
         />
       }
+      heroVideo={{
+        src: '/video/stork-social.mp4',
+        poster: '/video/stork-social-poster.webp',
+        width: 720,
+        height: 1280,
+        caption: 'A short looping video introducing Stork. It opens with the question: Catching babies for a living?',
+      }}
       preview={{
         src: '/video/stork-preview.mp4',
         poster: '/video/stork-preview-poster.webp',

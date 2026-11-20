@@ -54,6 +54,13 @@ export default function Waffle() {
           tiles={devicePreviews}
         />
       }
+      heroVideo={{
+        src: '/video/waffle-social.mp4',
+        poster: '/video/waffle-social-poster.webp',
+        width: 720,
+        height: 1280,
+        caption: 'A short looping video introducing Waffle. It opens with the question: Tired of juggling tabs?',
+      }}
       preview={{
         src: '/video/waffle-preview.mp4',
         poster: '/video/waffle-preview-poster.webp',

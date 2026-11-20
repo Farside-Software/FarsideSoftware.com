@@ -58,6 +58,13 @@ export default function Maestro() {
       screens={screens}
       heroLayout="wide"
       screensClassName="bg-well"
+      heroVideo={{
+        src: '/video/maestro-social.mp4',
+        poster: '/video/maestro-social-poster.webp',
+        width: 720,
+        height: 1280,
+        caption: 'A short looping video introducing Maestro. It opens with the question: Light show for your Tesla?',
+      }}
       preview={{
         src: '/video/maestro-preview-mac.mp4',
         poster: '/video/maestro-preview-mac-poster.webp',

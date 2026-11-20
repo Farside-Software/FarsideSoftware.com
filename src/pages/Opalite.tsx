@@ -58,6 +58,13 @@ export default function Opalite() {
       requirements={['iOS 18.4+', 'iPadOS 18.4+', 'macOS 15+', 'watchOS 10+', 'tvOS 18+', 'visionOS 26.2+']}
       screens={screens}
       screensClassName="bg-well"
+      heroVideo={{
+        src: '/video/opalite-social.mp4',
+        poster: '/video/opalite-social-poster.webp',
+        width: 720,
+        height: 1280,
+        caption: 'A short looping video introducing Opalite. It opens with the question: Lost that perfect color?',
+      }}
       preview={{
         src: '/video/opalite-preview.mp4',
         poster: '/video/opalite-preview-poster.webp',

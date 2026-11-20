@@ -26,6 +26,13 @@ export default function Backstamp() {
       requirements={['macOS 26 or later', 'Works with iCloud Photos', 'Data Not Collected']}
       screens={screens}
       heroLayout="wide"
+      heroVideo={{
+        src: '/video/backstamp-social.mp4',
+        poster: '/video/backstamp-social-poster.webp',
+        width: 720,
+        height: 1280,
+        caption: 'A short looping video introducing Backstamp. It opens with the question: Wrong dates on your photos?',
+      }}
       preview={{
         src: '/video/backstamp-preview.mp4',
         poster: '/video/backstamp-preview-poster.webp',

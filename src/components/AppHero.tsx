@@ -6,6 +6,7 @@ import AppStoreBadge from './AppStoreBadge';
 import ComingSoonBadge from './ComingSoonBadge';
 import GlassButton from './GlassButton';
 import AppPreviewVideo, { type AppPreview } from './AppPreviewVideo';
+import HeroLoopVideo from './HeroLoopVideo';
 import AppIcon from './AppIcon';
 
 interface AppHeroProps {
@@ -39,6 +40,8 @@ interface AppHeroProps {
   layout: 'pair' | 'wide' | 'panorama';
   /** Preview video shown in the right column instead of the lead screenshots. The column only shows from lg up; the gallery carries the video below that. */
   video?: AppPreview;
+  /** Marketing loop shown in the right column at every width, in place of screenshots and `video`. */
+  loop?: AppPreview;
   /** Attached to the column holding the store badges (the buy bar watches it). */
   actionsRef?: RefObject<HTMLDivElement | null>;
 }
@@ -68,17 +71,20 @@ export default function AppHero({
   shots,
   layout,
   video,
+  loop,
   actionsRef,
 }: AppHeroProps) {
   const promoLive = usePromoActive(promo);
   // "Maestro - Light Show Studio" reads as a name and a kind of app.
   const [title, kind] = heading.split(' - ');
   const lead = layout === 'wide' ? shots.slice(0, 1) : shots.slice(0, 2);
+  // A portrait loop takes the narrow column, whatever the screenshot layout.
+  const wideMedia = layout === 'wide' && !loop;
 
   return (
     <section className="relative overflow-hidden border-b border-line/10 bg-page pt-28 pb-16 lg:pt-36 lg:pb-24">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:gap-10">
-        <div ref={actionsRef} className={layout === 'wide' ? 'lg:col-span-5' : 'lg:col-span-7'}>
+        <div ref={actionsRef} className={wideMedia ? 'lg:col-span-5' : 'lg:col-span-7'}>
           {promoLive && promo && (
             <p
               role="status"
@@ -149,8 +155,15 @@ export default function AppHero({
           )}
         </div>
 
-        <div className={`${video ? 'hidden lg:block ' : ''}${layout === 'wide' ? 'lg:col-span-7' : 'lg:col-span-5'}`}>
-          {video ? (
+        <div className={`${video && !loop ? 'hidden lg:block ' : ''}${wideMedia ? 'lg:col-span-7' : 'lg:col-span-5'}`}>
+          {loop ? (
+            <HeroLoopVideo
+              {...loop}
+              title={`${name} video`}
+              accent={accentColor}
+              className="mx-auto w-full max-w-[260px] sm:max-w-[300px]"
+            />
+          ) : video ? (
             <AppPreviewVideo
               {...video}
               title={`${name} app preview`}

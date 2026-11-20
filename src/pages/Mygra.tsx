@@ -26,6 +26,13 @@ export default function Mygra() {
       requirements={['iOS 18+', 'iPadOS 18+', 'watchOS 10+', 'visionOS 2+']}
       screens={screens}
       screensClassName="bg-well"
+      heroVideo={{
+        src: '/video/mygra-social.mp4',
+        poster: '/video/mygra-social-poster.webp',
+        width: 720,
+        height: 1280,
+        caption: 'A short looping video introducing Mygra. It opens with the question: What sets off your migraines?',
+      }}
       preview={{
         src: '/video/mygra-preview.mp4',
         poster: '/video/mygra-preview-poster.webp',
