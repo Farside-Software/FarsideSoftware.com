@@ -24,12 +24,54 @@ import { findApp } from '../data/apps';
 
 const SKILL_GROUPS = [
   {
-    category: 'Mobile Development',
-    items: ['SwiftUI', 'Swift', 'Kotlin Multiplatform', 'Flutter + BLoC', 'Jetpack Compose'],
+    category: 'Apple Ecosystem',
+    /** The longest list, so it gets the full width above the other two. */
+    wide: true,
+    items: [
+      'Apple Intelligence (Foundation Models)',
+      'SwiftData',
+      'CloudKit',
+      'Core Data',
+      'HealthKit',
+      'WeatherKit',
+      'WidgetKit',
+      'Live Activities',
+      'App Intents',
+      'Watch Connectivity',
+      'StoreKit 2',
+      'Swift Charts',
+      'TipKit',
+      'Core Spotlight',
+      'Core Location',
+      'Core Motion',
+      'PhotoKit',
+      'Vision',
+      'Core Image',
+      'AVFoundation',
+      'Accelerate',
+      'WebKit',
+      'PencilKit',
+      'RealityKit',
+      'SpriteKit',
+      'PDFKit',
+      'CoreML',
+    ],
   },
   {
-    category: 'Apple Ecosystem',
-    items: ['HealthKit', 'WeatherKit', 'Apple Intelligence', 'SwiftData', 'CloudKit', 'WebView API', 'CoreML', 'AVFoundation'],
+    category: 'Mobile Development',
+    items: [
+      'Swift',
+      'SwiftUI',
+      'UIKit',
+      'AppKit',
+      'Swift Concurrency',
+      'Swift Testing',
+      'Swift Package Manager',
+      'Xcode Cloud',
+      'Kotlin Multiplatform',
+      'Flutter + BLoC',
+      'Jetpack Compose',
+    ],
   },
   {
     category: 'Systems Engineering',
@@ -120,9 +162,16 @@ export default function About() {
             <Pills
               label="Core Technologies"
               items={[
-                'SwiftUI + Apple Intelligence (iOS 26+)',
+                'Swift 6 + SwiftUI on every Apple platform',
+                'On-device Apple Intelligence',
                 'SwiftData + CloudKit cross-device sync',
-                'HealthKit, WeatherKit, WebView API',
+                'Widgets, Live Activities, App Intents',
+                'HealthKit, WeatherKit, and Core Location',
+                'StoreKit 2 with Family Sharing',
+                'Swift Charts and TipKit',
+                'PhotoKit, Vision, and Core Image',
+                'AVFoundation + Accelerate audio analysis',
+                'WebKit, PencilKit, and RealityKit',
               ]}
             />
           </div>
@@ -325,9 +374,9 @@ export default function About() {
       </SplitSection>
 
       <SplitSection id="skills" eyebrow="Skills" tone="well" title="Technical Expertise">
-        <div className="reveal grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="reveal grid gap-10 sm:grid-cols-2">
           {SKILL_GROUPS.map((group) => (
-            <div key={group.category}>
+            <div key={group.category} className={'wide' in group && group.wide ? 'sm:col-span-2' : undefined}>
               <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-muted/70">{group.category}</h3>
               <Pills items={group.items} label={group.category} />
             </div>
