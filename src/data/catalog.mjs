@@ -4,7 +4,9 @@
 //
 // An app that is not out yet sets `comingSoon: true` and has no store URL:
 // the site shows "Coming soon" in place of the App Store badge, and nothing
-// links to the store. Remove the flag and add `macAppStoreUrl` at release.
+// links to the store. Remove the flag and add the store URL at release. A
+// Mac-only app sets only `macAppStoreUrl`; everything that links to a store
+// falls back to it (see `storeLinkOf` in src/data/apps.ts).
 //
 // Keep copy here short and factual; the long-form marketing copy stays in
 // each page under src/pages/.
@@ -142,12 +144,10 @@ export const apps = [
     source: 'Backstamp',
     job: 'Fix missing and wrong photo dates and merge duplicates in Apple Photos, on your Mac.',
     description:
-      'Backstamp fixes missing and wrong photo dates and merges duplicates in Apple Photos. It shows the evidence behind every date, changes nothing until you click Apply, and keeps an undo journal. A native Mac app for macOS 26 or later. Coming soon to the Mac App Store.',
+      'Backstamp fixes missing and wrong photo dates and merges duplicates in Apple Photos. It shows the evidence behind every date, changes nothing until you click Apply, and keeps an undo journal. A native Mac app for macOS 26 or later, on the Mac App Store.',
     accent: '#138A80',
-    // Not released yet: no store URL until the Mac App Store listing is live
-    // (App Store Connect id 6836913352). At release, set `macAppStoreUrl` to the
-    // listing and delete `comingSoon`.
-    comingSoon: true,
+    // Mac only, so no `appStoreUrl` (App Store Connect id 6836913352).
+    macAppStoreUrl: 'https://apps.apple.com/us/app/backstamp-photo-date-fixer/id6836913352?platform=mac',
     platforms: ['Mac'],
     languages: ['English'],
     price: 'Free, Unlimited $4.99 one-time',

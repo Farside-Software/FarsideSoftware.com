@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import type { CSSProperties } from 'react';
-import type { SiteApp } from '../data/apps';
+import { storeLinkOf, type SiteApp } from '../data/apps';
 import { usePromoActive } from '../hooks/usePromoActive';
 import { appStoreLink, siteChannel } from '../utils/appStore';
 import { hexToRgbTriple } from '../utils/liquidGlass';
@@ -61,7 +61,14 @@ export default function AppCard({ app, index = 0, channel = 'home' }: AppCardPro
       </ul>
 
       <div className="mt-auto pt-6 flex flex-wrap items-center justify-between gap-3">
-        {app.appStoreUrl && <AppStoreBadge href={appStoreLink(app.appStoreUrl, siteChannel(channel))} appName={app.name} className="w-[180px]" />}
+        {storeLinkOf(app) && (
+          <AppStoreBadge
+            href={appStoreLink(storeLinkOf(app)!.url, siteChannel(channel))}
+            appName={app.name}
+            store={storeLinkOf(app)!.store}
+            className="w-[180px]"
+          />
+        )}
         <Link
           to={app.path}
           className="inline-flex items-center gap-1 text-sm font-medium transition-colors"

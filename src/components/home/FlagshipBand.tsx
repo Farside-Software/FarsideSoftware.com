@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import type { SiteApp } from '../../data/apps';
+import { storeLinkOf, type SiteApp } from '../../data/apps';
 import { usePromoActive } from '../../hooks/usePromoActive';
 import { appStoreLink, siteChannel } from '../../utils/appStore';
 import { accentText } from '../../theme/contrast';
@@ -47,7 +47,9 @@ export default function FlagshipBand({ app, kind, shots, reverse = false, classN
           </p>
           <p className="mt-1 text-sm text-muted">{app.platforms.join(' · ')}</p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-            {app.appStoreUrl && <AppStoreBadge href={appStoreLink(app.appStoreUrl, siteChannel('home'))} appName={app.name} />}
+            {storeLinkOf(app) && (
+              <AppStoreBadge href={appStoreLink(storeLinkOf(app)!.url, siteChannel('home'))} appName={app.name} store={storeLinkOf(app)!.store} />
+            )}
             <Link
               to={app.path}
               className="group inline-flex items-center gap-1.5 font-bold text-ink underline decoration-line/30 underline-offset-4 hover:decoration-line/70"

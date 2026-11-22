@@ -57,6 +57,16 @@ export function findApp(slug: string): SiteApp | undefined {
   return base ? { ...base, icon: icons[base.slug], iconDark: darkIcons[base.slug], path: `/${base.slug}` } : undefined;
 }
 
+/**
+ * Where an app's store badge should point, and which store that is: the
+ * App Store listing, or the Mac App Store for a Mac-only app.
+ */
+export function storeLinkOf(app: Pick<CatalogApp, 'appStoreUrl' | 'macAppStoreUrl'>): { url: string; store: 'ios' | 'mac' } | undefined {
+  if (app.appStoreUrl) return { url: app.appStoreUrl, store: 'ios' };
+  if (app.macAppStoreUrl) return { url: app.macAppStoreUrl, store: 'mac' };
+  return undefined;
+}
+
 /** The apps that are out now (everything except those marked `comingSoon`). */
 export const releasedApps: SiteApp[] = apps.filter((app) => !app.comingSoon);
 

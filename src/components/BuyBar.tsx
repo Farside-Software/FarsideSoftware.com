@@ -12,13 +12,16 @@ interface BuyBarProps {
   price?: string;
   accentColor: string;
   appStoreHref: string;
+  /** `mac` for a Mac-only app, whose button names the Mac App Store. */
+  store?: 'ios' | 'mac';
 }
 
 /**
  * A slim bar under the site header that keeps the app's name, price and
  * store link in reach while the rest of the page scrolls.
  */
-export default function BuyBar({ watch, name, icon, iconDark, price, accentColor, appStoreHref }: BuyBarProps) {
+export default function BuyBar({ watch, name, icon, iconDark, price, accentColor, appStoreHref, store = 'ios' }: BuyBarProps) {
+  const storeName = store === 'mac' ? 'Mac App Store' : 'App Store';
   const [shown, setShown] = useState(false);
 
   useEffect(() => {
@@ -43,9 +46,9 @@ export default function BuyBar({ watch, name, icon, iconDark, price, accentColor
           <span className="font-extrabold text-ink">{name}</span>
           {price && <span className="ml-3 hidden text-sm text-muted sm:inline">{price}</span>}
         </p>
-        <GlassButton href={appStoreHref} target="_blank" accentColor={accentColor} size="sm" ariaLabel={`Get ${name} on the App Store`}>
+        <GlassButton href={appStoreHref} target="_blank" accentColor={accentColor} size="sm" ariaLabel={`Get ${name} on the ${storeName}`}>
           <span>
-            Get<span className="hidden sm:inline"> on the App Store</span>
+            Get<span className="hidden sm:inline"> on the {storeName}</span>
           </span>
         </GlassButton>
       </div>

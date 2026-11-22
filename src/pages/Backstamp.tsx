@@ -9,7 +9,6 @@ const ACCENT_COLOR = '#138A80';
 
 const app = findApp('backstamp')!;
 
-// Press kit: run `npm run press -- backstamp` once `comingSoon` is removed in src/data/catalog.mjs.
 const screens = screensFromGlob(
   import.meta.glob('../assets/backstamp/screens/*', { eager: true, import: 'default' })
 );
@@ -106,7 +105,7 @@ export default function Backstamp() {
           },
         ],
         footnote:
-          'Backstamp is a native Mac app for macOS 26 or later, with no account and no data collected. It is free to download with 25 free fixes, and is coming soon to the Mac App Store.',
+          'Backstamp is a native Mac app for macOS 26 or later, with no account and no data collected. It is free to download from the Mac App Store, with 25 free fixes.',
       }}
       jsonLd={{
         name: 'Backstamp: Photo Date Fixer',

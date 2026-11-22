@@ -194,7 +194,7 @@ export default function AppShowcase({
         loop={heroVideo}
       />
 
-      {trackedStoreUrl && (
+      {(storeUrl ?? macUrl) && (
         <BuyBar
           watch={heroRef}
           name={name}
@@ -202,7 +202,8 @@ export default function AppShowcase({
           iconDark={app?.iconDark}
           price={priceLine}
           accentColor={accentColor}
-          appStoreHref={appStoreLink(storeUrl!, `${channel}_bar`)}
+          appStoreHref={appStoreLink((storeUrl ?? macUrl)!, `${channel}_bar`)}
+          store={storeUrl ? 'ios' : 'mac'}
         />
       )}
 
@@ -288,7 +289,7 @@ export default function AppShowcase({
       <div className="bg-page pb-20">
         {app && <Testimonials appName={name} items={app.testimonials} accentColor={accentColor} />}
 
-        {cta !== false && (trackedStoreUrl || comingSoon) && (
+        {cta !== false && (trackedStoreUrl || trackedMacUrl || comingSoon) && (
           <DownloadCTA
             appName={name}
             appStoreUrl={trackedStoreUrl}

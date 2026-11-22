@@ -20,10 +20,11 @@ export default function Go() {
   const app = findApp(slug.toLowerCase());
 
   const target = useMemo(() => {
-    if (!app?.appStoreUrl) return null;
+    if (!app?.appStoreUrl && !app?.macAppStoreUrl) return null;
     const channel = (params.get('ct') ?? 'go').replace(/[^a-z0-9_-]/gi, '').slice(0, 40) || 'go';
-    const wantsMac = params.get('platform') === 'mac' && app.macAppStoreUrl;
-    return appStoreLink(wantsMac ? app.macAppStoreUrl! : app.appStoreUrl, channel);
+    // A Mac-only app has no App Store URL, so it always goes to the Mac listing.
+    const wantsMac = (params.get('platform') === 'mac' || !app.appStoreUrl) && app.macAppStoreUrl;
+    return appStoreLink(wantsMac ? app.macAppStoreUrl! : app.appStoreUrl!, channel);
   }, [app, params]);
 
   usePageMeta({
