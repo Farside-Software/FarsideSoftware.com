@@ -70,7 +70,7 @@ export default function Home() {
                 </span>
               ))}
             </p>
-            <h1 className="mt-6 text-[2.75rem] font-extrabold leading-[0.98] tracking-[-0.04em] text-ink [text-wrap:balance] sm:text-[4rem] xl:text-[5.25rem]">
+            <h1 className="mt-6 text-[2.75rem] font-extrabold leading-[1.06] tracking-[-0.04em] text-ink [text-wrap:balance] sm:text-[4rem] xl:text-[5.25rem]">
               Independent apps for every Apple device<span className="text-signal">.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
