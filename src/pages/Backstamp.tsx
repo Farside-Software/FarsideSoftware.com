@@ -105,7 +105,7 @@ export default function Backstamp() {
           },
         ],
         footnote:
-          'Backstamp is a native Mac app for macOS 26 or later, with no account and no data collected. It is free to download from the Mac App Store, with 25 free fixes.',
+          'Backstamp is a native Mac app for macOS 26 or later, with no account and no data collected. It is free to download with 25 free fixes, and is coming soon to the Mac App Store.',
       }}
       jsonLd={{
         name: 'Backstamp: Photo Date Fixer',

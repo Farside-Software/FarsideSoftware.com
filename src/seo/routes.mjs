@@ -16,7 +16,7 @@ const staticRoutes = [
     path: '/',
     title: 'Farside Software: Independent apps for every Apple device',
     description:
-      'Independent apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro. Private by design: Maestro, Opalite, SetDeck, Mygra, Stork, Waffle, and Backstamp.',
+      'Independent apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro. Private by design: Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle, with Backstamp for the Mac coming soon.',
     ogImage: DEFAULT_OG,
     changefreq: 'weekly',
     priority: 1.0,

@@ -116,8 +116,8 @@ const perApp: Record<string, Faq[]> = {
   ],
   backstamp: [
     {
-      q: 'Where do I get Backstamp?',
-      a: 'On the Mac App Store, for Macs running macOS 26 or later. It is a Mac app only.',
+      q: 'Is Backstamp out yet?',
+      a: 'Not yet. It is coming soon to the Mac App Store, for Macs running macOS 26 or later.',
     },
     {
       q: 'Will it change my library without asking?',

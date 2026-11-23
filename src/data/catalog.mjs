@@ -144,10 +144,13 @@ export const apps = [
     source: 'Backstamp',
     job: 'Fix missing and wrong photo dates and merge duplicates in Apple Photos, on your Mac.',
     description:
-      'Backstamp fixes missing and wrong photo dates and merges duplicates in Apple Photos. It shows the evidence behind every date, changes nothing until you click Apply, and keeps an undo journal. A native Mac app for macOS 26 or later, on the Mac App Store.',
+      'Backstamp fixes missing and wrong photo dates and merges duplicates in Apple Photos. It shows the evidence behind every date, changes nothing until you click Apply, and keeps an undo journal. A native Mac app for macOS 26 or later. Coming soon to the Mac App Store.',
     accent: '#138A80',
-    // Mac only, so no `appStoreUrl` (App Store Connect id 6836913352).
-    macAppStoreUrl: 'https://apps.apple.com/us/app/backstamp-photo-date-fixer/id6836913352?platform=mac',
+    // Not released yet: no store URL until the Mac App Store listing is live
+    // (App Store Connect id 6836913352). At release, set `macAppStoreUrl` to the
+    // listing (https://apps.apple.com/us/app/backstamp-photo-date-fixer/id6836913352?platform=mac)
+    // and delete `comingSoon`.
+    comingSoon: true,
     platforms: ['Mac'],
     languages: ['English'],
     price: 'Free, Unlimited $4.99 one-time',

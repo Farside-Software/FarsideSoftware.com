@@ -153,7 +153,7 @@ export default function Home() {
                 Seven apps. One studio.
               </h2>
               <p className="mt-4 text-lg text-muted">
-                Each one started as a problem worth solving for ourselves. All seven are on the App Store today.
+                Each one started as a problem worth solving for ourselves. Six are on the App Store today, and Backstamp is coming soon to the Mac App Store.
               </p>
             </div>
             <CatalogTable />

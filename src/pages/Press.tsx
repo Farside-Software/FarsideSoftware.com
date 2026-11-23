@@ -12,7 +12,7 @@ import { appStoreLink, siteChannel } from '../utils/appStore';
 const SCREENSHOTS = [1, 2, 3];
 
 const companyBlurb =
-  LEGAL_NAME + ' is an independent app studio in Indiana, founded in 2025 by Nick Molargik. It builds native Swift and SwiftUI apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro, each one started to solve a problem the founder ran into himself. The apps are private by design: most collect no data at all, sync through the user\'s own iCloud, and ship without analytics SDKs or ad networks. Seven apps are on the App Store today: Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle, plus Backstamp, a Mac app that fixes photo dates.';
+  LEGAL_NAME + ' is an independent app studio in Indiana, founded in 2025 by Nick Molargik. It builds native Swift and SwiftUI apps for iPhone, iPad, Mac, Apple Watch, Apple TV, and Vision Pro, each one started to solve a problem the founder ran into himself. The apps are private by design: most collect no data at all, sync through the user\'s own iCloud, and ship without analytics SDKs or ad networks. Six apps are on the App Store today: Maestro, Opalite, SetDeck, Mygra, Stork, and Waffle. Backstamp, a Mac app that fixes photo dates, is coming soon to the Mac App Store.';
 
 const founderLine =
   'Nick Molargik is a senior software engineer and the founder of ' + LEGAL_NAME + '. An electrical engineer by training, he has shipped mobile apps at Sweetwater, V1 Sports, and StreetIQ, and builds the studio\'s apps solo from concept to App Store.';
