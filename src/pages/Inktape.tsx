@@ -1,4 +1,5 @@
 import AppShowcase from '../components/AppShowcase';
+import DevicePreviews, { type DevicePreviewTile } from '../components/DevicePreviews';
 import { screensFromGlob } from '../utils/screens';
 import icon from '../assets/inktape/icon.png';
 
@@ -13,6 +14,29 @@ const ACCENT_COLOR = '#2B3A8C';
 // and never claim that nothing leaves the device (iCloud sync is on by default).
 // When it launches: add it to the catalog, drop the route's noindex, and
 // replace comingSoon with its App Store link.
+// App previews: the iPhone cut sits in the hero, iPad and iPhone Duo below the
+// screenshots. Web encodes of the files in Apps/Inktape/Marketing/Inktape 1.0/app-preview.
+const devicePreviews: DevicePreviewTile[] = [
+  {
+    label: 'iPad',
+    title: 'Inktape on iPad',
+    src: '/video/inktape-preview-ipad.mp4',
+    poster: '/video/inktape-preview-ipad-poster.webp',
+    width: 810,
+    height: 1080,
+    frame: 'w-[255px]',
+  },
+  {
+    label: 'iPhone Duo',
+    title: 'Inktape on iPhone Duo',
+    src: '/video/inktape-preview-duo.mp4',
+    poster: '/video/inktape-preview-duo-poster.webp',
+    width: 540,
+    height: 1170,
+    frame: 'w-[157px]',
+  },
+];
+
 const screens = screensFromGlob(
   import.meta.glob('../assets/inktape/screens/*', { eager: true, import: 'default' })
 );
@@ -32,6 +56,21 @@ export default function Inktape() {
       priceDetail="Recording, notes and replay are free for as long as you like. One purchase, not a subscription, adds full-length transcripts, summaries and answers."
       requirements={['iOS 27.1+', 'iPadOS 27.1+', 'Data Not Collected']}
       screens={screens}
+      preview={{
+        src: '/video/inktape-preview.mp4',
+        poster: '/video/inktape-preview-poster.webp',
+        width: 720,
+        height: 1560,
+        caption:
+          'Thirty seconds of Inktape: a live transcript of what is said, tap a word to hear the moment, write on your slides, ask Reels what was said, and dog-ear a moment to find it later.',
+      }}
+      afterScreens={
+        <DevicePreviews
+          accentColor={ACCENT_COLOR}
+          intro="Thirty-second tours of Inktape on iPad and on iPhone Duo. Tap to play."
+          tiles={devicePreviews}
+        />
+      }
       about={{
         title: 'Tap a note, hear the moment',
         intro:
