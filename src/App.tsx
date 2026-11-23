@@ -16,6 +16,7 @@ const SetDeck = lazy(() => import('./pages/SetDeck'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Waffle = lazy(() => import('./pages/Waffle'));
 const Backstamp = lazy(() => import('./pages/Backstamp'));
+const Inktape = lazy(() => import('./pages/Inktape'));
 const Opalite = lazy(() => import('./pages/Opalite'));
 const V1Sports = lazy(() => import('./pages/V1Sports'));
 const StreetIQ = lazy(() => import('./pages/StreetIQ'));
@@ -96,6 +97,8 @@ export function AppShell() {
             <Route path="/stork" element={<Stork />} />
             <Route path="/waffle" element={<Waffle />} />
             <Route path="/backstamp" element={<Backstamp />} />
+            {/* Not linked from anywhere yet, and noindex (src/seo/routes.mjs). */}
+            <Route path="/inktape" element={<Inktape />} />
             <Route path="/v1sports" element={<LightScope><V1Sports /></LightScope>} />
             <Route path="/streetiq" element={<LightScope><StreetIQ /></LightScope>} />
             <Route path="/about" element={<About />} />

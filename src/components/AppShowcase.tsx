@@ -45,10 +45,21 @@ export interface AppShowcaseProps {
    * still win when given.
    */
   app?: SiteApp;
+  /**
+   * Route for a page with no catalog entry (an app that is not listed on the
+   * site yet). Its head tags, OG image, and noindex come from src/seo/routes.mjs.
+   */
+  path?: string;
+  /** Not released yet; overrides the catalog's `comingSoon`. */
+  comingSoon?: boolean;
+  /** Which store the coming-soon badges name; defaults to the Mac App Store. */
+  comingSoonStore?: string;
   appStoreUrl?: string;
   macAppStoreUrl?: string;
   /** Overrides the catalog price line. */
   price?: string;
+  /** The smaller line under `price`, for a page with no catalog entry. */
+  priceDetail?: string;
   platforms?: string[];
   githubUrl?: string;
   webHref?: string;
@@ -109,9 +120,13 @@ export default function AppShowcase({
   accentColor,
   meta,
   app,
+  path,
+  comingSoon: comingSoonProp,
+  comingSoonStore,
   appStoreUrl,
   macAppStoreUrl,
   price,
+  priceDetail,
   platforms,
   githubUrl,
   webHref,
@@ -138,11 +153,12 @@ export default function AppShowcase({
   const trackedStoreUrl = storeUrl ? appStoreLink(storeUrl, channel) : undefined;
   const macUrl = macAppStoreUrl ?? app?.macAppStoreUrl;
   const trackedMacUrl = macUrl ? appStoreLink(macUrl, `${channel}_mac`) : undefined;
-  const comingSoon = !!app?.comingSoon;
+  const comingSoon = comingSoonProp ?? !!app?.comingSoon;
   const priceLine = price ?? app?.price;
   const platformList = platforms ?? app?.platforms ?? [];
 
-  const route = app ? findRoute(app.path) : undefined;
+  const pagePath = app?.path ?? path;
+  const route = pagePath ? findRoute(pagePath) : undefined;
   const title = meta?.title ?? route?.title ?? name;
   const description = meta?.description ?? route?.description ?? app?.description ?? tagline;
 
@@ -151,8 +167,9 @@ export default function AppShowcase({
     description,
     accentColor,
     preloadImage: icon,
-    image: app ? `/og/${app.slug}.png` : undefined,
-    path: app?.path,
+    image: app ? `/og/${app.slug}.png` : route?.ogImage,
+    path: pagePath,
+    noindex: route?.noindex,
   });
 
   useScrollToStart(carouselRefDesktop, carouselRefMobile);
@@ -179,11 +196,12 @@ export default function AppShowcase({
         iconDark={app?.iconDark}
         accentColor={accentColor}
         price={priceLine}
-        priceDetail={price ? undefined : app?.priceDetail}
+        priceDetail={priceDetail ?? (price ? undefined : app?.priceDetail)}
         promo={app?.promo}
         pills={requirements.length > 0 ? requirements : platformList}
         appStoreHref={trackedStoreUrl}
         comingSoon={comingSoon}
+        comingSoonStore={comingSoonStore}
         placeholderPills={heroPills}
         macAppStoreHref={trackedMacUrl}
         githubHref={githubUrl}
@@ -294,6 +312,7 @@ export default function AppShowcase({
             appName={name}
             appStoreUrl={trackedStoreUrl}
             comingSoon={comingSoon}
+            comingSoonStore={comingSoonStore}
             macAppStoreUrl={trackedMacUrl}
             price={priceLine}
             accentColor={accentColor}

@@ -74,6 +74,16 @@ const staticRoutes = [
     noindex: true,
   },
   {
+    // Inktape is not in the catalog yet: this page is linked from nowhere on
+    // the site, stays out of the sitemap, and asks search engines not to index it.
+    path: '/inktape',
+    title: `Inktape: Audio Notebook for iPhone and iPad${SUFFIX}`,
+    description:
+      'Take short notes and let the recording keep the rest. Tap any word or note to hear that moment again. Transcribed on your device. No account, no subscription.',
+    ogImage: '/og/inktape.png',
+    noindex: true,
+  },
+  {
     path: '/streetiq',
     title: `StreetIQ / SCOUT${SUFFIX}`,
     description: 'Employment: building SCOUT, the native iOS field app behind StreetIQ pavement assessments.',

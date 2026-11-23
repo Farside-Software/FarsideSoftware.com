@@ -13,7 +13,13 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { apps } from '../src/data/catalog.mjs';
+import { apps as catalogApps } from '../src/data/catalog.mjs';
+
+/** Apps with a page but no catalog entry yet (see the unlisted routes in src/seo/routes.mjs). */
+const unlistedApps = [
+  { slug: 'inktape', source: 'Inktape', name: 'Inktape', job: 'Notes you can play back.', accent: '#2B3A8C' },
+];
+const apps = [...catalogApps, ...unlistedApps];
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const APPS_DIR = path.resolve(ROOT, process.env.APPS_DIR ?? '../../Apps');

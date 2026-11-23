@@ -6,7 +6,7 @@ import { useRouteMeta } from '../hooks';
 import { apps } from '../data/apps';
 import { CONTACT_EMAIL, LEGAL_NAME } from '../config/site';
 
-export const PRIVACY_EFFECTIVE_DATE = '2026-11-17';
+export const PRIVACY_EFFECTIVE_DATE = '2026-11-22';
 
 interface AppPolicy {
   slug: string;
@@ -97,7 +97,27 @@ const policies: AppPolicy[] = [
     ],
     leaves: <>Nothing. Backstamp has no account, no analytics, and makes no network requests of its own.</>,
   },
+  {
+    slug: 'inktape',
+    stores: 'Your recordings, transcripts, handwriting, typed notes, photos, slides, and settings, on your device. A session you delete stays in Recently Deleted for 30 days and is then removed for good, or you can empty Recently Deleted at once.',
+    frameworks: [
+      <>Microphone: Inktape records only after you start a recording. Before the first recording of each day it reminds you to get permission from the people you are recording.</>,
+      <>Speech recognition transcribes your recordings on your device.</>,
+      <>Summaries, highlights, action items, study cards, and answers to your questions are produced on your device, with Apple Intelligence where it is available and a built-in method otherwise.</>,
+      <>Camera is used only to add a photo of a slide or whiteboard to a session. Reminders and Calendar are used to add the action items and events you choose; with full Calendar access, Inktape also reads the event happening now to suggest a title for a new session. Face ID unlocks sessions you have locked.</>,
+      <>Sessions sync between your devices through your private iCloud database. Sync is on by default; turn off Sync with iCloud in Inktape&rsquo;s Settings and your sessions stay on the device.</>,
+      <>Inktape Pro is a one-time purchase handled by the App Store. We receive no personal purchase details beyond Apple&rsquo;s sales reports.</>,
+    ],
+    leaves: <>Nothing. Inktape has no servers of its own, no account, and no analytics, and makes no network requests of its own.</>,
+  },
 ];
+
+/**
+ * Apps with a section here before they are in the catalog (src/data/catalog.mjs).
+ * App Store Connect points their privacy links at this page.
+ */
+const unlistedApps = [{ slug: 'inktape', name: 'Inktape', storeName: 'Inktape: Audio Notebook' }];
+const policyApps = [...apps.map(({ slug, name, storeName }) => ({ slug, name, storeName })), ...unlistedApps];
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
@@ -144,7 +164,7 @@ export default function Privacy() {
           <nav aria-label="Contents" className="text-sm text-muted lg:col-span-3">
             <ul className="list-none space-y-2 p-0 lg:sticky lg:top-28">
               <li><a href="#every-app" className="underline underline-offset-4 hover:text-ink">Every app</a></li>
-              {apps.map((a) => (
+              {policyApps.map((a) => (
                 <li key={a.slug}><a href={`#${a.slug}`} className="underline underline-offset-4 hover:text-ink">{a.name}</a></li>
               ))}
               <li><a href="#website" className="underline underline-offset-4 hover:text-ink">Website</a></li>
@@ -166,7 +186,7 @@ export default function Privacy() {
         </ul>
       </Section>
 
-      {apps.map((app) => {
+      {policyApps.map((app) => {
         const policy = policies.find((p) => p.slug === app.slug);
         if (!policy) return null;
         return (
@@ -197,7 +217,7 @@ export default function Privacy() {
       <Section id="rights" title="Your choices">
         <ul className="list-disc pl-6 space-y-2">
           <li>Delete an app and its data is removed from that device. Turning off iCloud for the app in Settings, or deleting the app&rsquo;s data in Settings &gt; Apple Account &gt; iCloud &gt; Manage Storage, removes the synced copy.</li>
-          <li>Permissions for Health, location, camera, and photos can be changed at any time in iOS Settings; the apps keep working with whatever you allow.</li>
+          <li>Permissions for Health, location, camera, photos, microphone, speech recognition, Reminders, and Calendar can be changed at any time in iOS Settings; the apps keep working with whatever you allow.</li>
           <li>Palettes you published to the Opalite Community can be unpublished from inside Opalite, which removes them from the public database.</li>
           <li>Email us to ask what, if anything, we hold about you (for most people the answer is nothing beyond any email you sent us) or to have it deleted.</li>
         </ul>

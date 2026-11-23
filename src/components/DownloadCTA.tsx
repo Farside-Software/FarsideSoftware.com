@@ -9,6 +9,8 @@ interface DownloadCTAProps {
   /** Omit while the app is not out (`comingSoon`). */
   appStoreUrl?: string;
   comingSoon?: boolean;
+  /** Which store it will launch on while `comingSoon`. */
+  comingSoonStore?: string;
   macAppStoreUrl?: string;
   price?: string;
   accentColor?: string;
@@ -19,6 +21,7 @@ export default function DownloadCTA({
   appName,
   appStoreUrl,
   comingSoon = false,
+  comingSoonStore = 'Mac App Store',
   macAppStoreUrl,
   price,
   accentColor = '#FF7A3D',
@@ -46,12 +49,12 @@ export default function DownloadCTA({
               </h2>
               <p className="mt-2 text-base sm:text-lg text-muted">
                 {comingSoon
-                  ? `It will be on the Mac App Store.${price ? ` ${price}.` : ''}`
+                  ? `It will be on the ${comingSoonStore}.${price ? ` ${price}.` : ''}`
                   : `${actionText} from the App Store.${price ? ` ${price}.` : ''}`}
               </p>
             </div>
             <div className="flex flex-wrap justify-center gap-3 flex-shrink-0 self-center sm:self-auto">
-              {comingSoon && <ComingSoonBadge />}
+              {comingSoon && <ComingSoonBadge store={comingSoonStore} />}
               {appStoreUrl && <AppStoreBadge href={appStoreUrl} appName={appName} preorder={preorder} />}
               {macAppStoreUrl && <AppStoreBadge href={macAppStoreUrl} appName={appName} store="mac" />}
             </div>

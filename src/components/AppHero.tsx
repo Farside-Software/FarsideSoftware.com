@@ -25,6 +25,8 @@ interface AppHeroProps {
   appStoreHref?: string;
   /** Not released yet: a "Coming soon" badge replaces the store badges. */
   comingSoon?: boolean;
+  /** Which store the coming-soon badge names; defaults to the Mac App Store. */
+  comingSoonStore?: string;
   /** Pills shown inside the placeholder panel while there are no screenshots yet. */
   placeholderPills?: string[];
   macAppStoreHref?: string;
@@ -64,6 +66,7 @@ export default function AppHero({
   pills,
   appStoreHref,
   comingSoon,
+  comingSoonStore,
   placeholderPills = [],
   macAppStoreHref,
   githubHref,
@@ -117,7 +120,7 @@ export default function AppHero({
           )}
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            {comingSoon && <ComingSoonBadge />}
+            {comingSoon && <ComingSoonBadge store={comingSoonStore} />}
             {appStoreHref && <AppStoreBadge href={appStoreHref} appName={name} />}
             {macAppStoreHref && <AppStoreBadge href={macAppStoreHref} appName={name} store="mac" />}
             {webHref && (

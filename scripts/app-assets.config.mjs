@@ -118,4 +118,17 @@ export default [
     // The 1.0 Mac store set (not iap-review.png or overview.png).
     screens: ['Marketing/Backstamp 1.0/store-screenshots/final/backstamp-mac-*'],
   },
+  {
+    app: 'inktape',
+    source: 'Inktape',
+    // The shipped Icon Composer file (the copies in Brand/Icon are drafts).
+    iconComposer: 'Inktape/AppIcon.icon',
+    iconFromComposer: true,
+    // The 1.0 store set (not the overview or header images).
+    screens: [
+      'Marketing/Inktape 1.0/store-screenshots/final/iphone-*',
+      'Marketing/Inktape 1.0/store-screenshots/final/ipad-*',
+      'Marketing/Inktape 1.0/store-screenshots/final/duo-*',
+    ],
+  },
 ];
