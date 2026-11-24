@@ -6,7 +6,7 @@ import FarsideMark from './FarsideMark';
  * far off to the lower left, and a tiny Starship on its launch tower at
  * Starbase, Texas, riding round with the Earth.
  *
- * A few seconds after the hero comes into view (or straight away, if someone
+ * About a second after the hero comes into view (or straight away, if someone
  * clicks the Earth) the Earth eases to a stop with Starbase front and centre.
  * The full stack lifts off and stages; the booster comes back to the tower,
  * is caught high in its arms and lowered to the pad, and once it is caught the
@@ -58,9 +58,17 @@ const FLAP_GRIP = 8.75;
 
 /** Strip phase (units turned) at which Starbase faces us, and where the page starts. */
 const PHASE_FRONT = 3;
-const PHASE_START = 182;
+/**
+ * The page opens with the Earth already turning and Starbase just short of
+ * front and centre, so the first launch comes early, before people scroll on:
+ * after DELAY seconds the Earth eases to a stop over the last AUTO_DOCK units.
+ */
+const AUTO_DOCK = 1.625;
+/** Seconds the hero is on screen before the countdown begins by itself. */
+const DELAY = 0.5;
 /** Earth units per second (one turn in 40 seconds). */
 const SPIN = STRIP / 40;
+const PHASE_START = PHASE_FRONT - AUTO_DOCK - DELAY * SPIN + STRIP;
 
 const mod = (a: number, n: number) => ((a % n) + n) % n;
 
@@ -140,8 +148,6 @@ const T = {
   /** Left on the moon this long (screen time), the ship comes home by itself. */
   moonStay: 30,
 };
-/** Seconds the hero is on screen before the countdown begins by itself. */
-const DELAY = 3;
 
 /** Mars, a tiny dot far off to the upper right, lit from the right like everything else. */
 const MARS = { x: 262, y: 2, r: 2.6 };
@@ -426,7 +432,8 @@ export default function HeroScene({ className = '' }: { className?: string }) {
     const state = {
       mode: 'ready' as Mode,
       phase: PHASE_START,
-      speed: 0,
+      // Already turning at full speed when the page opens.
+      speed: SPIN,
       onScreen: 0,
       /** Only the first launch starts by itself. */
       auto: true,
@@ -693,7 +700,8 @@ export default function HeroScene({ className = '' }: { className?: string }) {
       // Ease to a stop with Starbase front and centre: the next time it comes round.
       const ahead = mod(PHASE_FRONT - state.phase, STRIP);
       const v0 = Math.max(state.speed, 0.1);
-      const d = Math.min(2.5, Math.max(0.8, (2 * ahead) / v0));
+      // The first, automatic launch stops quickly (about 0.65 s); clicks keep the gentler stop.
+      const d = Math.min(2.5, Math.max(state.auto ? 0.5 : 0.8, (2 * ahead) / v0));
       state.dock = { from: state.phase, to: state.phase + ahead, v0, d, t: 0 };
       state.mode = 'dock';
       state.auto = false;
