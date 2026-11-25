@@ -104,9 +104,11 @@ async function writeGoPages() {
   const pt = (site.match(/APP_STORE_PT\s*=\s*'([^']*)'/) ?? [])[1] ?? '';
   for (const app of apps) {
     // No store page yet: /go/<app> falls through to 404.html, where the SPA sends it to the app's page.
-    if (!app.appStoreUrl) continue;
+    // Mac-only apps (Backstamp) have only a Mac App Store URL.
+    const storeUrl = app.appStoreUrl ?? app.macAppStoreUrl;
+    if (!storeUrl) continue;
     const route = findRoute(`/${app.slug}`);
-    const targets = { web: app.appStoreUrl, mac: app.macAppStoreUrl ?? null };
+    const targets = { web: storeUrl, mac: app.macAppStoreUrl ?? null };
     const script =
       `(function(){var T=${JSON.stringify(targets).replace(/</g, '\\u003c')},PT=${JSON.stringify(pt)};` +
       `var q=new URLSearchParams(location.search),c=q.get('ct');if(c===null)c='go';` +
@@ -114,7 +116,7 @@ async function writeGoPages() {
       `var b=(q.get('platform')==='mac'&&T.mac)?T.mac:T.web,u=new URL(b);` +
       `if(PT)u.searchParams.set('pt',PT);u.searchParams.set('ct',c);u.searchParams.set('mt','8');` +
       `var h=u.toString();document.getElementById('go').href=h;location.replace(h)})();`;
-    const fallback = app.appStoreUrl;
+    const fallback = storeUrl;
     const noscriptUrl = new URL(fallback);
     if (pt) noscriptUrl.searchParams.set('pt', pt);
     noscriptUrl.searchParams.set('ct', 'go');

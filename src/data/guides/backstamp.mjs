@@ -20,10 +20,10 @@ export const hub = {
 
 export const app = {
   slug: 'backstamp',
-  heading: 'Backstamp is coming soon to the Mac App Store',
+  heading: 'Fix your photo dates on the Mac',
   blurb:
     'Backstamp repairs a Photos library on your Mac, iCloud Photos included. It finds photos with missing or wrong dates, shows the evidence for each date, and merges duplicates. Scanning and reviewing are free.',
-  button: 'See Backstamp',
+  button: 'Get Backstamp on the Mac App Store',
   notice:
     'Backstamp is an independent app from Farside Software. Apple, Mac, macOS, iCloud, and Photos are trademarks of Apple Inc.',
   checked: 'Backstamp app source and Apple’s Photos User Guide for Mac',
@@ -91,7 +91,7 @@ export default [
       {
         h2: 'Finding the wrong dates across a whole library',
         body: [
-          'Backstamp, a Mac app from Farside Software that is coming soon to the Mac App Store, is built for that second case. It scans your Photos library and lists the photos whose dates look suspect: no date at all, or a date that matches the day the photo was added during a bulk import.',
+          'Backstamp, a Mac app from Farside Software, is built for that second case. It scans your Photos library and lists the photos whose dates look suspect: no date at all, or a date that matches the day the photo was added during a bulk import.',
           'For each one it looks for evidence of the real date, such as the date stored inside the file, a date in the file name, or a near-identical photo elsewhere in your library that already has a good date. It shows every source it found and how sure it is, and it changes nothing until you confirm.',
           'See [how to scan your library and fix dates in Backstamp](/guides/backstamp-fix-photo-dates) for the full walk-through. Backstamp needs macOS 26 or later and works with iCloud Photos libraries. You can read more on the [Backstamp page](/backstamp).',
         ],
@@ -168,7 +168,7 @@ export default [
       {
         h2: 'What Backstamp does differently',
         body: [
-          'Backstamp, a Mac app from Farside Software that is coming soon to the Mac App Store, is a second way to merge duplicates. It is useful when you want to see and decide more yourself.',
+          'Backstamp, a Mac app from Farside Software, is a second way to merge duplicates. It is useful when you want to see and decide more yourself.',
           {
             ul: [
               'A strictness slider, labeled Exact to Loose, controls how different two photos can be and still count as duplicates. Moving it regroups the results instantly.',
@@ -226,7 +226,7 @@ export default [
     summary: 'Scan, review the evidence, set new dates, then Apply.',
     intro: [
       'Backstamp finds photos and videos in your Photos library whose dates look wrong or missing, and shows where each suggested date comes from. Nothing changes in your library until you click Apply and confirm.',
-      'Backstamp is coming soon to the Mac App Store. This guide describes how it works. It needs macOS 26 or later and works with iCloud Photos libraries.',
+      'Backstamp is on the Mac App Store. It needs macOS 26 or later and works with iCloud Photos libraries.',
     ],
     sections: [
       {
@@ -348,7 +348,7 @@ export default [
     summary: 'Set strictness, pick the keeper in each group, then merge.',
     intro: [
       'Backstamp groups photos and videos that look like copies of each other. For each group you choose the copy to keep. When you merge, the keeper takes on useful details from the others, and the extra copies go to Recently Deleted.',
-      'Backstamp is coming soon to the Mac App Store. This guide describes how it works. It needs macOS 26 or later and works with iCloud Photos libraries.',
+      'Backstamp is on the Mac App Store. It needs macOS 26 or later and works with iCloud Photos libraries.',
     ],
     sections: [
       {
@@ -446,7 +446,7 @@ export default [
     summary: 'Compare a folder with your library, then move extras aside or copy new files.',
     intro: [
       'Import a folder you have already imported and you get duplicates. Import Check compares a folder of photos and videos against your Photos library first, so you only bring in what is new.',
-      'Backstamp is coming soon to the Mac App Store. This guide describes how it works. It needs macOS 26 or later. Import Check never changes your Photos library. It only works with the files in your folder.',
+      'Backstamp is on the Mac App Store. It needs macOS 26 or later. Import Check never changes your Photos library. It only works with the files in your folder.',
     ],
     sections: [
       {
@@ -542,7 +542,7 @@ export default [
     summary: 'Revert date batches, add items back to albums, and see what History cannot undo.',
     intro: [
       'Backstamp writes every change to a journal before it sends the change to Photos, and shows the journal as History. That is how you can trace what happened and, for most changes, undo it.',
-      'Backstamp is coming soon to the Mac App Store. This guide describes how it works. Undo is never limited by the free fixes.',
+      'Backstamp is on the Mac App Store. Undo is never limited by the free fixes.',
     ],
     sections: [
       {
