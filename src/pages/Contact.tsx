@@ -171,6 +171,7 @@ export default function Contact() {
                     </div>
 
                     <input type="hidden" name="X-Priority" value="1 (Highest)" />
+                    <input type="hidden" name="title" value="Website contact form" />
 
                     {/* Actions */}
                     <div className="flex items-center justify-between gap-4">

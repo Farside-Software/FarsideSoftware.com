@@ -74,6 +74,7 @@ export default function InktapeBeta() {
               <input type="hidden" name="name" value="Inktape tester request" />
               <input type="hidden" name="to_email" value={TESTER_EMAIL} />
               <input type="hidden" name="subject" value="Inktape tester request" />
+              <input type="hidden" name="title" value="Inktape tester request" />
               <input type="hidden" name="message" value={message} />
 
               <div>
