@@ -84,6 +84,14 @@ const staticRoutes = [
     noindex: true,
   },
   {
+    // Hidden tester sign-up: linked from nowhere, out of the sitemap, noindex.
+    path: '/inktape-beta',
+    title: `Test Inktape before release${SUFFIX}`,
+    description: 'Request an early TestFlight invite for Inktape, an audio notebook for iPhone and iPad.',
+    ogImage: '/og/inktape.png',
+    noindex: true,
+  },
+  {
     path: '/streetiq',
     title: `StreetIQ / SCOUT${SUFFIX}`,
     description: 'Employment: building SCOUT, the native iOS field app behind StreetIQ pavement assessments.',
